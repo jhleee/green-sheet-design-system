@@ -1,0 +1,404 @@
+<!-- @dsCard group="Colors" name="Palette" subtitle="24 토큰 — 표면 3, 선 2, 잉크 3, 의미색 4계열, 다크 코드 2" -->
+<link rel="stylesheet" href="../dist/green-sheet.css">
+
+<div class="bg-paper text-ink font-sans px-6 py-8">
+  <div class="max-w-wrap mx-auto">
+
+    <div class="font-mono text-micro tracking-eyebrow text-green uppercase mb-2">Ledger → Long Format → Semantic SQL</div>
+    <h1 class="text-title">Colors</h1>
+    <p class="text-body text-ink-soft max-w-sub mt-1.5">
+      24개. 표면 3, 선 2, 잉크 3, 의미색 4계열, 다크 코드 2.
+      값은 전부 원본 데모에서 왔고 발명한 색은 없다. 의미색은 장식이 아니라 파이프라인의 상태를
+      나타내는 신호이며, <b class="text-ink">각 색은 정확히 하나의 뜻만 가진다</b>.
+    </p>
+
+    <!-- ══ SURFACES ══════════════════════════════════════════ -->
+    <div class="flex gap-2 items-baseline mt-8 mb-1.5">
+      <b class="text-ui">Surfaces</b>
+      <span class="font-mono text-micro tracking-tag text-green">3 TOKENS</span>
+    </div>
+    <p class="text-dense text-ink-soft max-w-sub mb-3.5">
+      배경이 순백이 아니라 <b class="text-ink">녹빛 종이(#F4F6F1)</b>다. 그래서 흰 패널이 그 위에 얹히면
+      그림자 없이도 스스로 표면이 된다 — 이 시스템에 <code class="font-mono text-micro">box-shadow</code>가
+      없는 이유이자, 높이를 표면색과 1px 선만으로 만드는 근거.
+    </p>
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(190px,1fr))] gap-3.5">
+      <div class="ds-card">
+        <div class="h-13 rounded-chip border border-line bg-paper"></div>
+        <div class="mt-2.5 font-semi text-ui">paper</div>
+        <div class="font-mono text-mono-sm text-ink-soft">#F4F6F1</div>
+        <div class="text-micro text-ink-soft mt-1">페이지 배경 · 시트 헤더 셀</div>
+      </div>
+      <div class="ds-card">
+        <div class="h-13 rounded-chip border border-line bg-panel"></div>
+        <div class="mt-2.5 font-semi text-ui">panel</div>
+        <div class="font-mono text-mono-sm text-ink-soft">#FFFFFF</div>
+        <div class="text-micro text-ink-soft mt-1">카드 · 패널 · 데이터 셀</div>
+      </div>
+      <div class="ds-card">
+        <div class="h-13 rounded-chip border border-line bg-sunken"></div>
+        <div class="mt-2.5 font-semi text-ui">sunken</div>
+        <div class="font-mono text-mono-sm text-ink-soft">#EDF1EA</div>
+        <div class="text-micro text-ink-soft mt-1">표 헤더 · 행번호 거터</div>
+      </div>
+    </div>
+
+    <!-- ══ LINES ═════════════════════════════════════════════ -->
+    <div class="flex gap-2 items-baseline mt-8 mb-1.5">
+      <b class="text-ui">Lines</b>
+      <span class="font-mono text-micro tracking-tag text-green">2 TOKENS</span>
+    </div>
+    <p class="text-dense text-ink-soft max-w-sub mb-3.5">
+      두 무게뿐이다. <b class="text-ink">구조를 나누는 선</b>과 <b class="text-ink">데이터 안을 나누는 선</b>.
+      원본에는 거의 구분되지 않는 회색 넷(#DCE3DA · #E4E9E1 · #E7ECE5 · #EEF1EC)이 흩어져 있었는데,
+      이 둘로 합쳤다.
+    </p>
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(190px,1fr))] gap-3.5">
+      <div class="ds-card">
+        <div class="h-13 rounded-chip border border-line bg-line"></div>
+        <div class="mt-2.5 font-semi text-ui">line</div>
+        <div class="font-mono text-mono-sm text-ink-soft">#DCE3DA</div>
+        <div class="text-micro text-ink-soft mt-1">구조 — 패널·카드 외곽, 섹션 구분</div>
+      </div>
+      <div class="ds-card">
+        <div class="h-13 rounded-chip border border-line bg-line-soft"></div>
+        <div class="mt-2.5 font-semi text-ui">line-soft</div>
+        <div class="font-mono text-mono-sm text-ink-soft">#E4E9E1</div>
+        <div class="text-micro text-ink-soft mt-1">데이터 내부 — 셀 격자, 행 구분선, 차트 그리드</div>
+      </div>
+    </div>
+
+    <!-- ══ INK ═══════════════════════════════════════════════ -->
+    <div class="flex gap-2 items-baseline mt-8 mb-1.5">
+      <b class="text-ui">Ink</b>
+      <span class="font-mono text-micro tracking-tag text-green">3 TOKENS</span>
+    </div>
+    <p class="text-dense text-ink-soft max-w-sub mb-3.5">
+      본문 · 보조 · 비활성 세 단계. <code class="font-mono text-micro">ink-muted</code>는
+      단순한 회색이 아니라 계약이다 — 빈 셀을 <b class="text-ink">0이 아니라 –</b>로 그려서
+      sparse와 zero를 눈으로 구분하게 한다.
+    </p>
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(190px,1fr))] gap-3.5">
+      <div class="ds-card">
+        <div class="h-13 rounded-chip border border-line bg-ink"></div>
+        <div class="mt-2.5 font-semi text-ui">ink</div>
+        <div class="font-mono text-mono-sm text-ink-soft">#1B2730</div>
+        <div class="text-micro text-ink-soft mt-1">본문 · 코드 표면 배경</div>
+      </div>
+      <div class="ds-card">
+        <div class="h-13 rounded-chip border border-line bg-ink-soft"></div>
+        <div class="mt-2.5 font-semi text-ui">ink-soft</div>
+        <div class="font-mono text-mono-sm text-ink-soft">#5C6E7A</div>
+        <div class="text-micro text-ink-soft mt-1">보조 텍스트 · 라벨 · 차트 축</div>
+      </div>
+      <div class="ds-card">
+        <div class="h-13 rounded-chip border border-line bg-ink-muted"></div>
+        <div class="mt-2.5 font-semi text-ui">ink-muted</div>
+        <div class="font-mono text-mono-sm text-ink-soft">#B9C2BB</div>
+        <div class="text-micro text-ink-soft mt-1">빈 셀 · 비활성 — sparse를 zero와 구분</div>
+      </div>
+    </div>
+
+    <!-- ══ GREEN ═════════════════════════════════════════════ -->
+    <div class="flex gap-2 items-baseline mt-8 mb-1.5">
+      <b class="text-ui">Green</b>
+      <span class="badge badge-green">primary</span>
+      <span class="font-mono text-micro tracking-tag text-green">승인 · 통과 · 구조</span>
+    </div>
+    <p class="text-dense text-ink-soft max-w-sub mb-3.5">
+      주 액션, 활성 상태, PASS 판정, 포커스 링. 시스템에서 <b class="text-ink">"정상적으로 처리됨"</b>을
+      뜻하는 유일한 색이다. <b class="text-ink">"그냥 강조"의 의미로는 쓰지 않는다</b> — 무언가가 green이면
+      그것은 승인·정상이라는 뜻이다.
+    </p>
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(190px,1fr))] gap-3.5">
+      <div class="ds-card">
+        <div class="h-13 rounded-chip border border-line bg-green"></div>
+        <div class="mt-2.5 font-semi text-ui">green</div>
+        <div class="font-mono text-mono-sm text-ink-soft">#1E7A5A</div>
+        <div class="text-micro text-ink-soft mt-1">주 액션 · PASS · 포커스 링 · 차트 시리즈 1</div>
+      </div>
+      <div class="ds-card">
+        <div class="h-13 rounded-chip border border-line bg-green-deep"></div>
+        <div class="mt-2.5 font-semi text-ui">green-deep</div>
+        <div class="font-mono text-mono-sm text-ink-soft">#135C43</div>
+        <div class="text-micro text-ink-soft mt-1">green-soft 위 텍스트</div>
+      </div>
+      <div class="ds-card">
+        <div class="h-13 rounded-chip border border-line bg-green-soft"></div>
+        <div class="mt-2.5 font-semi text-ui">green-soft</div>
+        <div class="font-mono text-mono-sm text-ink-soft">#E2F0E9</div>
+        <div class="text-micro text-ink-soft mt-1">선택 상태 배경 · 강조 밑줄</div>
+      </div>
+      <div class="ds-card">
+        <div class="h-13 rounded-chip border border-line bg-green-bright"></div>
+        <div class="mt-2.5 font-semi text-ui">green-bright</div>
+        <div class="font-mono text-mono-sm text-ink-soft">#7FD1A7</div>
+        <div class="text-micro text-ink-soft mt-1">다크 표면 위 — 코드 키워드, 규칙 칩</div>
+      </div>
+    </div>
+
+    <!-- ══ AMBER ═════════════════════════════════════════════ -->
+    <div class="flex gap-2 items-baseline mt-8 mb-1.5">
+      <b class="text-ui">Amber</b>
+      <span class="badge badge-amber">attention</span>
+      <span class="font-mono text-micro tracking-tag text-green">강조 · 주의 · 플래그</span>
+    </div>
+    <p class="text-dense text-ink-soft max-w-sub mb-3.5">
+      호버 하이라이트와 데이터 연결 강조. <b class="text-ink">에러가 아니라 "사람이 봐야 할 지점"</b>을 뜻한다
+      — 원본 셀과 fact 행이 서로를 가리킬 때, YTD 기간을 연간과 비교하려 할 때.
+    </p>
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(190px,1fr))] gap-3.5">
+      <div class="ds-card">
+        <div class="h-13 rounded-chip border border-line bg-amber"></div>
+        <div class="mt-2.5 font-semi text-ui">amber</div>
+        <div class="font-mono text-mono-sm text-ink-soft">#EFAF3B</div>
+        <div class="text-micro text-ink-soft mt-1">하이라이트 테두리 · 차트 시리즈 2</div>
+      </div>
+      <div class="ds-card">
+        <div class="h-13 rounded-chip border border-line bg-amber-soft"></div>
+        <div class="mt-2.5 font-semi text-ui">amber-soft</div>
+        <div class="font-mono text-mono-sm text-ink-soft">#FBF1DA</div>
+        <div class="text-micro text-ink-soft mt-1">호버·연결 배경 · 소계 행 · 경고 노트</div>
+      </div>
+      <div class="ds-card">
+        <div class="h-13 rounded-chip border border-line bg-amber-ink"></div>
+        <div class="mt-2.5 font-semi text-ui">amber-ink</div>
+        <div class="font-mono text-mono-sm text-ink-soft">#8A6414</div>
+        <div class="text-micro text-ink-soft mt-1">amber-soft 위 텍스트 · 차트 플래그 라벨</div>
+      </div>
+      <div class="ds-card">
+        <div class="h-13 rounded-chip border border-line bg-amber-code"></div>
+        <div class="mt-2.5 font-semi text-ui">amber-code</div>
+        <div class="font-mono text-mono-sm text-ink-soft">#F0C674</div>
+        <div class="text-micro text-ink-soft mt-1">다크 표면 위 — 코드 문자열</div>
+      </div>
+    </div>
+
+    <!-- ══ RED ═══════════════════════════════════════════════ -->
+    <div class="flex gap-2 items-baseline mt-8 mb-1.5">
+      <b class="text-ui">Red</b>
+      <span class="badge badge-red">exclusion</span>
+      <span class="font-mono text-micro tracking-tag text-green">적재 제외 · 거절</span>
+    </div>
+    <p class="text-dense text-ink-soft max-w-sub mb-3.5">
+      <b class="text-ink">실패가 아니라 의도적 제외</b>다. 파생 가능한 소계 행은 붉은 취소선으로 표시되어
+      적재에서 빠지고 checksum 검증에만 쓰인다. red와 red-ink는 값이 비슷하지만 병합하지 않았다 —
+      하나는 흰 텍스트를 받는 배지 배경이고 하나는 연한 배경 위의 텍스트라, 각자의 대비에 맞춰져 있다.
+    </p>
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(190px,1fr))] gap-3.5">
+      <div class="ds-card">
+        <div class="h-13 rounded-chip border border-line bg-red"></div>
+        <div class="mt-2.5 font-semi text-ui">red</div>
+        <div class="font-mono text-mono-sm text-ink-soft">#BE5B4E</div>
+        <div class="text-micro text-ink-soft mt-1">제외 배지 배경 (흰 텍스트)</div>
+      </div>
+      <div class="ds-card">
+        <div class="h-13 rounded-chip border border-line bg-red-soft"></div>
+        <div class="mt-2.5 font-semi text-ui">red-soft</div>
+        <div class="font-mono text-mono-sm text-ink-soft">#F8E9E6</div>
+        <div class="text-micro text-ink-soft mt-1">제외 행 배경</div>
+      </div>
+      <div class="ds-card">
+        <div class="h-13 rounded-chip border border-line bg-red-ink"></div>
+        <div class="mt-2.5 font-semi text-ui">red-ink</div>
+        <div class="font-mono text-mono-sm text-ink-soft">#A3564C</div>
+        <div class="text-micro text-ink-soft mt-1">red-soft 위 텍스트 — 대비 확보용으로 red보다 어둡다</div>
+      </div>
+      <div class="ds-card">
+        <div class="h-13 rounded-chip border border-line bg-red-strike"></div>
+        <div class="mt-2.5 font-semi text-ui">red-strike</div>
+        <div class="font-mono text-mono-sm text-ink-soft">#D19288</div>
+        <div class="text-micro text-ink-soft mt-1">취소선 — 숫자가 읽히도록 텍스트보다 연하다</div>
+      </div>
+    </div>
+
+    <!-- ══ PURPLE ════════════════════════════════════════════ -->
+    <div class="flex gap-2 items-baseline mt-8 mb-1.5">
+      <b class="text-ui">Purple</b>
+      <span class="badge badge-purple">derived</span>
+      <span class="font-mono text-micro tracking-tag text-green">파생 · 계산됨</span>
+    </div>
+    <p class="text-dense text-ink-soft max-w-sub mb-3.5">
+      <b class="text-ink">값이 아니라 값의 출처</b>를 말하는 메타데이터 색.
+      <code class="font-mono text-micro">is_derived</code> 배지 전용이며 다른 용도로 쓰지 않는다.
+    </p>
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(190px,1fr))] gap-3.5">
+      <div class="ds-card">
+        <div class="h-13 rounded-chip border border-line bg-purple"></div>
+        <div class="mt-2.5 font-semi text-ui">purple</div>
+        <div class="font-mono text-mono-sm text-ink-soft">#6C5DA8</div>
+        <div class="text-micro text-ink-soft mt-1">is_derived 배지 텍스트 · 차트 시리즈 3</div>
+      </div>
+      <div class="ds-card">
+        <div class="h-13 rounded-chip border border-line bg-purple-soft"></div>
+        <div class="mt-2.5 font-semi text-ui">purple-soft</div>
+        <div class="font-mono text-mono-sm text-ink-soft">#ECE9F6</div>
+        <div class="text-micro text-ink-soft mt-1">is_derived 배지 배경</div>
+      </div>
+    </div>
+
+    <!-- ══ CODE ══════════════════════════════════════════════ -->
+    <div class="flex gap-2 items-baseline mt-8 mb-1.5">
+      <b class="text-ui">Code</b>
+      <span class="font-mono text-micro tracking-tag text-green">유일한 다크 영역</span>
+    </div>
+    <p class="text-dense text-ink-soft max-w-sub mb-3.5">
+      파싱 스펙과 생성된 SQL. 배경은 별도의 색이 아니라 <b class="text-ink">ink 그 자체</b>다 —
+      종이에 잉크를 얹는 게 아니라 잉크 위에 쓴다. 키워드는 green-bright, 문자열은 amber-code로
+      <b class="text-ink">라이트 UI의 의미색이 다크에서도 같은 뜻을 유지한다</b>.
+    </p>
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(190px,1fr))] gap-3.5">
+      <div class="ds-card">
+        <div class="h-13 rounded-chip border border-line bg-code-fg"></div>
+        <div class="mt-2.5 font-semi text-ui">code-fg</div>
+        <div class="font-mono text-mono-sm text-ink-soft">#D8E2DC</div>
+        <div class="text-micro text-ink-soft mt-1">코드 본문</div>
+      </div>
+      <div class="ds-card">
+        <div class="h-13 rounded-chip border border-line bg-code-dim"></div>
+        <div class="mt-2.5 font-semi text-ui">code-dim</div>
+        <div class="font-mono text-mono-sm text-ink-soft">#6B7F8C</div>
+        <div class="text-micro text-ink-soft mt-1">주석 · 라벨</div>
+      </div>
+    </div>
+    <div class="code-surface leading-code mt-3.5 max-w-sub">
+      <div class="code-lab">CODE SURFACE</div>
+      <div><span class="code-c"># parsing_spec: 간편장부.yaml</span></div>
+      <div><span class="code-k">grain</span>: month</div>
+      <div><span class="code-k">pattern</span>: <span class="code-s">"(분기|반기|연) 합계"</span></div>
+    </div>
+
+    <!-- ══ CHART ═════════════════════════════════════════════ -->
+    <div class="flex gap-2 items-baseline mt-8 mb-1.5">
+      <b class="text-ui">Chart</b>
+      <span class="font-mono text-micro tracking-tag text-green">토큰 없음</span>
+    </div>
+    <p class="text-dense text-ink-soft max-w-sub mb-3.5">
+      차트는 전용 색을 갖지 않는다. 의미 팔레트를 그대로 쓴다 —
+      <b class="text-ink">시리즈 순서는 green → amber → purple</b>, 그리드는 line-soft, 축은 ink-soft.
+      차트가 나머지 UI와 같은 언어를 말하게 하기 위함이다.
+    </p>
+    <div class="ds-card max-w-sub">
+      <dl class="grid grid-cols-[auto_1fr] gap-x-2.5 gap-y-1 text-num">
+        <dt class="text-ink-soft">시리즈 1</dt><dd class="font-mono text-meta">green #1E7A5A</dd>
+        <dt class="text-ink-soft">시리즈 2</dt><dd class="font-mono text-meta">amber #EFAF3B</dd>
+        <dt class="text-ink-soft">시리즈 3</dt><dd class="font-mono text-meta">purple #6C5DA8</dd>
+        <dt class="text-ink-soft">그리드</dt><dd class="font-mono text-meta">line-soft #E4E9E1</dd>
+        <dt class="text-ink-soft">축</dt><dd class="font-mono text-meta">ink-soft #5C6E7A</dd>
+      </dl>
+    </div>
+
+    <!-- ══ 병합 이력 ══════════════════════════════════════════ -->
+    <div class="flex gap-2 items-baseline mt-10 mb-1.5">
+      <b class="text-ui">병합 이력</b>
+      <span class="font-mono text-micro tracking-tag text-green">36 → 24</span>
+    </div>
+    <p class="text-dense text-ink-soft max-w-sub mb-3.5">
+      원본 데모에는 토큰 36개(고유값 30)가 있었다. 그중 12개를 제거했다 —
+      대부분은 <b class="text-ink">눈으로 구분되지 않는 중복</b>이었고, 일부는 순수한 별칭이었다.
+      두 건(<code class="font-mono text-micro">chart-axis</code>,
+      <code class="font-mono text-micro">amber-mark</code>)은 병합이 곧
+      <b class="text-ink">접근성 수정</b>이기도 했다 — 원본 값이 WCAG 대비에 미달했다.
+    </p>
+    <div class="pane">
+      <table class="w-full border-collapse text-dense">
+        <thead>
+          <tr>
+            <th class="bg-sunken font-mono text-mono-sm font-semi text-ink-soft tracking-th text-left px-2.5 py-1.5 border-b border-line-soft">제거됨</th>
+            <th class="bg-sunken border-b border-line-soft w-6"></th>
+            <th class="bg-sunken font-mono text-mono-sm font-semi text-ink-soft tracking-th text-left px-2.5 py-1.5 border-b border-line-soft">대체</th>
+            <th class="bg-sunken font-mono text-mono-sm font-semi text-ink-soft tracking-th text-left px-2.5 py-1.5 border-b border-line-soft">이유</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="px-2.5 py-1.5 border-b border-line-soft font-mono text-micro">panel-raised <span class="text-ink-muted">#FBFCFA</span></td>
+            <td class="px-1 py-1.5 border-b border-line-soft text-ink-muted text-center">→</td>
+            <td class="px-2.5 py-1.5 border-b border-line-soft font-mono text-micro">panel <span class="text-ink-muted">#FFFFFF</span></td>
+            <td class="px-2.5 py-1.5 border-b border-line-soft text-micro text-ink-soft">ΔE≈2, 화면에서 안 보임. 패널 헤더는 border-bottom이 이미 구분한다</td>
+          </tr>
+          <tr>
+            <td class="px-2.5 py-1.5 border-b border-line-soft font-mono text-micro">grid-head-alt <span class="text-ink-muted">#F3F6EF</span></td>
+            <td class="px-1 py-1.5 border-b border-line-soft text-ink-muted text-center">→</td>
+            <td class="px-2.5 py-1.5 border-b border-line-soft font-mono text-micro">paper <span class="text-ink-muted">#F4F6F1</span></td>
+            <td class="px-2.5 py-1.5 border-b border-line-soft text-micro text-ink-soft">ΔE≈1, 사실상 같은 색</td>
+          </tr>
+          <tr>
+            <td class="px-2.5 py-1.5 border-b border-line-soft font-mono text-micro">line-row <span class="text-ink-muted">#EEF1EC</span></td>
+            <td class="px-1 py-1.5 border-b border-line-soft text-ink-muted text-center">→</td>
+            <td class="px-2.5 py-1.5 border-b border-line-soft font-mono text-micro">line-soft <span class="text-ink-muted">#E4E9E1</span></td>
+            <td class="px-2.5 py-1.5 border-b border-line-soft text-micro text-ink-soft">행 구분선과 셀 격자는 같은 무게여야 한다</td>
+          </tr>
+          <tr>
+            <td class="px-2.5 py-1.5 border-b border-line-soft font-mono text-micro">chart-grid <span class="text-ink-muted">#E7ECE5</span></td>
+            <td class="px-1 py-1.5 border-b border-line-soft text-ink-muted text-center">→</td>
+            <td class="px-2.5 py-1.5 border-b border-line-soft font-mono text-micro">line-soft <span class="text-ink-muted">#E4E9E1</span></td>
+            <td class="px-2.5 py-1.5 border-b border-line-soft text-micro text-ink-soft">ΔE≈1.5. 차트 그리드가 셀 격자와 다를 이유가 없다</td>
+          </tr>
+          <tr>
+            <td class="px-2.5 py-1.5 border-b border-line-soft font-mono text-micro">chart-axis <span class="text-ink-muted">#8A98A2</span></td>
+            <td class="px-1 py-1.5 border-b border-line-soft text-ink-muted text-center">→</td>
+            <td class="px-2.5 py-1.5 border-b border-line-soft font-mono text-micro">ink-soft <span class="text-ink-muted">#5C6E7A</span></td>
+            <td class="px-2.5 py-1.5 border-b border-line-soft text-micro text-ink-soft">
+              대비 2.96:1 → 5.29:1. 원본은 y축 #8A98A2, x축 #5C6E7A로 축 색이 불일치했다
+              <span class="badge badge-amber">접근성 수정</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-2.5 py-1.5 border-b border-line-soft font-mono text-micro">green-chip <span class="text-ink-muted">#9BDDBB</span></td>
+            <td class="px-1 py-1.5 border-b border-line-soft text-ink-muted text-center">→</td>
+            <td class="px-2.5 py-1.5 border-b border-line-soft font-mono text-micro">green-bright <span class="text-ink-muted">#7FD1A7</span></td>
+            <td class="px-2.5 py-1.5 border-b border-line-soft text-micro text-ink-soft">둘 다 "다크 위 밝은 초록"</td>
+          </tr>
+          <tr>
+            <td class="px-2.5 py-1.5 border-b border-line-soft font-mono text-micro">amber-mark <span class="text-ink-muted">#B98A1E</span></td>
+            <td class="px-1 py-1.5 border-b border-line-soft text-ink-muted text-center">→</td>
+            <td class="px-2.5 py-1.5 border-b border-line-soft font-mono text-micro">amber-ink <span class="text-ink-muted">#8A6414</span></td>
+            <td class="px-2.5 py-1.5 border-b border-line-soft text-micro text-ink-soft">
+              대비 3.13:1 → 5.37:1. 원본 값은 AA-large는 통과했으나 실제 렌더 크기(9px)에서 미달이었다
+              <span class="badge badge-amber">접근성 수정</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-2.5 py-1.5 border-b border-line-soft font-mono text-micro">amber-row <span class="text-ink-muted">#FDEFE0</span></td>
+            <td class="px-1 py-1.5 border-b border-line-soft text-ink-muted text-center">→</td>
+            <td class="px-2.5 py-1.5 border-b border-line-soft font-mono text-micro">amber-soft <span class="text-ink-muted">#FBF1DA</span></td>
+            <td class="px-2.5 py-1.5 border-b border-line-soft text-micro text-ink-soft">ΔE≈4</td>
+          </tr>
+          <tr>
+            <td class="px-2.5 py-1.5 border-b border-line-soft font-mono text-micro">code-bg <span class="text-ink-muted">#182430</span></td>
+            <td class="px-1 py-1.5 border-b border-line-soft text-ink-muted text-center">→</td>
+            <td class="px-2.5 py-1.5 border-b border-line-soft font-mono text-micro">ink <span class="text-ink-muted">#1B2730</span></td>
+            <td class="px-2.5 py-1.5 border-b border-line-soft text-micro text-ink-soft">ΔE≈1.5. 별개의 색이 아니었다</td>
+          </tr>
+          <tr>
+            <td class="px-2.5 py-1.5 font-mono text-micro">chart-1 / chart-2 / chart-3</td>
+            <td class="px-1 py-1.5 text-ink-muted text-center">→</td>
+            <td class="px-2.5 py-1.5 font-mono text-micro">green / amber / purple</td>
+            <td class="px-2.5 py-1.5 text-micro text-ink-soft">순수 중복 별칭</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-3.5 max-w-sub">
+      <div class="text-dense text-ink-soft mb-2">이름만 바뀐 것 — 값은 그대로다:</div>
+      <div class="ds-card">
+        <dl class="grid grid-cols-[auto_1fr] gap-x-2.5 gap-y-1 text-num">
+          <dt class="font-mono text-meta text-ink-muted">grid-head</dt>
+          <dd class="font-mono text-meta">→ sunken <span class="text-ink-muted">#EDF1EA</span></dd>
+          <dt class="font-mono text-meta text-ink-muted">line-grid</dt>
+          <dd class="font-mono text-meta">→ line-soft <span class="text-ink-muted">#E4E9E1</span></dd>
+          <dt class="font-mono text-meta text-ink-muted">code-comment</dt>
+          <dd class="font-mono text-meta">→ code-dim <span class="text-ink-muted">#6B7F8C</span></dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="ds-note mt-8 max-w-sub">
+      <b>규칙</b> — 의미색은 겹쳐 쓰지 않는다. green이면 승인·정상이라는 뜻이지 "그냥 강조"가 아니다.
+      새 상태가 필요하면 기존 색을 재활용하지 말고 팔레트 추가를 먼저 논의한다.
+    </div>
+
+  </div>
+</div>

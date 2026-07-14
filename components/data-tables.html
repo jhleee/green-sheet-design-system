@@ -1,0 +1,248 @@
+<!-- @dsCard group="Data" name="Data tables" subtitle="시트 복제(.xl) + fact 테이블(.ft), 제외·소계·파생·하이라이트 상태" -->
+<link rel="stylesheet" href="../dist/green-sheet.css">
+
+<div class="bg-paper text-ink font-sans px-6 py-7">
+
+  <div class="font-mono text-micro tracking-eyebrow text-green uppercase mb-3">Interactive</div>
+  <h2 class="text-title">Data tables</h2>
+  <p class="text-body text-ink-soft max-w-sub mt-1.5">
+    표가 둘 있다. <b>.xl</b>은 원본 시트를 픽셀 단위로 흉내내 사용자가 자기 파일을 알아보게 하고,
+    <b>.ft</b>는 정규화된 결과를 보여준다. 둘은 amber 하이라이트로 양방향 연결된다 —
+    이 시스템에서 amber는 “지금 보고 있는 이 값이 저기 저 값이다”라는 뜻이다.
+  </p>
+
+  <!-- ── 1. 원본 ↔ fact 나란히 ─────────────────────────── -->
+  <div class="grid grid-cols-1 fold:grid-cols-2 gap-4.5 mt-7">
+
+    <div>
+      <div class="pane">
+        <div class="pane-head">
+          <b class="text-ui">간편장부 · 기간별 합계 금액</b>
+          <span class="font-mono text-meta text-ink-soft">source replica</span>
+        </div>
+        <div class="pane-scroll">
+          <table class="xl">
+            <thead>
+              <tr><th></th><th>B</th><th>D</th><th>E</th><th>F</th><th>G</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="rn">3</td>
+                <td class="hd">① 기간</td>
+                <td class="hd" colspan="2">④ 수입</td>
+                <td class="hd" colspan="2">⑤ 비용</td>
+              </tr>
+              <tr>
+                <td class="rn">4</td>
+                <td class="hd"></td>
+                <td class="hd">금액</td><td class="hd">부가세</td>
+                <td class="hd">금액</td><td class="hd">부가세</td>
+              </tr>
+              <tr>
+                <td class="rn">5</td>
+                <td class="lbl text-right">1월</td>
+                <td class="num v">9,090,909</td>
+                <td class="num v">909,091</td>
+                <td class="num v">1,609,091</td>
+                <td class="num v">90,909</td>
+              </tr>
+              <tr>
+                <td class="rn">6</td>
+                <td class="lbl text-right">2월</td>
+                <td class="num v hl">46,363,636</td>
+                <td class="num v">4,636,364</td>
+                <td class="num v">2,120,000</td>
+                <td class="num empty">–</td>
+              </tr>
+              <tr>
+                <td class="rn">7</td>
+                <td class="lbl text-right">3월</td>
+                <td class="num v">27,272,727</td>
+                <td class="num v">2,727,273</td>
+                <td class="num v">12,100,000</td>
+                <td class="num empty">–</td>
+              </tr>
+              <tr class="excl">
+                <td class="rn"></td>
+                <td class="lbl">1분기 합계<span class="badge badge-red">적재 제외</span></td>
+                <td class="num">82,727,273</td>
+                <td class="num">8,272,727</td>
+                <td class="num">15,829,091</td>
+                <td class="num">90,909</td>
+              </tr>
+              <tr class="excl sub2">
+                <td class="rn">24</td>
+                <td class="lbl">연 합계<span class="badge badge-red">적재 제외</span></td>
+                <td class="num">328,181,818</td>
+                <td class="num">32,818,182</td>
+                <td class="num">129,283,636</td>
+                <td class="num">90,909</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="font-mono text-mono-sm text-ink-soft mt-1.5">.xl — 2단 헤더, 행번호 거터, 시트 격자 0 radius</div>
+    </div>
+
+    <div>
+      <div class="pane">
+        <div class="pane-head">
+          <b class="text-ui">fact_financials</b>
+          <span class="font-mono text-meta text-ink-soft">54 rows · long format</span>
+        </div>
+        <div class="pane-scroll">
+          <table class="ft">
+            <thead>
+              <tr>
+                <th>period</th><th>metric</th><th>value_type</th>
+                <th class="text-right">value</th><th>unit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="dim">2025-01</td><td>수입</td><td class="dim">금액</td>
+                <td class="num">9,090,909</td><td class="dim">KRW</td>
+              </tr>
+              <tr>
+                <td class="dim">2025-01</td><td>수입</td><td class="dim">부가세</td>
+                <td class="num">909,091</td><td class="dim">KRW</td>
+              </tr>
+              <tr class="hl">
+                <td class="dim">2025-02</td><td>수입</td><td class="dim">금액</td>
+                <td class="num">46,363,636</td><td class="dim">KRW</td>
+              </tr>
+              <tr>
+                <td class="dim">2025-02</td><td>수입</td><td class="dim">부가세</td>
+                <td class="num">4,636,364</td><td class="dim">KRW</td>
+              </tr>
+              <tr>
+                <td class="dim">2025-03</td><td>수입</td><td class="dim">금액</td>
+                <td class="num">27,272,727</td><td class="dim">KRW</td>
+              </tr>
+              <tr>
+                <td class="dim">2025-03</td><td>비용</td><td class="dim">금액</td>
+                <td class="num">12,100,000</td><td class="dim">KRW</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="font-mono text-mono-sm text-ink-soft mt-1.5">.ft — 행 구분선만, 좌측 3px amber 마커로 매칭 표시</div>
+    </div>
+
+  </div>
+
+  <!-- ── 2. 행 상태 ────────────────────────────────────── -->
+  <div class="flex items-baseline gap-2 mt-8 mb-3">
+    <b class="text-ui">행 상태</b>
+    <span class="font-mono text-micro tracking-tag text-green">ROW STATES</span>
+  </div>
+  <p class="text-dense text-ink-soft max-w-sub mb-3">
+    행의 배경색이 곧 적재 여부다. 흰 행은 적재되고, 붉은 행은 제외되며, amber 행은 상위 소계다.
+  </p>
+  <div class="pane">
+    <table class="xl">
+      <tbody>
+        <tr>
+          <td class="rn">5</td>
+          <td class="lbl text-right">1월</td>
+          <td class="num v">9,090,909</td>
+          <td class="font-mono text-mono-sm text-ink-soft">default — 최소 단위 사실 → 적재</td>
+        </tr>
+        <tr>
+          <td class="rn">6</td>
+          <td class="lbl text-right">2월</td>
+          <td class="num v hl">46,363,636</td>
+          <td class="font-mono text-mono-sm text-ink-soft">.hl — 반대편과 연결됨 (amber inset ring)</td>
+        </tr>
+        <tr>
+          <td class="rn">7</td>
+          <td class="lbl text-right">3월</td>
+          <td class="num empty">–</td>
+          <td class="font-mono text-mono-sm text-ink-soft">sparse — ink-muted, fact 미생성 (0 아님)</td>
+        </tr>
+        <tr class="excl">
+          <td class="rn"></td>
+          <td class="lbl">1분기 합계<span class="badge badge-red">적재 제외</span></td>
+          <td class="num">82,727,273</td>
+          <td class="font-mono text-mono-sm">.excl — 파생 가능 → checksum 전용</td>
+        </tr>
+        <tr class="excl sub2">
+          <td class="rn"></td>
+          <td class="lbl">상반기 합계<span class="badge badge-red">적재 제외</span></td>
+          <td class="num">164,545,455</td>
+          <td class="font-mono text-mono-sm">.sub2 — 2차 소계 (amber-soft)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── 3. 계정축 · 파생 계정 ──────────────────────────── -->
+  <div class="flex items-baseline gap-2 mt-8 mb-3">
+    <b class="text-ui">계정축 · 파생 계정</b>
+    <span class="font-mono text-micro tracking-tag text-green">DERIVED PRESERVED</span>
+  </div>
+  <p class="text-dense text-ink-soft max-w-sub mb-3">
+    시간축 소계(분기·반기·연)는 버리지만, 계정축 소계(매출총이익·영업이익)는 질의 대상이므로 <b>보존</b>하고
+    purple <code class="font-mono">is_derived</code>로 표시한 뒤 formula로 검증한다.
+  </p>
+  <div class="pane">
+    <table class="xl">
+      <thead>
+        <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="rn">2</td>
+          <td class="hd">No</td>
+          <td class="hd">포괄손익계산서</td>
+          <td class="hd">2019.12</td>
+          <td class="hd">2020.09<span class="badge badge-amber">YTD 9M</span></td>
+        </tr>
+        <tr>
+          <td class="rn">3</td>
+          <td class="co">[1]</td>
+          <td class="lbl">수익(매출액)</td>
+          <td class="num v">34,504</td>
+          <td class="num v">23,323</td>
+        </tr>
+        <tr>
+          <td class="rn">4</td>
+          <td class="co">[2]</td>
+          <td class="lbl">매출원가</td>
+          <td class="num v">17,207</td>
+          <td class="num v">11,778</td>
+        </tr>
+        <tr>
+          <td class="rn">5</td>
+          <td class="co">[3]</td>
+          <td class="lbl">매출총이익<span class="badge badge-purple">is_derived</span><span class="badge badge-green">= [1]-[2]</span></td>
+          <td class="num v">17,297</td>
+          <td class="num v">11,546</td>
+        </tr>
+        <tr>
+          <td class="rn">6</td>
+          <td class="co">[5]</td>
+          <td class="lbl pl-6">인건비</td>
+          <td class="num v">4,730</td>
+          <td class="num v">3,611</td>
+        </tr>
+        <tr>
+          <td class="rn">7</td>
+          <td class="co">[9]</td>
+          <td class="lbl">영업이익<span class="badge badge-purple">is_derived</span><span class="badge badge-green">= [3]-[4]</span></td>
+          <td class="num v">4,707</td>
+          <td class="num v">2,730</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="font-mono text-micro text-ink-soft px-3 py-2">[K-IFRS 기준, 단위:억원] — 파생 계정은 보존 + formula 검증</div>
+  </div>
+
+  <div class="ds-note mt-7 max-w-sub">
+    <b>규칙</b> — 표 안의 모든 수치는 mono + 우측 정렬이고, 빈 값은 <code class="font-mono">0</code>이 아니라
+    ink-muted <code class="font-mono">–</code>다. sparse와 zero를 시각적으로 구분하는 것이 이 시스템의 핵심 계약이다.
+  </div>
+
+</div>

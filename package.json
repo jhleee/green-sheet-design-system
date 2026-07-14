@@ -1,0 +1,46 @@
+{
+  "name": "green-sheet-design-system",
+  "version": "0.1.0",
+  "description": "장표 정규화 파이프라인 UI를 위한 Tailwind v4 디자인 시스템 — 24 tokens, 종이·잉크 테마, 데이터 밀집 표 중심",
+  "keywords": [
+    "design-system",
+    "tailwindcss",
+    "tailwind-v4",
+    "design-tokens",
+    "data-table",
+    "korean"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "main": "theme.css",
+  "style": "theme.css",
+  "exports": {
+    ".": "./theme.css",
+    "./theme.css": "./theme.css",
+    "./dist/green-sheet.css": "./dist/green-sheet.css"
+  },
+  "files": [
+    "theme.css",
+    "dist/green-sheet.css",
+    "foundations/",
+    "components/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tailwindcss -i theme.css -o dist/green-sheet.css",
+    "dev": "tailwindcss -i theme.css -o dist/green-sheet.css --watch",
+    "preview": "npx --yes http-server -p 8899 -c-1",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.2",
+    "tailwindcss": "^4.3.2"
+  },
+  "peerDependencies": {
+    "tailwindcss": "^4.0.0"
+  }
+}

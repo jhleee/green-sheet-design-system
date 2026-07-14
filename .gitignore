@@ -1,0 +1,17 @@
+# dependencies
+node_modules/
+
+# dist/green-sheet.css는 의도적으로 커밋한다 —
+# 프리뷰(foundations/*.html, components/*.html)가 빌드 없이 바로 열려야 하고,
+# /design-sync 업로드에도 포함되기 때문이다. theme.css를 고치면
+# `npm run build` 후 함께 커밋할 것.
+
+# logs
+*.log
+npm-debug.log*
+
+# editor / os
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

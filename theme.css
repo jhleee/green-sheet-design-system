@@ -1,0 +1,257 @@
+/* ============================================================
+   GREEN SHEET DESIGN SYSTEM
+   장표 정규화 파이프라인 UI를 위한 Tailwind v4 디자인 시스템
+   ------------------------------------------------------------
+   24 tokens. 값은 examples/tabular-pipeline-demo.html에서 추출했고
+   중복은 병합했다. 발명한 색은 없다.
+
+   사용:  @import "green-sheet-design-system/theme.css";
+   ============================================================ */
+
+@import "tailwindcss";
+
+@theme {
+
+  /* ══ SURFACES ═══════════════════════════════════════════
+     그림자가 없다. 높이는 표면색 + 1px 선으로만 만든다.
+     배경이 순백이 아니라 녹빛 종이라서 흰 패널이 스스로 떠오른다. */
+
+  --color-paper:   #F4F6F1;  /* 페이지 배경 · 시트 헤더 셀 */
+  --color-panel:   #FFFFFF;  /* 카드 · 패널 · 데이터 셀 */
+  --color-sunken:  #EDF1EA;  /* 표 헤더 · 행번호 거터 */
+
+  /* ══ LINES ══════════════════════════════════════════════
+     두 무게뿐이다. 구조를 나누는 선과, 데이터 안을 나누는 선. */
+
+  --color-line:       #DCE3DA;  /* 구조 — 패널·카드 외곽, 섹션 구분 */
+  --color-line-soft:  #E4E9E1;  /* 데이터 내부 — 셀 격자, 행 구분선, 차트 그리드 */
+
+  /* ══ INK ════════════════════════════════════════════════ */
+
+  --color-ink:        #1B2730;  /* 본문 · 코드 표면 배경 */
+  --color-ink-soft:   #5C6E7A;  /* 보조 텍스트 · 라벨 · 차트 축 */
+  --color-ink-muted:  #B9C2BB;  /* 빈 셀 · 비활성 — sparse를 zero와 구분하는 색 */
+
+  /* ══ GREEN — primary ════════════════════════════════════
+     승인 · 통과 · 구조. "정상적으로 처리됨"을 뜻하는 유일한 색이며
+     "그냥 강조"의 의미로는 쓰지 않는다. */
+
+  --color-green:        #1E7A5A;  /* 주 액션 · PASS · 포커스 링 · 차트 시리즈 1 */
+  --color-green-deep:   #135C43;  /* green-soft 위 텍스트 */
+  --color-green-soft:   #E2F0E9;  /* 선택 상태 배경 · 강조 밑줄 */
+  --color-green-bright: #7FD1A7;  /* 다크 표면 위 — 코드 키워드, 규칙 칩 */
+
+  /* ══ AMBER — attention ══════════════════════════════════
+     에러가 아니라 "사람이 봐야 할 지점". 호버 연결, 기간 타입 경고. */
+
+  --color-amber:       #EFAF3B;  /* 하이라이트 테두리 · 차트 시리즈 2 */
+  --color-amber-soft:  #FBF1DA;  /* 호버·연결 배경 · 소계 행 · 경고 노트 */
+  --color-amber-ink:   #8A6414;  /* amber-soft 위 텍스트 · 차트 플래그 라벨 */
+  --color-amber-code:  #F0C674;  /* 다크 표면 위 — 코드 문자열 */
+
+  /* ══ RED — exclusion ════════════════════════════════════
+     실패가 아니라 의도적 제외. 파생 가능한 소계는 적재에서 빠지고
+     checksum 검증에만 쓰인다. */
+
+  --color-red:         #BE5B4E;  /* 제외 배지 배경 (흰 텍스트) */
+  --color-red-soft:    #F8E9E6;  /* 제외 행 배경 */
+  --color-red-ink:     #A3564C;  /* red-soft 위 텍스트 — 대비 확보용으로 red보다 어둡다 */
+  --color-red-strike:  #D19288;  /* 취소선 — 숫자가 읽히도록 텍스트보다 연하다 */
+
+  /* ══ PURPLE — derived ═══════════════════════════════════
+     값이 아니라 값의 출처를 말하는 메타데이터. is_derived 전용. */
+
+  --color-purple:       #6C5DA8;  /* 차트 시리즈 3 겸용 */
+  --color-purple-soft:  #ECE9F6;
+
+  /* ══ CODE — 유일한 다크 영역 ════════════════════════════
+     배경은 ink 그 자체다. 종이에 잉크를 얹는 게 아니라 잉크 위에 쓴다.
+     키워드는 green-bright, 문자열은 amber-code — 라이트 UI의 의미색이
+     다크에서도 같은 뜻을 유지한다. */
+
+  --color-code-fg:   #D8E2DC;  /* 코드 본문 */
+  --color-code-dim:  #6B7F8C;  /* 주석 · 라벨 */
+
+  /* ══ TYPE ═══════════════════════════════════════════════
+     패밀리는 둘뿐. mono는 취향이 아니라 규칙이다 — 기계가 생성했거나
+     열로 정렬돼야 하는 것(수치·식별자·코드·스펙)에만 붙는다. */
+
+  --font-sans: "Pretendard","Apple SD Gothic Neo","Malgun Gothic","Segoe UI",sans-serif;
+  --font-mono: "JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+
+  /* Tailwind 기본 text-* 스케일을 이 시스템의 12단으로 교체한다 */
+  --text-display:                 clamp(26px,4.2vw,42px);
+  --text-display--line-height:    1.22;
+  --text-display--letter-spacing: -0.02em;
+  --text-display--font-weight:    800;
+
+  --text-title:                   21px;
+  --text-title--line-height:      1.3;
+  --text-title--letter-spacing:   -0.01em;
+  --text-title--font-weight:      800;
+
+  --text-lede:                    15px;   /* 리드 문단 */
+  --text-lede--line-height:       1.55;
+
+  --text-body:                    14px;
+  --text-body--line-height:       1.55;
+
+  --text-strong:                  13.5px; /* 탭 라벨 · 스텝 제목 */
+  --text-strong--line-height:     1.4;
+
+  --text-ui:                      13px;   /* 버튼 · 패널 제목 */
+  --text-ui--line-height:         1.4;
+
+  --text-dense:                   12.5px; /* 표 본문 · 리스트 */
+  --text-dense--line-height:      1.5;
+
+  --text-num:                     12px;   /* mono 수치 · 코드 */
+  --text-num--line-height:        1.5;
+
+  --text-meta:                    11.5px; /* 힌트 · 별칭 */
+  --text-meta--line-height:       1.45;
+
+  --text-micro:                   11px;   /* 태그 · 칩 · 캡션 */
+  --text-micro--line-height:      1.4;
+
+  --text-mono-sm:                 10.5px; /* 표 헤더 · 라벨 */
+  --text-mono-sm--line-height:    1.4;
+
+  --text-badge:                   10px;
+  --text-badge--line-height:      1.4;
+
+  --font-weight-heavy: 800;  /* display·title 전용 — 그 아래로는 쓰지 않는다 */
+  --font-weight-bold:  700;
+  --font-weight-semi:  600;
+  --font-weight-reg:   400;
+
+  --tracking-eyebrow:  0.14em;  /* 12px mono uppercase */
+  --tracking-tag:      0.1em;   /* 11px mono */
+  --tracking-th:       0.05em;  /* 10.5px 표 헤더 */
+  --tracking-title:    -0.01em;
+  --tracking-display:  -0.02em;
+
+  --leading-body: 1.55;
+  --leading-code: 1.7;
+  --leading-sql:  1.75;
+
+  /* ══ RADIUS ═════════════════════════════════════════════
+     곡률이 커질수록 데이터에서 멀어지고 컨트롤에 가까워진다.
+     Tailwind 기본 rounded-sm/md/lg는 건드리지 않는다. */
+
+  --radius-grid:  0px;   /* 시트 격자 · 파이프라인 스텝 */
+  --radius-chip:  2px;   /* 배지 · 칩 · 탭 · 노트 */
+  --radius-panel: 3px;   /* 패널 · 카드 · 코드블록 */
+  --radius-pill:  20px;  /* 질의 버튼 — 이 시스템의 유일한 곡선 */
+  --radius-bar:   1px;   /* 차트 막대 */
+
+  /* ══ LAYOUT ═════════════════════════════════════════════ */
+
+  --container-wrap: 1180px;  /* max-w-wrap — 본문 */
+  --container-lede: 640px;   /* max-w-lede — 리드 문단 */
+  --container-sub:  720px;   /* max-w-sub  — 설명 문단 */
+
+  --breakpoint-fold: 900px;  /* fold: — 2단에서 1단으로 접힌다 */
+}
+
+/* ── 컴포넌트 상수 ─────────────────────────────────────────
+   유틸리티로 생성될 필요가 없어 @theme 밖에 둔다. */
+:root{
+  --cell-pad-grid: 5px 9px;    /* 시트 격자 셀 */
+  --cell-pad-fact: 5.5px 10px; /* fact 테이블 셀 */
+  --scroll-max:    460px;      /* 표 뷰포트 */
+  --spec-max:      340px;      /* 스펙 코드블록 */
+}
+
+/* ============================================================
+   COMPONENTS
+   유틸리티로 쓰면 매번 20개씩 나열해야 하는 구조적 패턴만 둔다.
+   역할(role)은 여기에, 값(value)은 위 토큰에.
+   ============================================================ */
+@layer components{
+
+  /* ── .xl — 시트 복제. 사용자가 자기 파일을 알아보게 하는 표 ── */
+  .xl{ @apply w-full border-collapse text-dense; }
+  .xl th, .xl td{
+    @apply border border-line-soft whitespace-nowrap;
+    padding: var(--cell-pad-grid);
+  }
+  .xl thead th{
+    @apply bg-sunken font-mono font-medium text-mono-sm text-ink-soft text-center sticky top-0 z-20;
+  }
+  .xl .rn{ @apply bg-sunken font-mono text-mono-sm text-ink-soft text-center min-w-[30px]; }
+  .xl .hd{ @apply bg-paper font-bold text-center; }
+  .xl .lbl{ @apply font-semi; }
+  .xl .num{ @apply text-right font-mono text-num; }
+  .xl td.v{ @apply cursor-crosshair transition-colors duration-[120ms]; }
+  .xl td.v:hover, .xl td.v.hl{
+    @apply bg-amber-soft;
+    box-shadow: inset 0 0 0 2px var(--color-amber);
+  }
+  .xl tr.excl td{ @apply text-red-ink bg-red-soft; }
+  .xl tr.excl .num{
+    @apply line-through decoration-red-strike;
+    text-decoration-thickness: 1px;
+  }
+  .xl tr.sub2 td{ @apply bg-amber-soft; }   /* 2차 소계 */
+  .xl td.co{ @apply text-ink-muted font-mono text-center; }
+  .xl td.empty{ @apply text-ink-muted; }    /* sparse — 0이 아니다 */
+
+  /* ── .ft — fact 테이블. 정규화 결과 ────────────────────── */
+  .ft{ @apply w-full border-collapse text-dense; }
+  .ft th, .ft td{
+    @apply border-b border-line-soft text-left whitespace-nowrap;
+    padding: var(--cell-pad-fact);
+  }
+  .ft thead th{
+    @apply bg-sunken font-mono text-mono-sm font-semi text-ink-soft sticky top-0 tracking-th;
+  }
+  .ft .num{ @apply text-right font-mono text-num; }
+  .ft .dim{ @apply text-ink-soft; }
+  .ft tbody tr{ @apply transition-colors duration-[120ms] cursor-crosshair; }
+  .ft tbody tr:hover td, .ft tbody tr.hl td{ @apply bg-amber-soft; }
+  .ft tbody tr.hl td:first-child{ box-shadow: inset 3px 0 0 var(--color-amber); }
+
+  /* ── 배지 — 상태를 한 단어로. 각 배지는 정확히 하나의 뜻만 ── */
+  .badge{ @apply inline-block font-mono text-badge px-1.5 py-px rounded-chip ml-1.5 align-[1px]; }
+  .badge-red{    @apply bg-red text-white; }             /* 적재 제외 — 유일한 solid */
+  .badge-purple{ @apply bg-purple-soft text-purple; }    /* is_derived */
+  .badge-green{  @apply bg-green-soft text-green-deep; } /* formula · auto */
+  .badge-amber{  @apply bg-amber-soft text-amber-ink; }  /* 기간 플래그 */
+
+  /* ── 표면 ─────────────────────────────────────────────── */
+  .pane{ @apply bg-panel border border-line rounded-panel overflow-hidden flex flex-col; }
+  .pane-head{ @apply px-3.5 py-2.5 border-b border-line flex justify-between items-center; }
+  .pane-scroll{ overflow:auto; max-height: var(--scroll-max); }
+  .ds-card{ @apply bg-panel border border-line rounded-panel px-4 py-3.5; }
+  .ds-note{ @apply text-num text-amber-ink bg-amber-soft px-3 py-2 rounded-chip; }
+
+  /* ── 컨트롤 ───────────────────────────────────────────── */
+  .tab{ @apply border border-line bg-panel px-4 py-2.5 text-strong font-semi cursor-pointer text-ink-soft rounded-chip; }
+  .tab-on{ @apply border-green text-green-deep bg-green-soft; }
+  .qbtn{ @apply border border-line bg-panel px-4 py-2.5 text-ui cursor-pointer rounded-pill font-sans; }
+  .qbtn-on{ @apply border-green bg-green-soft text-green-deep font-semi; }
+  .tab:focus-visible, .qbtn:focus-visible{ @apply outline-2 outline-green outline-offset-2; }
+
+  /* ── 코드 표면 (다크) ─────────────────────────────────── */
+  .code-surface{ @apply bg-ink text-code-fg rounded-panel p-4 overflow-auto font-mono text-num; }
+  .code-surface-spec{ max-height: var(--spec-max); }  /* 스펙 변형 — 길어지면 스크롤 */
+  .code-k{   @apply text-green-bright; }  /* 키워드 */
+  .code-c{   @apply text-code-dim; }      /* 주석 */
+  .code-s{   @apply text-amber-code; }    /* 문자열 */
+  .code-lab{ @apply font-mono text-mono-sm text-code-dim tracking-tag mb-2; }
+  .rule-chip{
+    @apply font-mono text-micro text-green-bright px-2.5 py-0.5 rounded-chip;
+    background: color-mix(in srgb, var(--color-green-bright) 14%, transparent);
+  }
+
+  /* ── 강조 밑줄 ────────────────────────────────────────
+     이 시스템에서 box-shadow가 허용되는 곳은 셋뿐이다:
+     .xl td.v 하이라이트 링 · .ft tr.hl 좌측 마커 · 아래 .u-mark 밑줄.
+     높이(elevation)를 만드는 데는 절대 쓰지 않는다. */
+  .u-mark{ box-shadow: inset 0 -0.42em 0 var(--color-green-soft); }
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{ transition:none !important }
+}

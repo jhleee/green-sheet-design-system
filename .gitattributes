@@ -1,0 +1,6 @@
+# 저장소 안에서는 항상 LF로 정규화한다.
+* text=auto eol=lf
+
+# 언어 통계에서 데모/빌드 산출물을 제외해 실제 소스가 드러나게 한다.
+examples/** linguist-documentation
+dist/** linguist-generated

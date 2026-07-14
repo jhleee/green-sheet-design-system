@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>장표 정규화 파이프라인 — 인터랙티브 데모</title>
+<style>
+:root{
+  --paper:#F4F6F1; --panel:#FFFFFF; --ink:#1B2730; --ink-soft:#5C6E7A; --line:#DCE3DA;
+  --green:#1E7A5A; --green-deep:#135C43; --green-soft:#E2F0E9;
+  --amber:#EFAF3B; --amber-soft:#FBF1DA;
+  --red:#BE5B4E; --red-soft:#F8E9E6;
+  --purple:#6C5DA8; --purple-soft:#ECE9F6;
+  --grid-head:#EDF1EA; --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Segoe UI",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+/* ---------- hero ---------- */
+header{padding:56px 0 40px;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--green);text-transform:uppercase;margin-bottom:14px}
+h1{font-size:clamp(26px,4.2vw,42px);font-weight:800;letter-spacing:-.02em;line-height:1.22}
+h1 .u{box-shadow:inset 0 -0.42em 0 var(--green-soft)}
+.lede{margin-top:14px;color:var(--ink-soft);max-width:640px;font-size:15px}
+.pipe{display:flex;gap:0;margin-top:34px;flex-wrap:wrap}
+.pipe .step{flex:1;min-width:150px;background:var(--panel);border:1px solid var(--line);padding:14px 16px;position:relative}
+.pipe .step + .step{margin-left:-1px}
+.pipe .step b{display:block;font-size:13.5px}
+.pipe .step span{font-size:12px;color:var(--ink-soft)}
+.pipe .step .no{font-family:var(--mono);font-size:11px;color:var(--green);display:block;margin-bottom:4px}
+.pipe .step.on{border-color:var(--green);background:var(--green-soft);z-index:1}
+
+/* ---------- sections ---------- */
+section{padding:44px 0}
+section + section{border-top:1px solid var(--line)}
+h2{font-size:21px;font-weight:800;letter-spacing:-.01em;display:flex;align-items:baseline;gap:10px}
+h2 .tag{font-family:var(--mono);font-size:11px;color:var(--green);letter-spacing:.1em}
+.sub{color:var(--ink-soft);font-size:14px;margin-top:6px;max-width:720px}
+
+/* tabs */
+.tabs{display:flex;gap:8px;margin:24px 0 18px;flex-wrap:wrap}
+.tab{border:1px solid var(--line);background:var(--panel);padding:9px 16px;font-size:13.5px;font-weight:600;cursor:pointer;color:var(--ink-soft);border-radius:2px}
+.tab small{display:block;font-weight:400;font-size:11px;color:var(--ink-soft)}
+.tab.on{border-color:var(--green);color:var(--green-deep);background:var(--green-soft)}
+.tab:focus-visible,.qbtn:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+
+/* two-pane mapping */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:900px){.duo{grid-template-columns:1fr}}
+.pane{background:var(--panel);border:1px solid var(--line);border-radius:3px;overflow:hidden;display:flex;flex-direction:column}
+.pane .head{padding:10px 14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;background:#FBFCFA}
+.pane .head b{font-size:13px}
+.pane .head .hint{font-size:11.5px;color:var(--ink-soft);font-family:var(--mono)}
+.scroll{overflow:auto;max-height:460px}
+
+/* excel replica */
+table{border-collapse:collapse;width:100%;font-size:12.5px}
+.xl th,.xl td{border:1px solid #E4E9E1;padding:5px 9px;white-space:nowrap}
+.xl thead th{background:var(--grid-head);font-family:var(--mono);font-weight:500;font-size:10.5px;color:var(--ink-soft);text-align:center;position:sticky;top:0;z-index:2}
+.xl .rn{background:var(--grid-head);font-family:var(--mono);font-size:10.5px;color:var(--ink-soft);text-align:center;min-width:30px}
+.xl .hd{background:#F3F6EF;font-weight:700;text-align:center}
+.xl .lbl{font-weight:600}
+.xl .num{text-align:right;font-family:var(--mono);font-size:12px}
+.xl td.v{cursor:crosshair;transition:background .12s}
+.xl td.v:hover,.xl td.v.hl{background:var(--amber-soft);box-shadow:inset 0 0 0 2px var(--amber)}
+.xl tr.excl td{color:#A3564C;background:var(--red-soft)}
+.xl tr.excl .num{text-decoration:line-through;text-decoration-thickness:1px;text-decoration-color:#D19288}
+.xl tr.sub2 td{background:#FDEFE0}
+.xl td.co{color:#B9C2BB;font-family:var(--mono);text-align:center}
+.badge{display:inline-block;font-size:10px;font-family:var(--mono);padding:1px 6px;border-radius:2px;margin-left:6px;vertical-align:1px}
+.b-red{background:var(--red);color:#fff}
+.b-purple{background:var(--purple-soft);color:var(--purple)}
+.b-green{background:var(--green-soft);color:var(--green-deep)}
+.b-amber{background:var(--amber-soft);color:#8A6414}
+
+/* fact table */
+.ft th,.ft td{border-bottom:1px solid #EEF1EC;padding:5.5px 10px;text-align:left;white-space:nowrap}
+.ft thead th{background:var(--grid-head);font-family:var(--mono);font-size:10.5px;font-weight:600;color:var(--ink-soft);position:sticky;top:0;letter-spacing:.05em}
+.ft td{font-size:12.5px}
+.ft .num{text-align:right;font-family:var(--mono);font-size:12px}
+.ft .dim{color:var(--ink-soft)}
+.ft tr{transition:background .12s;cursor:crosshair}
+.ft tr:hover td,.ft tr.hl td{background:var(--amber-soft)}
+.ft tr.hl td:first-child{box-shadow:inset 3px 0 0 var(--amber)}
+
+/* spec + validation row */
+.trio{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:18px}
+@media(max-width:900px){.trio{grid-template-columns:1fr}}
+pre.spec{font-family:var(--mono);font-size:12px;line-height:1.7;padding:16px;overflow:auto;background:#182430;color:#D8E2DC;border-radius:3px;max-height:340px}
+pre.spec .k{color:#7FD1A7}
+pre.spec .c{color:#6B7F8C}
+pre.spec .s{color:#F0C674}
+.checks{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:14px 16px}
+.checks h4{font-size:13px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.checks ul{list-style:none}
+.checks li{font-size:12.5px;padding:7px 0;border-top:1px dashed var(--line);display:flex;gap:8px;align-items:baseline}
+.checks li:first-child{border-top:0}
+.ck{font-family:var(--mono);font-size:11px;color:#fff;background:var(--green);border-radius:2px;padding:0 5px;flex-shrink:0}
+.checks li .f{font-family:var(--mono);font-size:11px;color:var(--ink-soft)}
+
+/* catalog */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:14px;margin-top:22px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:14px 16px}
+.card .nm{font-weight:700;font-size:14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.card .al{font-size:11.5px;color:var(--ink-soft);font-family:var(--mono);margin:5px 0 9px}
+.card dl{font-size:12px;display:grid;grid-template-columns:auto 1fr;gap:3px 10px}
+.card dt{color:var(--ink-soft)}
+.card dd{font-family:var(--mono);font-size:11.5px}
+
+/* query demo */
+.qbtns{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0 20px}
+.qbtn{border:1px solid var(--line);background:var(--panel);padding:10px 16px;font-size:13px;cursor:pointer;border-radius:20px;font-family:var(--sans)}
+.qbtn.on{border-color:var(--green);background:var(--green-soft);color:var(--green-deep);font-weight:600}
+.qout{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:900px){.qout{grid-template-columns:1fr}}
+.sqlbox{background:#182430;border-radius:3px;padding:16px;overflow:auto}
+.sqlbox .lab{font-family:var(--mono);font-size:10.5px;color:#6B7F8C;letter-spacing:.1em;margin-bottom:8px}
+.sqlbox pre{font-family:var(--mono);font-size:12px;line-height:1.75;color:#D8E2DC;white-space:pre-wrap}
+.sqlbox .kw{color:#7FD1A7}.sqlbox .st{color:#F0C674}
+.rules{margin-top:12px;display:flex;gap:6px;flex-wrap:wrap}
+.rule{font-size:11px;font-family:var(--mono);background:rgba(127,209,167,.14);color:#9BDDBB;padding:3px 9px;border-radius:2px}
+.chartbox{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:16px}
+.chartbox .cap{font-size:12px;color:var(--ink-soft);margin-bottom:10px}
+.note{margin-top:10px;font-size:12px;color:#8A6414;background:var(--amber-soft);padding:8px 12px;border-radius:2px;display:none}
+footer{padding:36px 0 60px;color:var(--ink-soft);font-size:12.5px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">Ledger → Long Format → Semantic SQL</div>
+    <h1>장표는 무한히 다양해도,<br><span class="u">목표 모델은 하나</span>로 수렴한다</h1>
+    <p class="lede">간편장부, 손익계산서, 연결재무제표 — 서로 다른 세 장표가 파싱 스펙을 거쳐 동일한 fact 테이블로 정규화되고, 시맨틱 카탈로그를 통해 LLM 쿼리로 이어지는 과정을 실제 데이터로 시연합니다.</p>
+    <div class="pipe">
+      <div class="step on"><span class="no">STEP 1</span><b>파싱 스펙</b><span>LLM 제안 → 사람 승인</span></div>
+      <div class="step on"><span class="no">STEP 2</span><b>정규화 적재</b><span>long 포맷 fact</span></div>
+      <div class="step on"><span class="no">STEP 3</span><b>정합성 검증</b><span>장부 내장 checksum</span></div>
+      <div class="step on"><span class="no">STEP 4</span><b>시맨틱 쿼리</b><span>text → SQL → 차트</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="mapping">
+  <div class="wrap">
+    <h2>원본 장표 ↔ Fact 테이블 매핑 <span class="tag">INTERACTIVE</span></h2>
+    <p class="sub">왼쪽 원본의 <b>값 셀에 마우스를 올리면</b> 오른쪽 fact 테이블에서 대응 행이 강조됩니다(반대 방향도 동일). <span style="color:var(--red)">붉은 취소선 행</span>은 파생 가능한 소계라 적재에서 제외되고 검증에만 쓰입니다.</p>
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="duo">
+      <div class="pane">
+        <div class="head"><b id="srcTitle"></b><span class="hint">source replica</span></div>
+        <div class="scroll" id="srcBox"></div>
+      </div>
+      <div class="pane">
+        <div class="head"><b>fact_financials</b><span class="hint" id="factCount"></span></div>
+        <div class="scroll" id="factBox"></div>
+      </div>
+    </div>
+    <div class="trio">
+      <div>
+        <pre class="spec" id="specBox"></pre>
+      </div>
+      <div class="checks">
+        <h4>정합성 검증 <span class="badge b-green">auto</span></h4>
+        <ul id="checkBox"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="catalog">
+  <div class="wrap">
+    <h2>시맨틱 카탈로그 <span class="tag">METADATA</span></h2>
+    <p class="sub">스키마 덤프가 아니라 의미 계층입니다. 동의어·집계 규칙·파생 수식이 LLM의 SQL 생성 오류를 줄입니다.</p>
+    <div class="cards" id="catBox"></div>
+  </div>
+</section>
+
+<section id="query">
+  <div class="wrap">
+    <h2>자연어 → SQL → 시각화 <span class="tag">LIVE ON FACT DATA</span></h2>
+    <p class="sub">아래 질문을 누르면 시맨틱 카탈로그 규칙이 적용된 SQL이 생성되고, 위에서 적재한 fact 데이터에 대해 실제로 계산되어 차트로 렌더링됩니다.</p>
+    <div class="qbtns" id="qbtns"></div>
+    <div class="qout">
+      <div class="sqlbox">
+        <div class="lab">GENERATED SQL</div>
+        <pre id="sqlText"></pre>
+        <div class="rules" id="ruleChips"></div>
+      </div>
+      <div class="chartbox">
+        <div class="cap" id="chartCap"></div>
+        <div id="chart"></div>
+        <div class="note" id="chartNote"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">데모 데이터: 간편장부 샘플 · 휠라홀딩스 손익계산서(억원) · 삼성전자 연결손익계산서 제46·47기(백만원) — 업로드된 장표 이미지 기준.</div>
+</footer>
+
+<script>
+/* ============================================================
+   DATA
+============================================================ */
+const fmt = n => n.toLocaleString('ko-KR');
+let FID = 0;
+const F = (ds,period,org,account,metric,vt,value,unit,extra={}) =>
+  ({id:++FID, ds, period, org, account, metric, vt, value, unit, ...extra});
+
+/* ---- 1) 간편장부 (월 grain) ---- */
+const gMonths = {
+  1:{iv:9090909,it:909091,ev:1609091,et:90909,fv:27272727,ft:2727273},
+  2:{iv:46363636,it:4636364,ev:2120000},
+  3:{iv:27272727,it:2727273,ev:12100000},
+  4:{iv:27272727,it:2727273,ev:12000000},
+  5:{iv:27272727,it:2727273,ev:12000000},
+  6:{iv:27272727,it:2727273,ev:12000000},
+  7:{iv:27272727,it:2727273,ev:12000000},
+  8:{iv:27272727,it:2727273,ev:12000000},
+  9:{iv:27272727,it:2727273,ev:12000000},
+  10:{iv:27272727,it:2727273,ev:12000000},
+  11:{iv:27272727,it:2727273,ev:12000000},
+  12:{iv:27272727,it:2727273,ev:17454545},
+};
+const gFacts = [];
+for (const [m,d] of Object.entries(gMonths)) {
+  const p = `2025-${String(m).padStart(2,'0')}`;
+  if(d.iv!=null) gFacts.push(F('ledger',p,'개인사업자','—','수입','금액',d.iv,'KRW'));
+  if(d.it!=null) gFacts.push(F('ledger',p,'개인사업자','—','수입','부가세',d.it,'KRW'));
+  if(d.ev!=null) gFacts.push(F('ledger',p,'개인사업자','—','비용','금액',d.ev,'KRW'));
+  if(d.et!=null) gFacts.push(F('ledger',p,'개인사업자','—','비용','부가세',d.et,'KRW'));
+  if(d.fv!=null) gFacts.push(F('ledger',p,'개인사업자','—','고정자산증감','금액',d.fv,'KRW'));
+  if(d.ft!=null) gFacts.push(F('ledger',p,'개인사업자','—','고정자산증감','부가세',d.ft,'KRW'));
+}
+
+/* ---- 2) FILA 손익계산서 (계정 × 연도) ---- */
+const fPeriods = [
+  {key:'2017FY',label:'2017.12',type:'FY'},
+  {key:'2018FY',label:'2018.12',type:'FY'},
+  {key:'2019FY',label:'2019.12',type:'FY'},
+  {key:'2020YTD',label:'2020.09',type:'YTD(9M)'},
+];
+const fAccounts = [
+  {no:'[1]',  name:'수익(매출액)', code:'REVENUE', v:[25303,29546,34504,23323]},
+  {no:'[2]',  name:'매출원가',     code:'COGS',    v:[12898,14871,17207,11778]},
+  {no:'[3]',  name:'매출총이익',   code:'GROSS_PROFIT', derived:'[1]-[2]', v:[12405,14675,17297,11546]},
+  {no:'[4]',  name:'판매비와관리비',code:'SGA', derived:'SUM([5]~[8])', v:[10231,11104,12590,8816]},
+  {no:'[5]',  name:'인건비',       code:'SGA_LABOR', indent:1, v:[3559,3842,4730,3611]},
+  {no:'[6]',  name:'일반관리비',   code:'SGA_ADMIN', indent:1, v:[2439,1980,1925,1344]},
+  {no:'[7]',  name:'판매비',       code:'SGA_SELLING', indent:1, v:[3574,4604,5171,3201]},
+  {no:'[8]',  name:'기타판매비와관리비', code:'SGA_ETC', indent:1, v:[659,678,765,660]},
+  {no:'[9]',  name:'영업이익',     code:'OP_INCOME', derived:'[3]-[4]', v:[2175,3571,4707,2730]},
+  {no:'[10]', name:'영업외수익',   code:'NONOP_REV', v:[599,755,926,562]},
+  {no:'[11]', name:'영업외비용',   code:'NONOP_EXP', v:[956,955,921,592]},
+  {no:'[12]', name:'법인세차감전영업이익', code:'PRETAX', derived:'[9]+[10]-[11]', v:[1818,3371,4713,2700]},
+];
+const fFacts = [];
+fAccounts.forEach(a => fPeriods.forEach((p,i) =>
+  fFacts.push(F('fila',p.key,'휠라홀딩스',a.name,'손익','금액',a.v[i],'억원',
+    {derived:!!a.derived, ptype:p.type}))));
+
+/* ---- 3) 삼성전자 연결 (staggered 레이아웃) ---- */
+const sAccounts = [
+  {name:'매출액',            lvl:'subtotal', v47:200653482, v46:206205987},
+  {name:'매출원가',          lvl:'subtotal', v47:123482118, v46:128278800},
+  {name:'매출총이익',        lvl:'subtotal', derived:'매출액-매출원가', v47:77171364, v46:77927187},
+  {name:'판매비와 관리비',   lvl:'detail',   v47:50757922, v46:52902116},
+  {name:'영업이익',          lvl:'subtotal', derived:'매출총이익-판관비', v47:26413364, v46:25025071},
+  {name:'기타 수익',         lvl:'detail',   v47:1685947,  v46:3801357},
+  {name:'기타 비용',         lvl:'detail',   v47:3723434,  v46:2259737},
+  {name:'지분법이익',        lvl:'detail',   v47:1101932,  v46:342516},
+  {name:'금융수익',          lvl:'detail',   v47:10514879, v46:8259829},
+  {name:'금융비용',          lvl:'detail',   v47:10031771, v46:7294002},
+  {name:'법인세차감전순이익', lvl:'subtotal', v47:25960995, v46:27875034},
+  {name:'법인세비용',        lvl:'detail',   v47:6900851,  v46:4480676},
+  {name:'당기순이익',        lvl:'subtotal', v47:19060144, v46:23394358},
+];
+const sFacts = [];
+sAccounts.forEach(a=>{
+  sFacts.push(F('samsung','2015FY(제47기)','삼성전자(연결)',a.name,'손익','금액',a.v47,'백만원',{lvl:a.lvl,derived:!!a.derived}));
+  sFacts.push(F('samsung','2014FY(제46기)','삼성전자(연결)',a.name,'손익','금액',a.v46,'백만원',{lvl:a.lvl,derived:!!a.derived}));
+});
+
+const ALL = [...gFacts, ...fFacts, ...sFacts];
+const byId = Object.fromEntries(ALL.map(f=>[f.id,f]));
+const find = (ds,period,account,metric,vt) => ALL.find(f=>f.ds===ds
+  && (!period||f.period===period) && (!account||f.account===account)
+  && (!metric||f.metric===metric) && (!vt||f.vt===vt));
+
+/* ============================================================
+   SOURCE REPLICA BUILDERS
+============================================================ */
+function cellV(fact, val){
+  if(val==null) return `<td class="num" style="color:#B9C2BB">–</td>`;
+  return `<td class="num v" data-f="${fact?fact.id:''}">${fmt(val)}</td>`;
+}
+function buildLedger(){
+  const qRows = {3:['1분기 합계',[82727273,8272727,15829091,90909,27272727,2727273]],
+                 6:['2분기 합계',[81818182,8181818,36000000,null,null,null]],
+                 9:['3분기 합계',[81818182,8181818,36000000,null,null,null]],
+                 12:['4분기 합계',[81818182,8181818,41454545,null,null,null]]};
+  const hRows = {6:['상반기 합계',[164545455,16454545,51829091,90909,27272727,2727273]],
+                 12:['하반기 합계',[163636364,16363636,77454545,null,null,null]]};
+  let rows='';
+  for(let m=1;m<=12;m++){
+    const d=gMonths[m], p=`2025-${String(m).padStart(2,'0')}`;
+    const f=(met,vt)=>find('ledger',p,null,met,vt);
+    rows+=`<tr><td class="rn">${m+4}</td><td class="lbl" style="text-align:right">${m}월</td>
+      ${cellV(f('수입','금액'),d.iv)}${cellV(f('수입','부가세'),d.it)}
+      ${cellV(f('비용','금액'),d.ev)}${cellV(f('비용','부가세'),d.et)}
+      ${cellV(f('고정자산증감','금액'),d.fv)}${cellV(f('고정자산증감','부가세'),d.ft)}</tr>`;
+    if(qRows[m]){const[l,v]=qRows[m];
+      rows+=`<tr class="excl"><td class="rn"></td><td class="lbl">${l}<span class="badge b-red">적재 제외</span></td>${v.map(x=>x==null?'<td class="num">–</td>':`<td class="num">${fmt(x)}</td>`).join('')}</tr>`;}
+    if(hRows[m]){const[l,v]=hRows[m];
+      rows+=`<tr class="excl sub2"><td class="rn"></td><td class="lbl">${l}<span class="badge b-red">적재 제외</span></td>${v.map(x=>x==null?'<td class="num">–</td>':`<td class="num">${fmt(x)}</td>`).join('')}</tr>`;}
+  }
+  return `<table class="xl">
+    <thead><tr><th></th><th>B</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th><th>I</th></tr></thead>
+    <tbody>
+      <tr><td class="rn">3</td><td class="hd">① 기간</td><td class="hd" colspan="2">④ 수입</td><td class="hd" colspan="2">⑤ 비용</td><td class="hd" colspan="2">⑥ 고정자산 증감</td></tr>
+      <tr><td class="rn">4</td><td class="hd"></td><td class="hd">금액</td><td class="hd">부가세</td><td class="hd">금액</td><td class="hd">부가세</td><td class="hd">금액</td><td class="hd">부가세</td></tr>
+      ${rows}
+      <tr class="excl sub2"><td class="rn">24</td><td class="lbl">연 합계<span class="badge b-red">적재 제외</span></td><td class="num">328,181,818</td><td class="num">32,818,182</td><td class="num">129,283,636</td><td class="num">90,909</td><td class="num">27,272,727</td><td class="num">2,727,273</td></tr>
+    </tbody></table>`;
+}
+
+function buildFila(){
+  let rows='';
+  fAccounts.forEach((a,ri)=>{
+    const nm = a.derived
+      ? `${a.name}<span class="badge b-purple">is_derived</span>`
+      : (a.indent?`&nbsp;&nbsp;&nbsp;${a.name}`:a.name);
+    rows+=`<tr><td class="rn">${ri+3}</td><td class="co">${a.no}</td><td class="lbl">${nm}${a.derived?`<span class="badge b-green">= ${a.derived}</span>`:''}</td>
+      ${fPeriods.map((p,i)=>cellV(find('fila',p.key,a.name),a.v[i])).join('')}</tr>`;
+  });
+  return `<table class="xl">
+    <thead><tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr></thead>
+    <tbody>
+      <tr><td class="rn">2</td><td class="hd">No</td><td class="hd">포괄손익계산서</td>
+        <td class="hd">2017.12</td><td class="hd">2018.12</td><td class="hd">2019.12</td>
+        <td class="hd">2020.09<span class="badge b-amber">YTD 9M</span></td></tr>
+      ${rows}
+    </tbody></table>
+    <div style="padding:8px 12px;font-size:11px;color:var(--ink-soft);font-family:var(--mono)">[K-IFRS 기준, 단위:억원] — 파생 계정은 보존 + formula 검증</div>`;
+}
+
+function buildSamsung(){
+  let rows='';
+  sAccounts.forEach((a,ri)=>{
+    const f47=find('samsung','2015FY(제47기)',a.name), f46=find('samsung','2014FY(제46기)',a.name);
+    const det = a.lvl==='detail';
+    rows+=`<tr><td class="rn">${ri+6}</td>
+      <td class="lbl">${det?'&nbsp;&nbsp;&nbsp;':''}${a.name}${a.derived?`<span class="badge b-purple">is_derived</span>`:''}</td>
+      ${det?cellV(f47,a.v47)+'<td class="num" style="color:#B9C2BB"></td>':'<td class="num" style="color:#B9C2BB"></td>'+cellV(f47,a.v47)}
+      ${det?cellV(f46,a.v46)+'<td class="num" style="color:#B9C2BB"></td>':'<td class="num" style="color:#B9C2BB"></td>'+cellV(f46,a.v46)}
+    </tr>`;
+  });
+  return `<table class="xl">
+    <thead><tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr></thead>
+    <tbody>
+      <tr><td class="rn">5</td><td class="hd">과목</td><td class="hd" colspan="2">제47기(당기) → 2015FY</td><td class="hd" colspan="2">제46기(전기) → 2014FY</td></tr>
+      <tr><td class="rn"></td><td class="hd"></td><td class="hd" style="font-size:10.5px">detail 열</td><td class="hd" style="font-size:10.5px">subtotal 열</td><td class="hd" style="font-size:10.5px">detail 열</td><td class="hd" style="font-size:10.5px">subtotal 열</td></tr>
+      ${rows}
+    </tbody></table>
+    <div style="padding:8px 12px;font-size:11px;color:var(--ink-soft);font-family:var(--mono)">staggered 레이아웃: 기간별 두 열을 COALESCE, 열 위치 → level 추론 · 단위:백만원</div>`;
+}
+
+/* ============================================================
+   FACT TABLE / SPEC / CHECKS
+============================================================ */
+function buildFactTable(facts, cols){
+  const head = cols.map(c=>`<th>${c[0]}</th>`).join('');
+  const rows = facts.map(f=>`<tr data-id="${f.id}">${cols.map(c=>c[1](f)).join('')}</tr>`).join('');
+  return `<table class="ft"><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table>`;
+}
+const C = {
+  period: ['period', f=>`<td class="dim">${f.period}</td>`],
+  metric: ['metric', f=>`<td>${f.metric}</td>`],
+  vt:     ['value_type', f=>`<td class="dim">${f.vt}</td>`],
+  account:['account', f=>`<td>${f.account}${f.derived?'<span class="badge b-purple">D</span>':''}</td>`],
+  lvl:    ['level', f=>`<td class="dim">${f.lvl||''}</td>`],
+  value:  ['value', f=>`<td class="num">${fmt(f.value)}</td>`],
+  unit:   ['unit', f=>`<td class="dim">${f.unit}</td>`],
+  ptype:  ['period_type', f=>`<td class="dim">${f.ptype||'FY'}</td>`],
+};
+
+const DATASETS = {
+  ledger: {
+    title:'간편장부 · 기간별 합계 금액',
+    tab:['간편장부','시간축 소계 제거 + 2단 헤더 melt'],
+    src: buildLedger,
+    facts: gFacts,
+    cols: [C.period, C.metric, C.vt, C.value, C.unit],
+    spec:
+`<span class="c"># parsing_spec: 간편장부.yaml</span>
+<span class="k">layout</span>: periods_in_rows
+<span class="k">grain</span>: month                     <span class="c"># 최소 단위 사실</span>
+<span class="k">header</span>: {rows: [3, 4], type: two_level}
+<span class="k">melt</span>:
+  <span class="k">upper_header</span> → metric        <span class="c"># 수입/비용/고정자산증감</span>
+  <span class="k">lower_header</span> → value_type    <span class="c"># 금액/부가세</span>
+<span class="k">exclude_rows</span>:
+  <span class="k">pattern</span>: <span class="s">"(분기|반기|연) 합계"</span>
+  <span class="k">use_for</span>: validation           <span class="c"># 버리되 checksum으로 활용</span>
+<span class="k">period_resolution</span>:
+  <span class="k">source</span>: cell(I2)              <span class="c"># 과세년도 → "1월"을 2025-01로</span>
+  <span class="k">require_if_empty</span>: user_input`,
+    checks:[
+      ['PASS','1분기 합계 검증','SUM(1~3월 수입) = 82,727,273 = 시트값'],
+      ['PASS','상반기 합계 검증','Q1+Q2 = 164,545,455 = 시트값'],
+      ['PASS','연 합계 검증','SUM(12개월) = 328,181,818 = 시트값'],
+      ['PASS','sparse 처리','"–" 셀 22개 → fact 미생성 (0 아님)'],
+    ],
+  },
+  fila: {
+    title:'휠라홀딩스 · 포괄손익계산서',
+    tab:['FILA 손익계산서','계정축 소계 보존 + YTD 플래그'],
+    src: buildFila,
+    facts: fFacts,
+    cols: [C.period, C.ptype, C.account, C.value, C.unit],
+    spec:
+`<span class="c"># parsing_spec: fila_pl.yaml</span>
+<span class="k">layout</span>: accounts_in_rows
+<span class="k">grain</span>: account × period
+<span class="k">account_column</span>: B
+<span class="k">period_columns</span>: [C, D, E, F]
+<span class="k">period_type</span>:
+  <span class="s">"2020.09"</span>: YTD_9M              <span class="c"># 9개월 누적 — YoY 비교 금지</span>
+  <span class="k">default</span>: FY
+<span class="k">derived_accounts</span>:                <span class="c"># 소계지만 질의 대상 → 보존</span>
+  <span class="k">매출총이익</span>: <span class="s">"[1] - [2]"</span>
+  <span class="k">판매비와관리비</span>: <span class="s">"SUM([5]~[8])"</span>
+  <span class="k">영업이익</span>: <span class="s">"[3] - [4]"</span>
+<span class="k">unit</span>: 억원`,
+    checks:[
+      ['PASS','매출총이익 formula','[1]-[2] 일치 · 4개 기간 전부'],
+      ['PASS','판관비 formula','SUM([5]~[8]) 일치 · 4개 기간 전부'],
+      ['PASS','영업이익 formula','[3]-[4] 일치 · 4개 기간 전부'],
+      ['PASS','기간 타입 플래그','2020.09 → YTD_9M 마킹 완료'],
+    ],
+  },
+  samsung: {
+    title:'삼성전자 · 연결손익계산서 (staggered)',
+    tab:['삼성전자 연결','staggered 열 COALESCE + 상대기간 해석'],
+    src: buildSamsung,
+    facts: sFacts,
+    cols: [C.period, C.account, C.lvl, C.value, C.unit],
+    spec:
+`<span class="c"># parsing_spec: samsung_consol.yaml</span>
+<span class="k">layout</span>: accounts_in_rows_staggered
+<span class="k">period_columns</span>:
+  <span class="s">"제47기(당기)"</span>: {value_cols: [B, C]}
+  <span class="s">"제46기(전기)"</span>: {value_cols: [D, E]}
+<span class="k">coalesce</span>: true                   <span class="c"># 두 열 → 하나의 value</span>
+<span class="k">level_hint</span>: {B: detail, C: subtotal, D: detail, E: subtotal}
+<span class="k">period_resolution</span>:              <span class="c"># 헤더 밖 문맥 — LLM 해석 구간</span>
+  <span class="s">"제47기"</span>: 2015-01-01 ~ 2015-12-31
+  <span class="s">"제46기"</span>: 2014-01-01 ~ 2014-12-31
+<span class="k">value_parsing</span>: {thousands: <span class="s">","</span>, negative_paren: true}
+<span class="k">unit</span>: 백만원`,
+    checks:[
+      ['PASS','COALESCE 무결성','계정당 정확히 1개 열에만 값 존재 · 26/26'],
+      ['PASS','매출총이익 formula','매출액-매출원가 일치 · 당기/전기'],
+      ['PASS','영업이익 formula','매출총이익-판관비 일치 · 당기/전기'],
+      ['PASS','상대기간 → 절대기간','당기→2015FY, 전기→2014FY 변환'],
+    ],
+  },
+};
+
+/* ============================================================
+   RENDER + CROSS-HIGHLIGHT
+============================================================ */
+const $=s=>document.querySelector(s);
+let cur='ledger';
+function renderTabs(){
+  $('#tabs').innerHTML = Object.entries(DATASETS).map(([k,d])=>
+    `<button class="tab ${k===cur?'on':''}" role="tab" data-k="${k}">${d.tab[0]}<small>${d.tab[1]}</small></button>`).join('');
+  document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{cur=b.dataset.k;renderDataset();renderTabs();});
+}
+function renderDataset(){
+  const d=DATASETS[cur];
+  $('#srcTitle').textContent=d.title;
+  $('#srcBox').innerHTML=d.src();
+  $('#factBox').innerHTML=buildFactTable(d.facts,d.cols);
+  $('#factCount').textContent=`${d.facts.length} rows · long format`;
+  $('#specBox').innerHTML=d.spec;
+  $('#checkBox').innerHTML=d.checks.map(c=>
+    `<li><span class="ck">${c[0]}</span><span><b>${c[1]}</b><br><span class="f">${c[2]}</span></span></li>`).join('');
+  wireHighlight();
+}
+function wireHighlight(){
+  const src=$('#srcBox'), fb=$('#factBox');
+  const clear=()=>{document.querySelectorAll('.hl').forEach(e=>e.classList.remove('hl'));};
+  src.querySelectorAll('td.v').forEach(td=>{
+    td.addEventListener('mouseenter',()=>{clear();
+      const id=td.dataset.f; if(!id)return;
+      const row=fb.querySelector(`tr[data-id="${id}"]`);
+      if(row){row.classList.add('hl');row.scrollIntoView({block:'nearest'});}
+    });
+  });
+  fb.querySelectorAll('tr[data-id]').forEach(tr=>{
+    tr.addEventListener('mouseenter',()=>{clear();
+      const cell=src.querySelector(`td.v[data-f="${tr.dataset.id}"]`);
+      if(cell){cell.classList.add('hl');cell.scrollIntoView({block:'nearest'});}
+    });
+  });
+  src.addEventListener('mouseleave',clear); fb.addEventListener('mouseleave',clear);
+}
+
+/* ============================================================
+   SEMANTIC CATALOG
+============================================================ */
+const CATALOG=[
+  {nm:'수입', badge:['b-green','flow'], al:'매출, 매상, revenue, sales',
+   d:{aggregation:'SUM', unit:'KRW', dims:'period, value_type'}},
+  {nm:'영업이익', badge:['b-purple','derived'], al:'OP, operating income, 영업익',
+   d:{aggregation:'SUM (시간축만)', formula:'매출총이익 − 판관비', rule:'계정축 SUM 금지'}},
+  {nm:'영업이익률', badge:['b-amber','ratio'], al:'OPM, 이익률, margin',
+   d:{aggregation:'RECOMPUTE', formula:'영업이익 ÷ 수익', rule:'평균 금지 — 항상 재계산'}},
+  {nm:'매출총이익', badge:['b-purple','derived'], al:'매출이익, GP, gross profit',
+   d:{aggregation:'SUM (시간축만)', formula:'매출액 − 매출원가', validated:'적재 시 formula 체크'}},
+  {nm:'고정자산증감', badge:['b-green','flow'], al:'CAPEX, 고정자산 취득',
+   d:{aggregation:'SUM', unit:'KRW', sparse:'미발생 월 fact 없음'}},
+  {nm:'period_type', badge:['b-amber','dim'], al:'FY, YTD, Q, M',
+   d:{rule:'FY vs YTD 직접 비교 금지', example:'2020.09 = YTD_9M'}},
+];
+$('#catBox').innerHTML=CATALOG.map(c=>`<div class="card">
+  <div class="nm">${c.nm}<span class="badge ${c.badge[0]}">${c.badge[1]}</span></div>
+  <div class="al">aliases: ${c.al}</div>
+  <dl>${Object.entries(c.d).map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
+</div>`).join('');
+
+/* ============================================================
+   QUERY DEMO
+============================================================ */
+const kw=s=>s.replace(/\b(SELECT|FROM|WHERE|GROUP BY|ORDER BY|AND|IN|SUM|CASE WHEN|THEN|END|AS|MAX|ROUND|NULLIF)\b/g,'<span class="kw">$1</span>')
+             .replace(/'([^']*)'/g,`<span class="st">'$1'</span>`);
+
+function barChart(labels, series, {unit='', pct=false, flags={}}={}){
+  const W=520,H=280,P={l:52,r:10,t:16,b:46};
+  const iw=W-P.l-P.r, ih=H-P.t-P.b;
+  const max=Math.max(...series.flatMap(s=>s.data))*1.12;
+  const gw=iw/labels.length, bw=Math.min(26,(gw-10)/series.length);
+  const colors=['#1E7A5A','#EFAF3B','#6C5DA8'];
+  let g='';
+  for(let i=0;i<=4;i++){const y=P.t+ih-(ih*i/4), v=max*i/4;
+    g+=`<line x1="${P.l}" y1="${y}" x2="${W-P.r}" y2="${y}" stroke="#E7ECE5"/>
+        <text x="${P.l-6}" y="${y+4}" text-anchor="end" font-size="9.5" fill="#8A98A2" font-family="ui-monospace,monospace">${pct?(v).toFixed(1)+'%':(v>=1e6?(v/1e6).toFixed(0)+'M':fmt(Math.round(v)))}</text>`;}
+  labels.forEach((lb,li)=>{
+    const cx=P.l+gw*li+gw/2;
+    series.forEach((s,si)=>{
+      const h=ih*s.data[li]/max, x=cx-(bw*series.length)/2+bw*si;
+      const hatch=flags[li]?` opacity="0.55" stroke="${colors[si]}" stroke-dasharray="3 2"`:'';
+      g+=`<rect x="${x}" y="${P.t+ih-h}" width="${bw-3}" height="${h}" fill="${colors[si]}" rx="1"${hatch}><title>${s.name} · ${lb}: ${pct?s.data[li].toFixed(1)+'%':fmt(s.data[li])+unit}</title></rect>`;
+    });
+    g+=`<text x="${cx}" y="${H-P.b+16}" text-anchor="middle" font-size="10" fill="#5C6E7A">${lb}</text>`;
+    if(flags[li]) g+=`<text x="${cx}" y="${H-P.b+30}" text-anchor="middle" font-size="9" fill="#B98A1E" font-family="ui-monospace,monospace">YTD</text>`;
+  });
+  const legend=series.map((s,si)=>`<tspan fill="${colors[si]}">■</tspan> ${s.name}  `).join('');
+  g+=`<text x="${P.l}" y="${H-4}" font-size="10.5" fill="#5C6E7A">${legend}</text>`;
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img">${g}</svg>`;
+}
+
+const QUERIES=[
+  {q:'월별 수입과 비용 추이를 보여줘',
+   sql:`SELECT period, metric, SUM(value) AS amount
+FROM fact_financials
+WHERE dataset = '간편장부'
+  AND value_type = '금액'
+  AND metric IN ('수입', '비용')
+GROUP BY period, metric
+ORDER BY period;`,
+   rules:['metric alias: 매출→수입','소계 미적재 → 이중집계 없음','flow 지표 → SUM 허용'],
+   cap:'2025년 월별 수입·비용 (원)',
+   run(){
+    const months=[...Array(12)].map((_,i)=>`${i+1}월`);
+    const get=(met)=>[...Array(12)].map((_,i)=>{
+      const f=find('ledger',`2025-${String(i+1).padStart(2,'0')}`,null,met,'금액');
+      return f?f.value:0;});
+    return {chart:barChart(months,[{name:'수입',data:get('수입')},{name:'비용',data:get('비용')}]),note:null};
+   }},
+  {q:'FILA의 연도별 영업이익률은?',
+   sql:`SELECT period,
+  ROUND(100.0 *
+    SUM(CASE WHEN account='영업이익' THEN value END) /
+    NULLIF(SUM(CASE WHEN account='수익(매출액)' THEN value END),0)
+  , 1) AS opm_pct
+FROM fact_financials
+WHERE dataset = 'fila'
+GROUP BY period ORDER BY period;`,
+   rules:['ratio → RECOMPUTE (평균 금지)','계정축: SUM 대신 계정 선택','period_type=YTD → 비교 주의 플래그'],
+   cap:'휠라홀딩스 영업이익률 (%)',
+   run(){
+    const labels=fPeriods.map(p=>p.label);
+    const data=fPeriods.map(p=>{
+      const op=find('fila',p.key,'영업이익').value, rev=find('fila',p.key,'수익(매출액)').value;
+      return +(100*op/rev).toFixed(1);});
+    return {chart:barChart(labels,[{name:'영업이익률',data}],{pct:true,flags:{3:true}}),
+      note:'⚠ 2020.09는 9개월 누적(YTD)입니다. 시맨틱 카탈로그의 period_type 규칙에 따라 연간(FY) 수치와의 직접 비교에서 자동으로 플래그 처리되었습니다.'};
+   }},
+  {q:'삼성전자 당기 vs 전기 주요 이익 계정 비교',
+   sql:`SELECT period, account, SUM(value) AS amount
+FROM fact_financials
+WHERE dataset = 'samsung'
+  AND account IN ('매출총이익','영업이익','당기순이익')
+GROUP BY period, account
+ORDER BY period;`,
+   rules:['상대기간 해석: 당기→2015FY','staggered 열은 이미 COALESCE 적재','is_derived 계정도 직접 질의 가능'],
+   cap:'삼성전자(연결) 이익 계정 · 당기/전기 (백만원)',
+   run(){
+    const accs=['매출총이익','영업이익','당기순이익'];
+    const s47=accs.map(a=>find('samsung','2015FY(제47기)',a).value);
+    const s46=accs.map(a=>find('samsung','2014FY(제46기)',a).value);
+    return {chart:barChart(accs,[{name:'제47기(2015)',data:s47},{name:'제46기(2014)',data:s46}]),note:null};
+   }},
+];
+
+let curQ=0;
+$('#qbtns').innerHTML=QUERIES.map((q,i)=>`<button class="qbtn ${i===0?'on':''}" data-i="${i}">"${q.q}"</button>`).join('');
+document.querySelectorAll('.qbtn').forEach(b=>b.onclick=()=>{curQ=+b.dataset.i;
+  document.querySelectorAll('.qbtn').forEach(x=>x.classList.toggle('on',+x.dataset.i===curQ));
+  renderQuery();});
+function renderQuery(){
+  const q=QUERIES[curQ];
+  $('#sqlText').innerHTML=kw(q.sql);
+  $('#ruleChips').innerHTML=q.rules.map(r=>`<span class="rule">✓ ${r}</span>`).join('');
+  $('#chartCap').textContent=q.cap;
+  const {chart,note}=q.run();
+  $('#chart').innerHTML=chart;
+  const nb=$('#chartNote'); if(note){nb.textContent=note;nb.style.display='block';}else nb.style.display='none';
+}
+
+renderTabs(); renderDataset(); renderQuery();
+</script>
+</body>
+</html>
