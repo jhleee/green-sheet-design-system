@@ -39,3 +39,23 @@
 
 - [x] E1. 전 페이지 상호 링크 무결성 (index ↔ foundations/components/layouts/examples)
 - [x] E2. 구 데모(`examples/tabular-pipeline-demo.html`)가 별칭 클래스로 깨지지 않고 동작
+
+---
+
+# v0.3 — 미결사항 해소 (PRD: "미결사항은 알아서 해결", 2026-07-16)
+
+## [DESIGN]
+- [x] R0. 다크 팔레트 대비 실측 설계 (WCAG AA 4.5:1, 19쌍 검증)
+
+## [IMPL]
+- [x] R1. 다크 모드 — opt-in `data-theme="dark"`, 같은 토큰명 재정의, `code-bg` 분리(25 tokens)
+- [x] R2. 접근성 수정 — `code-dim` 3.65→5.03:1, `red` 배지 4.38→5.32:1 (FIX-3·FIX-4)
+- [x] R3. 웹폰트 — 선택적 `fonts.css` (Pretendard dynamic-subset + JetBrains Mono, swap) + 전 프리뷰 적용
+- [x] R4. 모바일 — 앱 셸 사이드바 CSS-only 드로어 (`.app-menu`/`.app-menu-btn`, `:has()`)
+- [x] R5. 문서 동기화 — README·colors.html(다크 섹션)·index(테마 토글)·llms.txt·package.json
+
+## [TEST]
+- [x] R6. 대비 실측 스크립트 통과 + `npm test` 통과
+
+## [E2E]
+- [x] R7. 라이트/다크 전환 토글(index·layouts) 동작, 구 데모는 자체 스타일이라 무영향

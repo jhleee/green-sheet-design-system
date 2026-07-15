@@ -6,12 +6,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dashboard — Green Sheet</title>
 <link rel="stylesheet" href="../dist/green-sheet.css">
+<link rel="stylesheet" href="../fonts.css">
 </head>
 <body>
 
 <div class="app-shell">
 
   <header class="app-top">
+    <input type="checkbox" id="gs-menu" class="app-menu">
+    <label class="btn btn-ghost btn-sm app-menu-btn" for="gs-menu" aria-label="메뉴">☰</label>
     <a class="app-brand" href="../index.html">◳ Green Sheet</a>
     <nav class="crumbs" aria-label="현재 위치">
       <a class="crumb" href="#">workspace</a>
@@ -23,6 +26,7 @@
       <option>2026 1분기</option><option>2025 4분기</option>
     </select>
     <button class="btn btn-sm">보고서 내보내기</button>
+  <button class="btn btn-ghost btn-sm" aria-label="테마 전환" onclick="const h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'':'dark'">◐</button>
   </header>
 
   <div class="app-body">

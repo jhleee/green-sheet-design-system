@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>App shell — Green Sheet</title>
 <link rel="stylesheet" href="../dist/green-sheet.css">
+<link rel="stylesheet" href="../fonts.css">
 </head>
 <body>
 
@@ -13,6 +14,8 @@
 
   <!-- ══ 상단 바 ══════════════════════════════════════════ -->
   <header class="app-top">
+    <input type="checkbox" id="gs-menu" class="app-menu">
+    <label class="btn btn-ghost btn-sm app-menu-btn" for="gs-menu" aria-label="메뉴">☰</label>
     <a class="app-brand" href="../index.html">◳ Green Sheet</a>
     <nav class="crumbs" aria-label="현재 위치">
       <a class="crumb" href="#">workspace</a>
@@ -23,6 +26,7 @@
     <input class="input input-pill max-w-[260px]" type="search" placeholder="검색 또는 자연어 질문…  /" aria-label="검색">
     <button class="btn btn-ghost btn-sm">도움말</button>
     <span class="badge badge-neutral ml-0" title="사용자">JH</span>
+  <button class="btn btn-ghost btn-sm" aria-label="테마 전환" onclick="const h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'':'dark'">◐</button>
   </header>
 
   <div class="app-body">

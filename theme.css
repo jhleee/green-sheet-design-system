@@ -2,8 +2,9 @@
    GREEN SHEET DESIGN SYSTEM
    데이터 그리드 중심 웹 애플리케이션을 위한 Tailwind v4 디자인 시스템
    ------------------------------------------------------------
-   24 color tokens. 종이·잉크 테마 — 그림자 없이 표면색과 1px 선으로
+   25 color tokens. 종이·잉크 테마 — 그림자 없이 표면색과 1px 선으로
    층을 만들고, 의미색 4계열이 데이터의 상태를 말한다.
+   다크 모드는 opt-in: <html data-theme="dark">.
 
    사용:  @import "green-sheet-design-system/theme.css";
    ============================================================ */
@@ -54,7 +55,7 @@
      실패보다 넓다 — 제외·삭제 예정·파괴적 액션. 값이 여전히
      읽혀야 하므로 명도를 크게 떨어뜨리지 않는다. */
 
-  --color-red:         #BE5B4E;  /* 제외 배지 배경 (흰 텍스트) — 유일한 solid red */
+  --color-red:         #B04C3E;  /* 제외 배지 배경 (흰 텍스트, 5.3:1) — 유일한 solid red */
   --color-red-soft:    #F8E9E6;  /* 제외 행 배경 · 파괴적 액션 호버 */
   --color-red-ink:     #A3564C;  /* red-soft 위 텍스트 · 에러 메시지 */
   --color-red-strike:  #D19288;  /* 취소선 — 숫자가 읽히도록 텍스트보다 연하다 */
@@ -66,13 +67,15 @@
   --color-purple:       #6C5DA8;  /* 차트 시리즈 3 겸용 */
   --color-purple-soft:  #ECE9F6;
 
-  /* ══ CODE — 유일한 다크 영역 ════════════════════════════
-     배경은 ink 그 자체다. 다크 표면은 기계가 쓴 것(코드·로그·
-     시스템 토스트)에만 쓴다. 라이트 UI의 의미색이 다크에서도
-     같은 뜻을 유지한다. */
+  /* ══ CODE — 기계의 표면 ═════════════════════════════════
+     라이트에서 배경은 ink와 같은 값이지만 토큰은 분리한다 —
+     다크 모드에서 기계 표면은 앱보다 한 층 더 깊어야 하기 때문.
+     다크 표면은 기계가 쓴 것(코드·로그·시스템 토스트)에만 쓴다.
+     라이트 UI의 의미색이 다크에서도 같은 뜻을 유지한다. */
 
+  --color-code-bg:   #1B2730;  /* 기계 표면 배경 — 라이트에선 ink와 동일값 */
   --color-code-fg:   #D8E2DC;  /* 코드·토스트 본문 */
-  --color-code-dim:  #6B7F8C;  /* 주석 · 라벨 */
+  --color-code-dim:  #8397A5;  /* 주석 · 라벨 (code-bg 위 5.0:1) */
 
   /* ══ TYPE ═══════════════════════════════════════════════
      패밀리는 둘뿐. mono는 취향이 아니라 규칙이다 — 기계가 생성했거나
@@ -171,6 +174,53 @@
   --side-w:      224px;  /* 앱 셸 사이드바 */
   --top-h:       46px;   /* 앱 셸 상단 바 */
 }
+
+/* ============================================================
+   DARK MODE — opt-in
+   <html data-theme="dark">로 켠다. 시스템 자동 전환은 제공하지 않는다 —
+   "다크 = 기계"라는 신호를 페이지가 의도적으로 선택해야 하기 때문이다.
+   다크에서 기계 표면(code-bg)은 앱 배경보다 한 층 더 깊어진다.
+   모든 텍스트 쌍은 WCAG AA(4.5:1) 실측 통과 값이다.
+   ============================================================ */
+[data-theme="dark"]{
+  color-scheme: dark;
+
+  --color-paper:   #10171D;
+  --color-panel:   #162129;
+  --color-sunken:  #0C1218;
+
+  --color-line:       #2C3C47;
+  --color-line-soft:  #24323C;
+
+  --color-ink:        #D8E2DC;
+  --color-ink-soft:   #9DAEB8;
+  --color-ink-muted:  #55707E;
+
+  --color-green:       #3FB48A;
+  --color-green-deep:  #A5DFC6;
+  --color-green-soft:  #17352B;
+  /* green-bright · amber · amber-code · red 는 라이트와 같은 값 */
+
+  --color-amber-soft:  #3B2E13;
+  --color-amber-ink:   #E7BA5E;
+
+  --color-red-soft:    #40211C;
+  --color-red-ink:     #E8A093;
+  --color-red-strike:  #9C5A4F;
+
+  --color-purple:       #A99BDE;
+  --color-purple-soft:  #2B2547;
+
+  --color-code-bg:   #0A1116;  /* 기계 표면 — 앱보다 한 층 깊다 */
+  --color-code-dim:  #8A9EAB;
+}
+
+/* 다크에서 뒤집어야 하는 소수의 예외 — 토큰이 아니라 역할의 문제 */
+[data-theme="dark"] .btn-primary{ color: var(--color-code-bg); }
+[data-theme="dark"] .btn-primary:hover{ background:#35A37C; border-color:#35A37C; }
+[data-theme="dark"] .scrim{ background: color-mix(in srgb, #000 60%, transparent); }
+[data-theme="dark"] .code-surface,
+[data-theme="dark"] .toast{ border:1px solid var(--color-line); }
 
 /* ============================================================
    COMPONENTS
@@ -445,9 +495,9 @@
   .alert-red{     @apply bg-red-soft border-red text-red-ink; }
   .alert-neutral{ @apply bg-sunken border-line text-ink-soft; }
 
-  /* 토스트 — 시스템이 말하는 것이므로 다크 표면 */
+  /* 토스트 — 시스템이 말하는 것이므로 기계 표면 */
   .toast{
-    @apply bg-ink text-code-fg rounded-panel px-3.5 py-2.5 text-ui
+    @apply bg-code-bg text-code-fg rounded-panel px-3.5 py-2.5 text-ui
            inline-flex items-center gap-2.5;
   }
   .toast-ok{   @apply text-green-bright; }
@@ -479,7 +529,7 @@
   /* ════════════════════════════════════════════════════════
      9. CODE SURFACE (다크)
      ════════════════════════════════════════════════════════ */
-  .code-surface{ @apply bg-ink text-code-fg rounded-panel p-4 overflow-auto font-mono text-num; }
+  .code-surface{ @apply bg-code-bg text-code-fg rounded-panel p-4 overflow-auto font-mono text-num; }
   .code-surface-spec{ max-height: var(--spec-max); }  /* 길어지면 스크롤 */
   .code-k{   @apply text-green-bright; }  /* 키워드 */
   .code-c{   @apply text-code-dim; }      /* 주석 */
@@ -503,6 +553,22 @@
   .app-body{ @apply grid grid-cols-[var(--side-w)_1fr] min-h-0; }
   .app-side{ @apply bg-paper border-r border-line overflow-y-auto py-2 px-2 min-h-0; }
   .app-main{ @apply min-w-0 min-h-0 flex flex-col overflow-hidden; }
+
+  /* 모바일(≤fold 900px) — 사이드바는 체크박스 토글 드로어로 접힌다.
+     <input type="checkbox" class="app-menu" id="…"> + <label class="btn … app-menu-btn" for="…">☰</label> */
+  .app-menu{ @apply sr-only; }
+  .app-menu-btn{ display:none; }
+  .app-menu:focus-visible + .app-menu-btn{ @apply outline-2 outline-green outline-offset-2; }
+  @media (max-width: 900px){
+    .app-menu-btn{ display:inline-flex; }
+    .app-body{ grid-template-columns: 1fr; }
+    .app-side{ display:none; }
+    .app-shell:has(.app-menu:checked) .app-side{
+      display:block; position:fixed; z-index:40;
+      top:var(--top-h); bottom:0; left:0; width:var(--side-w);
+      border-right:1px solid var(--color-line);
+    }
+  }
 
   /* 페이지 헤더 — 앱 셸 안에서 뷰의 제목 줄. 문서의 히어로가 아니다 */
   .page-head{ @apply flex flex-wrap items-center gap-2.5 px-4 py-2.5 bg-panel border-b border-line shrink-0; }

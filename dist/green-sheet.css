@@ -30,14 +30,15 @@
     --color-amber-soft: #FBF1DA;
     --color-amber-ink: #8A6414;
     --color-amber-code: #F0C674;
-    --color-red: #BE5B4E;
+    --color-red: #B04C3E;
     --color-red-soft: #F8E9E6;
     --color-red-ink: #A3564C;
     --color-red-strike: #D19288;
     --color-purple: #6C5DA8;
     --color-purple-soft: #ECE9F6;
+    --color-code-bg: #1B2730;
     --color-code-fg: #D8E2DC;
-    --color-code-dim: #6B7F8C;
+    --color-code-dim: #8397A5;
     --text-display: clamp(26px,4.2vw,42px);
     --text-display--line-height: 1.22;
     --text-display--letter-spacing: -0.02em;
@@ -686,6 +687,9 @@
   .bg-amber-soft {
     background-color: var(--color-amber-soft);
   }
+  .bg-code-bg {
+    background-color: var(--color-code-bg);
+  }
   .bg-code-dim {
     background-color: var(--color-code-dim);
   }
@@ -1063,6 +1067,42 @@
   --spec-max: 340px;
   --side-w: 224px;
   --top-h: 46px;
+}
+[data-theme="dark"] {
+  color-scheme: dark;
+  --color-paper: #10171D;
+  --color-panel: #162129;
+  --color-sunken: #0C1218;
+  --color-line: #2C3C47;
+  --color-line-soft: #24323C;
+  --color-ink: #D8E2DC;
+  --color-ink-soft: #9DAEB8;
+  --color-ink-muted: #55707E;
+  --color-green: #3FB48A;
+  --color-green-deep: #A5DFC6;
+  --color-green-soft: #17352B;
+  --color-amber-soft: #3B2E13;
+  --color-amber-ink: #E7BA5E;
+  --color-red-soft: #40211C;
+  --color-red-ink: #E8A093;
+  --color-red-strike: #9C5A4F;
+  --color-purple: #A99BDE;
+  --color-purple-soft: #2B2547;
+  --color-code-bg: #0A1116;
+  --color-code-dim: #8A9EAB;
+}
+[data-theme="dark"] .btn-primary {
+  color: var(--color-code-bg);
+}
+[data-theme="dark"] .btn-primary:hover {
+  background: #35A37C;
+  border-color: #35A37C;
+}
+[data-theme="dark"] .scrim {
+  background: color-mix(in srgb, #000 60%, transparent);
+}
+[data-theme="dark"] .code-surface, [data-theme="dark"] .toast {
+  border: 1px solid var(--color-line);
 }
 @layer components {
   .sheet, .xl {
@@ -1992,7 +2032,7 @@
     align-items: center;
     gap: calc(var(--spacing) * 2.5);
     border-radius: var(--radius-panel);
-    background-color: var(--color-ink);
+    background-color: var(--color-code-bg);
     padding-inline: calc(var(--spacing) * 3.5);
     padding-block: calc(var(--spacing) * 2.5);
     font-size: var(--text-ui);
@@ -2102,7 +2142,7 @@
   .code-surface {
     overflow: auto;
     border-radius: var(--radius-panel);
-    background-color: var(--color-ink);
+    background-color: var(--color-code-bg);
     padding: calc(var(--spacing) * 4);
     font-family: var(--font-mono);
     font-size: var(--text-num);
@@ -2200,6 +2240,47 @@
     min-width: 0;
     flex-direction: column;
     overflow: hidden;
+  }
+  .app-menu {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border-width: 0;
+  }
+  .app-menu-btn {
+    display: none;
+  }
+  .app-menu:focus-visible + .app-menu-btn {
+    outline-style: var(--tw-outline-style);
+    outline-width: 2px;
+    outline-offset: 2px;
+    outline-color: var(--color-green);
+  }
+  @media (max-width: 900px) {
+    .app-menu-btn {
+      display: inline-flex;
+    }
+    .app-body {
+      grid-template-columns: 1fr;
+    }
+    .app-side {
+      display: none;
+    }
+    .app-shell:has(.app-menu:checked) .app-side {
+      display: block;
+      position: fixed;
+      z-index: 40;
+      top: var(--top-h);
+      bottom: 0;
+      left: 0;
+      width: var(--side-w);
+      border-right: 1px solid var(--color-line);
+    }
   }
   .page-head {
     display: flex;

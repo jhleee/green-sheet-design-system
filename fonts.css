@@ -1,0 +1,18 @@
+/* ============================================================
+   GREEN SHEET — 선택적 웹폰트
+   ------------------------------------------------------------
+   theme.css는 폰트를 로드하지 않는다(시스템 폴백으로 동작).
+   실제 서체가 필요하면 이 파일을 추가로 import 한다:
+
+     @import "green-sheet-design-system/fonts.css";
+
+   둘 다 font-display: swap — 로딩 중에도 텍스트가 보이고,
+   실패하면 스택의 시스템 폴백으로 조용히 내려간다.
+   오프라인·사내망 환경은 이 파일을 셀프호스팅 경로로 교체한다.
+   ============================================================ */
+
+/* Pretendard — dynamic subset (한글 서브셋 분할 로딩) */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");
+
+/* JetBrains Mono — 400/500/600/700 */
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap");

@@ -4,8 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Green Sheet Design System</title>
-<meta name="description" content="데이터 그리드 중심 웹 애플리케이션을 위한 Tailwind v4 디자인 시스템 — 24 tokens, 종이·잉크 테마, 컴포넌트 + 레이아웃">
+<meta name="description" content="데이터 그리드 중심 웹 애플리케이션을 위한 Tailwind v4 디자인 시스템 — 25 tokens, 종이·잉크 테마, 다크 모드, 컴포넌트 + 레이아웃">
 <link rel="stylesheet" href="dist/green-sheet.css">
+<link rel="stylesheet" href="fonts.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='%23F4F6F1'/><rect x='2' y='2' width='12' height='12' fill='none' stroke='%231E7A5A' stroke-width='1.5'/><path d='M2 6h12M6 2v12' stroke='%231E7A5A' stroke-width='1'/></svg>">
 </head>
 <body class="bg-paper text-ink font-sans leading-body antialiased">
@@ -21,6 +22,7 @@
     <a class="nav-item !py-1" href="#ai">AI 참조</a>
   </nav>
   <div class="flex-1"></div>
+  <button class="btn btn-ghost btn-sm" aria-label="테마 전환" onclick="const h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'':'dark'">◐</button>
   <a class="btn btn-sm no-underline" href="https://github.com/jhleee/green-sheet-design-system">GitHub</a>
 </header>
 
@@ -32,7 +34,8 @@
     <p class="text-lede text-ink-soft max-w-sub mt-2.5">
       녹빛 종이 위의 잉크. 그림자 없이 표면색과 1px 선으로만 층을 만들고,
       의미색 4계열이 데이터의 상태를 말하며, 다크 표면은 오직 기계가 쓴 것에만 쓴다.
-      Tailwind v4 <code class="font-mono text-num">@theme</code> 토큰 24색 + 컴포넌트 클래스 + 앱 레이아웃.
+      Tailwind v4 <code class="font-mono text-num">@theme</code> 토큰 25색 + 컴포넌트 클래스 + 앱 레이아웃.
+      다크 모드는 opt-in(<code class="font-mono text-num">data-theme="dark"</code>) — 우상단 ◐로 전환해 보라.
     </p>
 
     <div class="flex flex-wrap gap-1 mt-6" aria-hidden="true">
@@ -52,16 +55,17 @@
       <div class="h-7 w-7 rounded-chip border border-line bg-amber-soft" title="amber-soft #FBF1DA"></div>
       <div class="h-7 w-7 rounded-chip border border-line bg-amber-ink" title="amber-ink #8A6414"></div>
       <div class="h-7 w-7 rounded-chip border border-line bg-amber-code" title="amber-code #F0C674"></div>
-      <div class="h-7 w-7 rounded-chip border border-line bg-red" title="red #BE5B4E"></div>
+      <div class="h-7 w-7 rounded-chip border border-line bg-red" title="red #B04C3E"></div>
       <div class="h-7 w-7 rounded-chip border border-line bg-red-soft" title="red-soft #F8E9E6"></div>
       <div class="h-7 w-7 rounded-chip border border-line bg-red-ink" title="red-ink #A3564C"></div>
       <div class="h-7 w-7 rounded-chip border border-line bg-red-strike" title="red-strike #D19288"></div>
       <div class="h-7 w-7 rounded-chip border border-line bg-purple" title="purple #6C5DA8"></div>
       <div class="h-7 w-7 rounded-chip border border-line bg-purple-soft" title="purple-soft #ECE9F6"></div>
+      <div class="h-7 w-7 rounded-chip border border-line bg-code-bg" title="code-bg #1B2730"></div>
       <div class="h-7 w-7 rounded-chip border border-line bg-code-fg" title="code-fg #D8E2DC"></div>
-      <div class="h-7 w-7 rounded-chip border border-line bg-code-dim" title="code-dim #6B7F8C"></div>
+      <div class="h-7 w-7 rounded-chip border border-line bg-code-dim" title="code-dim #8397A5"></div>
     </div>
-    <p class="font-mono text-mono-sm text-ink-soft mt-2">24 tokens — 발명한 색은 없다</p>
+    <p class="font-mono text-mono-sm text-ink-soft mt-2">25 tokens — 값은 라이트 기준, 다크는 같은 이름으로 재정의된다</p>
   </section>
 
   <!-- ══ FOUNDATIONS ════════════════════════════════════════ -->
@@ -78,7 +82,7 @@
       <a href="foundations/colors.html" class="pane no-underline text-ink hover:border-green transition-colors duration-[120ms]">
         <div class="pane-head">
           <b class="text-ui">Colors</b>
-          <span class="font-mono text-meta text-ink-soft">24 tokens</span>
+          <span class="font-mono text-meta text-ink-soft">25 tokens</span>
         </div>
         <div class="px-4 py-3.5">
           <div class="flex gap-1 mb-3">

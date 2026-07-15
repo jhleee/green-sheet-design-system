@@ -1,7 +1,7 @@
 {
   "name": "green-sheet-design-system",
   "version": "0.1.0",
-  "description": "데이터 그리드 중심 웹 애플리케이션을 위한 Tailwind v4 디자인 시스템 — 24 tokens, 종이·잉크 테마, 컴포넌트 + 앱 레이아웃",
+  "description": "데이터 그리드 중심 웹 애플리케이션을 위한 Tailwind v4 디자인 시스템 — 25 tokens, 종이·잉크 테마, 다크 모드, 컴포넌트 + 앱 레이아웃",
   "keywords": [
     "design-system",
     "tailwindcss",
@@ -22,10 +22,12 @@
   "exports": {
     ".": "./theme.css",
     "./theme.css": "./theme.css",
+    "./fonts.css": "./fonts.css",
     "./dist/green-sheet.css": "./dist/green-sheet.css"
   },
   "files": [
     "theme.css",
+    "fonts.css",
     "dist/green-sheet.css",
     "llms.txt",
     "foundations/",

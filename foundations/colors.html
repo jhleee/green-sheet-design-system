@@ -1,5 +1,6 @@
-<!-- @dsCard group="Colors" name="Palette" subtitle="24 토큰 — 표면 3, 선 2, 잉크 3, 의미색 4계열, 다크 코드 2" -->
+<!-- @dsCard group="Colors" name="Palette" subtitle="25 토큰 — 표면 3, 선 2, 잉크 3, 의미색 4계열, 기계 표면 3 · 다크 모드 opt-in" -->
 <link rel="stylesheet" href="../dist/green-sheet.css">
+<link rel="stylesheet" href="../fonts.css">
 
 <div class="bg-paper text-ink font-sans px-6 py-8">
   <div class="max-w-wrap mx-auto">
@@ -7,7 +8,7 @@
     <div class="font-mono text-micro tracking-eyebrow text-green uppercase mb-2">Foundations · Color</div>
     <h1 class="text-title">Colors</h1>
     <p class="text-body text-ink-soft max-w-sub mt-1.5">
-      24개. 표면 3, 선 2, 잉크 3, 의미색 4계열, 다크 코드 2.
+      25개. 표면 3, 선 2, 잉크 3, 의미색 4계열, 기계 표면 3.
       값은 전부 원본 데모에서 왔고 발명한 색은 없다. 의미색은 장식이 아니라 데이터의 상태를
       나타내는 신호이며, <b class="text-ink">각 색은 정확히 하나의 뜻만 가진다</b>.
     </p>
@@ -189,7 +190,7 @@
       <div class="ds-card">
         <div class="h-13 rounded-chip border border-line bg-red"></div>
         <div class="mt-2.5 font-semi text-ui">red</div>
-        <div class="font-mono text-mono-sm text-ink-soft">#BE5B4E</div>
+        <div class="font-mono text-mono-sm text-ink-soft">#B04C3E</div>
         <div class="text-micro text-ink-soft mt-1">제외 배지 배경 (흰 텍스트)</div>
       </div>
       <div class="ds-card">
@@ -240,14 +241,21 @@
     <!-- ══ CODE ══════════════════════════════════════════════ -->
     <div class="flex gap-2 items-baseline mt-8 mb-1.5">
       <b class="text-ui">Code</b>
-      <span class="font-mono text-micro tracking-tag text-green">유일한 다크 영역</span>
+      <span class="font-mono text-micro tracking-tag text-green">기계의 표면</span>
     </div>
     <p class="text-dense text-ink-soft max-w-sub mb-3.5">
-      설정 스펙 · 생성된 쿼리 · 로그. 배경은 별도의 색이 아니라 <b class="text-ink">ink 그 자체</b>다 —
-      종이에 잉크를 얹는 게 아니라 잉크 위에 쓴다. 키워드는 green-bright, 문자열은 amber-code로
+      설정 스펙 · 생성된 쿼리 · 로그. 라이트에서 배경(code-bg)은 <b class="text-ink">ink와 같은 값</b>이지만
+      토큰은 분리돼 있다 — 다크 모드에서 기계 표면은 앱 배경보다 한 층 더 깊어져야 하기 때문.
+      키워드는 green-bright, 문자열은 amber-code로
       <b class="text-ink">라이트 UI의 의미색이 다크에서도 같은 뜻을 유지한다</b>.
     </p>
     <div class="grid grid-cols-[repeat(auto-fill,minmax(190px,1fr))] gap-3.5">
+      <div class="ds-card">
+        <div class="h-13 rounded-chip border border-line bg-code-bg"></div>
+        <div class="mt-2.5 font-semi text-ui">code-bg</div>
+        <div class="font-mono text-mono-sm text-ink-soft">#1B2730</div>
+        <div class="text-micro text-ink-soft mt-1">기계 표면 배경 — 라이트에선 ink와 동일값</div>
+      </div>
       <div class="ds-card">
         <div class="h-13 rounded-chip border border-line bg-code-fg"></div>
         <div class="mt-2.5 font-semi text-ui">code-fg</div>
@@ -257,8 +265,8 @@
       <div class="ds-card">
         <div class="h-13 rounded-chip border border-line bg-code-dim"></div>
         <div class="mt-2.5 font-semi text-ui">code-dim</div>
-        <div class="font-mono text-mono-sm text-ink-soft">#6B7F8C</div>
-        <div class="text-micro text-ink-soft mt-1">주석 · 라벨</div>
+        <div class="font-mono text-mono-sm text-ink-soft">#8397A5</div>
+        <div class="text-micro text-ink-soft mt-1">주석 · 라벨 (code-bg 위 5.0:1)</div>
       </div>
     </div>
     <div class="code-surface leading-code mt-3.5 max-w-sub">
@@ -288,10 +296,36 @@
       </dl>
     </div>
 
+    <!-- ══ 다크 모드 ══════════════════════════════════════════ -->
+    <div class="flex gap-2 items-baseline mt-10 mb-1.5">
+      <b class="text-ui">다크 모드</b>
+      <span class="font-mono text-micro tracking-tag text-green">OPT-IN · data-theme="dark"</span>
+    </div>
+    <p class="text-dense text-ink-soft max-w-sub mb-3.5">
+      새 토큰이 아니라 <b class="text-ink">같은 25개 이름의 재정의</b>다.
+      <code class="font-mono text-micro">&lt;html data-theme="dark"&gt;</code>로만 켜지고 시스템 자동 전환은
+      제공하지 않는다 — "다크 = 기계"라는 신호를 페이지가 의도적으로 선택해야 하기 때문.
+      다크에서 기계 표면(code-bg)은 앱 배경보다 <b class="text-ink">한 층 더 깊어지고</b>,
+      green-bright·amber·amber-code·red는 두 모드에서 같은 값을 유지한다.
+      모든 텍스트 쌍은 WCAG AA(4.5:1) 실측 통과 값이다.
+    </p>
+    <div class="ds-card max-w-sub">
+      <dl class="grid grid-cols-[auto_1fr] gap-x-2.5 gap-y-1 text-num">
+        <dt class="text-ink-soft">paper · panel · sunken</dt><dd class="font-mono text-meta">#10171D · #162129 · #0C1218</dd>
+        <dt class="text-ink-soft">line · line-soft</dt><dd class="font-mono text-meta">#2C3C47 · #24323C</dd>
+        <dt class="text-ink-soft">ink · ink-soft · ink-muted</dt><dd class="font-mono text-meta">#D8E2DC · #9DAEB8 · #55707E</dd>
+        <dt class="text-ink-soft">green · deep · soft</dt><dd class="font-mono text-meta">#3FB48A · #A5DFC6 · #17352B</dd>
+        <dt class="text-ink-soft">amber-soft · amber-ink</dt><dd class="font-mono text-meta">#3B2E13 · #E7BA5E</dd>
+        <dt class="text-ink-soft">red-soft · red-ink · red-strike</dt><dd class="font-mono text-meta">#40211C · #E8A093 · #9C5A4F</dd>
+        <dt class="text-ink-soft">purple · purple-soft</dt><dd class="font-mono text-meta">#A99BDE · #2B2547</dd>
+        <dt class="text-ink-soft">code-bg · code-dim</dt><dd class="font-mono text-meta">#0A1116 · #8A9EAB</dd>
+      </dl>
+    </div>
+
     <!-- ══ 병합 이력 ══════════════════════════════════════════ -->
     <div class="flex gap-2 items-baseline mt-10 mb-1.5">
       <b class="text-ui">병합 이력</b>
-      <span class="font-mono text-micro tracking-tag text-green">36 → 24</span>
+      <span class="font-mono text-micro tracking-tag text-green">36 → 24 → 25</span>
     </div>
     <p class="text-dense text-ink-soft max-w-sub mb-3.5">
       원본 데모에는 토큰 36개(고유값 30)가 있었다. 그중 12개를 제거했다 —
@@ -299,6 +333,9 @@
       두 건(<code class="font-mono text-micro">chart-axis</code>,
       <code class="font-mono text-micro">amber-mark</code>)은 병합이 곧
       <b class="text-ink">접근성 수정</b>이기도 했다 — 원본 값이 WCAG 대비에 미달했다.
+      v0.2에서 <code class="font-mono text-micro">code-bg</code>는 다크 모드를 위해 다시 분리됐고
+      (라이트 값은 ink와 동일), <code class="font-mono text-micro">code-dim</code>(3.65→5.03:1)과
+      <code class="font-mono text-micro">red</code>(흰 텍스트 4.38→5.32:1)는 접근성 수정으로 값이 바뀌었다.
     </p>
     <div class="pane">
       <table class="w-full border-collapse text-dense">
@@ -390,7 +427,7 @@
           <dt class="font-mono text-meta text-ink-muted">line-grid</dt>
           <dd class="font-mono text-meta">→ line-soft <span class="text-ink-muted">#E4E9E1</span></dd>
           <dt class="font-mono text-meta text-ink-muted">code-comment</dt>
-          <dd class="font-mono text-meta">→ code-dim <span class="text-ink-muted">#6B7F8C</span></dd>
+          <dd class="font-mono text-meta">→ code-dim <span class="text-ink-muted">#6B7F8C · v0.2에서 #8397A5로 수정</span></dd>
         </dl>
       </div>
     </div>

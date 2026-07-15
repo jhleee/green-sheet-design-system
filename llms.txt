@@ -8,10 +8,18 @@ Do not copy sample data, product names, or copy text from the docs pages —
 they are illustrations, not part of the system.
 
 Setup: `@import "green-sheet-design-system/theme.css";` (includes `@import "tailwindcss"`).
+Optional webfonts: also `@import "green-sheet-design-system/fonts.css";`
+(Pretendard dynamic-subset + JetBrains Mono, font-display swap; theme works on system
+fallbacks without it).
 All tokens below are Tailwind v4 `@theme` values → usable as utilities
 (`bg-paper`, `text-ink-soft`, `border-line`, `rounded-chip`, `text-dense`, `max-w-wrap`, `fold:`).
 
-## Color tokens (24 — never invent new colors)
+Dark mode is OPT-IN: `<html data-theme="dark">` redefines the same token names
+(no auto `prefers-color-scheme` — pages must choose deliberately). Values listed
+below are light mode; dark values are pre-defined in the theme and all pass WCAG AA.
+Literal hex in SVG does not adapt — use CSS vars/currentColor for dark-ready charts.
+
+## Color tokens (25 — never invent new colors)
 
 Surfaces (elevation = surface color + 1px border; box-shadow for elevation is FORBIDDEN):
 - paper   #F4F6F1  page/app background, sidebar
@@ -37,14 +45,15 @@ Semantic families — each family has EXACTLY ONE meaning. Never use for generic
   accent rows, warning notes) · amber-ink #8A6414 (text on amber-soft) ·
   amber-code #F0C674 (on dark: code strings)
 - RED = excluded · negative · destructive (broader than failure; values must stay readable)
-  red #BE5B4E (excluded badge bg w/ white text — the ONLY solid red allowed) ·
+  red #B04C3E (excluded badge bg w/ white text — the ONLY solid red allowed) ·
   red-soft #F8E9E6 (excluded row bg, danger hover) · red-ink #A3564C (error text) ·
   red-strike #D19288 (strikethrough, lighter than text so digits stay legible)
 - PURPLE = metadata: derived/system-generated (about a value's origin, not the value)
   purple #6C5DA8 (chart series 3) · purple-soft #ECE9F6
 
-Dark surface (machine-authored content ONLY — code, specs, logs, system toasts):
-- background is `ink` itself · code-fg #D8E2DC body · code-dim #6B7F8C comments/labels
+Machine surface (machine-authored content ONLY — code, specs, logs, system toasts):
+- code-bg #1B2730 background (same value as ink in light mode; one level DEEPER than
+  the app background in dark mode) · code-fg #D8E2DC body · code-dim #8397A5 comments/labels
 - semantic colors keep meaning on dark via green-bright (keywords) and amber-code (strings)
 
 Charts have NO dedicated tokens: series order green → amber → purple,
@@ -140,6 +149,9 @@ App layout: `.app-shell` (h-screen grid rows [top|body]) → `.app-top` (+ `.app
 `.app-body` (grid cols [sidebar|main]) → `.app-side` + `.app-main`.
 Per view: `.page-head` (+ `.page-title`) → optional `.toolbar` → content →
 `.pane-foot` pager → `.statusbar`. Split view: `.split` + `.split-side` / `.split-main`.
+Mobile (≤900px): sidebar collapses; CSS-only drawer via
+`<input type="checkbox" id="m" class="app-menu">` + `<label class="btn btn-ghost btn-sm
+app-menu-btn" for="m">☰</label>` placed inside `.app-top` (uses `:has()`, no JS).
 
 ## Hard rules
 
