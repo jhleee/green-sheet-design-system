@@ -4,62 +4,68 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Green Sheet Design System</title>
-<meta name="description" content="장표 정규화 파이프라인 UI를 위한 Tailwind v4 디자인 시스템 — 24 tokens, 종이·잉크 테마, 데이터 밀집 표 중심">
+<meta name="description" content="데이터 그리드 중심 웹 애플리케이션을 위한 Tailwind v4 디자인 시스템 — 24 tokens, 종이·잉크 테마, 컴포넌트 + 레이아웃">
 <link rel="stylesheet" href="dist/green-sheet.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='%23F4F6F1'/><rect x='2' y='2' width='12' height='12' fill='none' stroke='%231E7A5A' stroke-width='1.5'/><path d='M2 6h12M6 2v12' stroke='%231E7A5A' stroke-width='1'/></svg>">
 </head>
 <body class="bg-paper text-ink font-sans leading-body antialiased">
 
+<!-- ══ 상단 바 — 이 문서 자체가 앱 셸 문법을 쓴다 ══════════ -->
+<header class="app-top sticky top-0 z-30">
+  <span class="app-brand">◳ Green Sheet</span>
+  <nav class="flex gap-1 overflow-x-auto">
+    <a class="nav-item !py-1" href="#foundations">Foundations</a>
+    <a class="nav-item !py-1" href="#components">Components</a>
+    <a class="nav-item !py-1" href="#layouts">Layouts</a>
+    <a class="nav-item !py-1" href="#principles">원칙</a>
+    <a class="nav-item !py-1" href="#ai">AI 참조</a>
+  </nav>
+  <div class="flex-1"></div>
+  <a class="btn btn-sm no-underline" href="https://github.com/jhleee/green-sheet-design-system">GitHub</a>
+</header>
+
 <div class="max-w-wrap mx-auto px-5">
 
-  <!-- ══ HERO ═══════════════════════════════════════════════ -->
-  <header class="pt-14 pb-10 border-b border-line">
-    <div class="font-mono text-num tracking-eyebrow text-green uppercase mb-3.5">
-      Ledger → Long Format → Semantic SQL
-    </div>
-    <h1 class="text-display max-w-lede">
-      장표는 무한히 다양해도,<br><span class="u-mark">디자인 시스템은 하나</span>로 수렴한다
-    </h1>
-    <p class="text-lede text-ink-soft max-w-lede mt-3.5">
-      장표 정규화 파이프라인 UI를 위한 Tailwind v4 디자인 시스템.
-      녹빛 종이 위의 잉크 — 그림자 없이 표면색과 1px 선으로만 층을 만들고,
-      의미색 4계열이 파이프라인의 상태를 말하며, 다크 표면은 오직 기계가 쓴 것에만 쓴다.
+  <!-- ══ 인트로 — 히어로가 아니라 라이브러리 소개 ══════════ -->
+  <section class="pt-9 pb-8 border-b border-line">
+    <h1 class="text-title">데이터 그리드 중심 웹 애플리케이션을 위한 디자인 시스템</h1>
+    <p class="text-lede text-ink-soft max-w-sub mt-2.5">
+      녹빛 종이 위의 잉크. 그림자 없이 표면색과 1px 선으로만 층을 만들고,
+      의미색 4계열이 데이터의 상태를 말하며, 다크 표면은 오직 기계가 쓴 것에만 쓴다.
+      Tailwind v4 <code class="font-mono text-num">@theme</code> 토큰 24색 + 컴포넌트 클래스 + 앱 레이아웃.
     </p>
 
-    <!-- 팔레트 스트립 — 24색 전부 -->
-    <div class="flex flex-wrap gap-1 mt-8" aria-hidden="true">
-      <div class="h-8 w-8 rounded-chip border border-line bg-paper" title="paper #F4F6F1"></div>
-      <div class="h-8 w-8 rounded-chip border border-line bg-panel" title="panel #FFFFFF"></div>
-      <div class="h-8 w-8 rounded-chip border border-line bg-sunken" title="sunken #EDF1EA"></div>
-      <div class="h-8 w-8 rounded-chip border border-line bg-line" title="line #DCE3DA"></div>
-      <div class="h-8 w-8 rounded-chip border border-line bg-line-soft" title="line-soft #E4E9E1"></div>
-      <div class="h-8 w-8 rounded-chip border border-line bg-ink" title="ink #1B2730"></div>
-      <div class="h-8 w-8 rounded-chip border border-line bg-ink-soft" title="ink-soft #5C6E7A"></div>
-      <div class="h-8 w-8 rounded-chip border border-line bg-ink-muted" title="ink-muted #B9C2BB"></div>
-      <div class="h-8 w-8 rounded-chip border border-line bg-green" title="green #1E7A5A"></div>
-      <div class="h-8 w-8 rounded-chip border border-line bg-green-deep" title="green-deep #135C43"></div>
-      <div class="h-8 w-8 rounded-chip border border-line bg-green-soft" title="green-soft #E2F0E9"></div>
-      <div class="h-8 w-8 rounded-chip border border-line bg-green-bright" title="green-bright #7FD1A7"></div>
-      <div class="h-8 w-8 rounded-chip border border-line bg-amber" title="amber #EFAF3B"></div>
-      <div class="h-8 w-8 rounded-chip border border-line bg-amber-soft" title="amber-soft #FBF1DA"></div>
-      <div class="h-8 w-8 rounded-chip border border-line bg-amber-ink" title="amber-ink #8A6414"></div>
-      <div class="h-8 w-8 rounded-chip border border-line bg-amber-code" title="amber-code #F0C674"></div>
-      <div class="h-8 w-8 rounded-chip border border-line bg-red" title="red #BE5B4E"></div>
-      <div class="h-8 w-8 rounded-chip border border-line bg-red-soft" title="red-soft #F8E9E6"></div>
-      <div class="h-8 w-8 rounded-chip border border-line bg-red-ink" title="red-ink #A3564C"></div>
-      <div class="h-8 w-8 rounded-chip border border-line bg-red-strike" title="red-strike #D19288"></div>
-      <div class="h-8 w-8 rounded-chip border border-line bg-purple" title="purple #6C5DA8"></div>
-      <div class="h-8 w-8 rounded-chip border border-line bg-purple-soft" title="purple-soft #ECE9F6"></div>
-      <div class="h-8 w-8 rounded-chip border border-line bg-code-fg" title="code-fg #D8E2DC"></div>
-      <div class="h-8 w-8 rounded-chip border border-line bg-code-dim" title="code-dim #6B7F8C"></div>
+    <div class="flex flex-wrap gap-1 mt-6" aria-hidden="true">
+      <div class="h-7 w-7 rounded-chip border border-line bg-paper" title="paper #F4F6F1"></div>
+      <div class="h-7 w-7 rounded-chip border border-line bg-panel" title="panel #FFFFFF"></div>
+      <div class="h-7 w-7 rounded-chip border border-line bg-sunken" title="sunken #EDF1EA"></div>
+      <div class="h-7 w-7 rounded-chip border border-line bg-line" title="line #DCE3DA"></div>
+      <div class="h-7 w-7 rounded-chip border border-line bg-line-soft" title="line-soft #E4E9E1"></div>
+      <div class="h-7 w-7 rounded-chip border border-line bg-ink" title="ink #1B2730"></div>
+      <div class="h-7 w-7 rounded-chip border border-line bg-ink-soft" title="ink-soft #5C6E7A"></div>
+      <div class="h-7 w-7 rounded-chip border border-line bg-ink-muted" title="ink-muted #B9C2BB"></div>
+      <div class="h-7 w-7 rounded-chip border border-line bg-green" title="green #1E7A5A"></div>
+      <div class="h-7 w-7 rounded-chip border border-line bg-green-deep" title="green-deep #135C43"></div>
+      <div class="h-7 w-7 rounded-chip border border-line bg-green-soft" title="green-soft #E2F0E9"></div>
+      <div class="h-7 w-7 rounded-chip border border-line bg-green-bright" title="green-bright #7FD1A7"></div>
+      <div class="h-7 w-7 rounded-chip border border-line bg-amber" title="amber #EFAF3B"></div>
+      <div class="h-7 w-7 rounded-chip border border-line bg-amber-soft" title="amber-soft #FBF1DA"></div>
+      <div class="h-7 w-7 rounded-chip border border-line bg-amber-ink" title="amber-ink #8A6414"></div>
+      <div class="h-7 w-7 rounded-chip border border-line bg-amber-code" title="amber-code #F0C674"></div>
+      <div class="h-7 w-7 rounded-chip border border-line bg-red" title="red #BE5B4E"></div>
+      <div class="h-7 w-7 rounded-chip border border-line bg-red-soft" title="red-soft #F8E9E6"></div>
+      <div class="h-7 w-7 rounded-chip border border-line bg-red-ink" title="red-ink #A3564C"></div>
+      <div class="h-7 w-7 rounded-chip border border-line bg-red-strike" title="red-strike #D19288"></div>
+      <div class="h-7 w-7 rounded-chip border border-line bg-purple" title="purple #6C5DA8"></div>
+      <div class="h-7 w-7 rounded-chip border border-line bg-purple-soft" title="purple-soft #ECE9F6"></div>
+      <div class="h-7 w-7 rounded-chip border border-line bg-code-fg" title="code-fg #D8E2DC"></div>
+      <div class="h-7 w-7 rounded-chip border border-line bg-code-dim" title="code-dim #6B7F8C"></div>
     </div>
-    <p class="font-mono text-mono-sm text-ink-soft mt-2.5">
-      24 tokens · 원본 데모의 36개(고유값 30)에서 중복을 병합했다. 발명한 색은 없다.
-    </p>
-  </header>
+    <p class="font-mono text-mono-sm text-ink-soft mt-2">24 tokens — 발명한 색은 없다</p>
+  </section>
 
   <!-- ══ FOUNDATIONS ════════════════════════════════════════ -->
-  <section class="py-11 border-b border-line">
+  <section id="foundations" class="py-9 border-b border-line">
     <div class="flex gap-2.5 items-baseline">
       <h2 class="text-title">Foundations</h2>
       <span class="font-mono text-micro tracking-tag text-green">TOKENS</span>
@@ -68,8 +74,7 @@
       색·타입·간격의 정의와 그 근거. 각 페이지는 이 시스템 자신으로 그려져 있다.
     </p>
 
-    <div class="grid grid-cols-1 fold:grid-cols-3 gap-4.5 mt-5.5">
-
+    <div class="grid grid-cols-1 fold:grid-cols-3 gap-4.5 mt-5">
       <a href="foundations/colors.html" class="pane no-underline text-ink hover:border-green transition-colors duration-[120ms]">
         <div class="pane-head">
           <b class="text-ui">Colors</b>
@@ -83,8 +88,7 @@
             <div class="h-6 flex-1 rounded-chip bg-purple"></div>
           </div>
           <p class="text-dense text-ink-soft">
-            의미색 4계열과 그 규칙 — 각 색은 정확히 하나의 뜻만 가진다.
-            36 → 24 병합 이력 포함.
+            의미색 4계열 — 각 색은 정확히 하나의 뜻만 가진다. 병합 이력 포함.
           </p>
         </div>
       </a>
@@ -100,8 +104,7 @@
             <div class="font-mono text-num text-ink-soft mt-1">328,181,818</div>
           </div>
           <p class="text-dense text-ink-soft">
-            Pretendard + JetBrains Mono. mono는 취향이 아니라 규칙 —
-            기계가 만든 값에만 붙는다.
+            Pretendard + JetBrains Mono. mono는 취향이 아니라 규칙 — 기계가 만든 값에만 붙는다.
           </p>
         </div>
       </a>
@@ -119,17 +122,15 @@
             <div class="h-6 w-11 bg-green-soft border border-green rounded-pill"></div>
           </div>
           <p class="text-dense text-ink-soft">
-            그림자 없음. 곡률이 성격을 말한다 —
-            데이터에서 멀어질수록 둥글어진다.
+            그림자 없음. 곡률이 성격을 말한다 — 데이터에서 멀어질수록 둥글어진다.
           </p>
         </div>
       </a>
-
     </div>
   </section>
 
   <!-- ══ COMPONENTS ═════════════════════════════════════════ -->
-  <section class="py-11 border-b border-line">
+  <section id="components" class="py-9 border-b border-line">
     <div class="flex gap-2.5 items-baseline">
       <h2 class="text-title">Components</h2>
       <span class="font-mono text-micro tracking-tag text-green">@layer components</span>
@@ -138,48 +139,76 @@
       역할(role)은 컴포넌트 클래스에, 값(value)은 토큰에 둔다.
     </p>
 
-    <div class="grid grid-cols-1 fold:grid-cols-3 gap-4.5 mt-5.5">
+    <div class="grid grid-cols-1 fold:grid-cols-3 gap-4.5 mt-5">
 
       <a href="components/data-tables.html" class="pane no-underline text-ink hover:border-green transition-colors duration-[120ms]">
         <div class="pane-head">
           <b class="text-ui">Data tables</b>
-          <span class="font-mono text-meta text-ink-soft">.xl · .ft</span>
+          <span class="font-mono text-meta text-ink-soft">.sheet · .tbl</span>
         </div>
         <div class="px-4 py-3.5">
-          <table class="xl mb-3">
+          <table class="tbl mb-3">
             <tbody>
-              <tr>
-                <td class="rn">5</td><td class="lbl text-right">1월</td>
-                <td class="num v hl">9,090,909</td>
-              </tr>
-              <tr class="excl">
-                <td class="rn"></td><td class="lbl">1분기 합계</td>
-                <td class="num">82,727,273</td>
-              </tr>
+              <tr class="sel"><td>SKU-0977</td><td class="num">14,210</td></tr>
+              <tr class="hl"><td>SKU-1042</td><td class="num">15,660</td></tr>
+              <tr class="row-excl"><td>SKU-1201</td><td class="num">42,350</td></tr>
             </tbody>
           </table>
           <p class="text-dense text-ink-soft">
-            시트 복제와 fact 테이블이 amber로 양방향 연결된다.
-            sparse ≠ zero.
+            시트형·표준형, 정렬·선택·행 상태·밀도 3단·툴바+페이저 조합.
           </p>
         </div>
       </a>
 
-      <a href="components/controls-and-badges.html" class="pane no-underline text-ink hover:border-green transition-colors duration-[120ms]">
+      <a href="components/buttons-and-forms.html" class="pane no-underline text-ink hover:border-green transition-colors duration-[120ms]">
         <div class="pane-head">
-          <b class="text-ui">Controls &amp; badges</b>
-          <span class="font-mono text-meta text-ink-soft">4 badges</span>
+          <b class="text-ui">Buttons &amp; forms</b>
+          <span class="font-mono text-meta text-ink-soft">.btn · .input</span>
+        </div>
+        <div class="px-4 py-3.5">
+          <div class="flex flex-wrap gap-1.5 mb-3">
+            <span class="btn btn-sm">기본</span>
+            <span class="btn btn-primary btn-sm">저장</span>
+            <span class="btn btn-danger btn-sm">삭제</span>
+          </div>
+          <p class="text-dense text-ink-soft">
+            버튼 4변형, 입력·셀렉트·필드, 체크박스·스위치, kbd.
+          </p>
+        </div>
+      </a>
+
+      <a href="components/navigation.html" class="pane no-underline text-ink hover:border-green transition-colors duration-[120ms]">
+        <div class="pane-head">
+          <b class="text-ui">Navigation</b>
+          <span class="font-mono text-meta text-ink-soft">.nav · .tab · .pager</span>
+        </div>
+        <div class="px-4 py-3.5">
+          <div class="flex gap-1 mb-3">
+            <span class="pager-btn">‹</span>
+            <span class="pager-btn pager-btn-on">1</span>
+            <span class="pager-btn">2</span>
+            <span class="pager-btn">›</span>
+          </div>
+          <p class="text-dense text-ink-soft">
+            탭·브레드크럼·사이드 내비·드롭다운 메뉴·페이저·프로세스 스텝.
+          </p>
+        </div>
+      </a>
+
+      <a href="components/feedback.html" class="pane no-underline text-ink hover:border-green transition-colors duration-[120ms]">
+        <div class="pane-head">
+          <b class="text-ui">Feedback</b>
+          <span class="font-mono text-meta text-ink-soft">.alert · .toast</span>
         </div>
         <div class="px-4 py-3.5">
           <div class="flex flex-wrap gap-1.5 items-center mb-3">
-            <span class="badge badge-red ml-0">적재 제외</span>
-            <span class="badge badge-purple">is_derived</span>
-            <span class="badge badge-green">auto</span>
-            <span class="badge badge-amber">YTD 9M</span>
+            <span class="badge badge-green ml-0">통과</span>
+            <span class="badge badge-amber ml-0">주의</span>
+            <span class="badge badge-red ml-0">제외</span>
+            <span class="badge badge-purple ml-0">파생</span>
           </div>
           <p class="text-dense text-ink-soft">
-            탭 · 알약 질의 버튼 · 파이프라인 스텝 · 배지 4종.
-            각 배지는 하나의 뜻만.
+            배지 5종·얼럿·토스트·모달·빈 상태·스켈레톤·스탯 카드.
           </p>
         </div>
       </a>
@@ -192,12 +221,11 @@
         <div class="px-4 py-3.5">
           <div class="code-surface p-2.5 mb-3">
             <span class="code-k">SELECT</span> period,
-            <span class="code-k">SUM</span>(value)<br>
-            <span class="code-c"># 시맨틱 규칙 적용됨</span>
+            <span class="code-k">SUM</span>(qty)<br>
+            <span class="code-c"># 기계가 쓴 것만 다크</span>
           </div>
           <p class="text-dense text-ink-soft">
-            다크 표면은 기계가 쓴 것에만.
-            배경은 ink 그 자체다.
+            다크 코드 표면·규칙 칩·메타데이터 카드·차트 규칙.
           </p>
         </div>
       </a>
@@ -205,44 +233,124 @@
     </div>
   </section>
 
-  <!-- ══ 원본 ═══════════════════════════════════════════════ -->
-  <section class="py-11 border-b border-line">
+  <!-- ══ LAYOUTS ════════════════════════════════════════════ -->
+  <section id="layouts" class="py-9 border-b border-line">
     <div class="flex gap-2.5 items-baseline">
-      <h2 class="text-title">원본</h2>
-      <span class="font-mono text-micro tracking-tag text-green">SOURCE OF TRUTH</span>
+      <h2 class="text-title">Layouts</h2>
+      <span class="font-mono text-micro tracking-tag text-green">APP SHELL</span>
     </div>
     <p class="text-body text-ink-soft max-w-sub mt-1.5">
-      이 시스템의 모든 값은 아래 데모 한 파일에서 추출했다.
-      데모는 서로 다른 세 장표(간편장부·손익계산서·연결재무제표)가 파싱 스펙을 거쳐
-      동일한 fact 테이블로 정규화되고 시맨틱 카탈로그를 통해 LLM 쿼리로 이어지는 과정을 실제 데이터로 시연한다.
+      문서가 아니라 도구의 골격. 세 레이아웃 전부 실제 크기의 풀페이지 데모로 열린다.
     </p>
-    <a href="examples/tabular-pipeline-demo.html"
-       class="qbtn qbtn-on inline-block no-underline mt-4">
-      인터랙티브 데모 열기 →
-    </a>
+
+    <div class="grid grid-cols-1 fold:grid-cols-3 gap-4.5 mt-5">
+
+      <a href="layouts/app-shell.html" class="pane no-underline text-ink hover:border-green transition-colors duration-[120ms]">
+        <div class="pane-head">
+          <b class="text-ui">App shell</b>
+          <span class="font-mono text-meta text-ink-soft">.app-shell</span>
+        </div>
+        <div class="px-4 py-3.5">
+          <div class="border border-line rounded-panel overflow-hidden mb-3" aria-hidden="true">
+            <div class="h-4 bg-panel border-b border-line"></div>
+            <div class="grid grid-cols-[26%_1fr]">
+              <div class="h-20 bg-paper border-r border-line"></div>
+              <div class="bg-panel p-1.5 flex flex-col gap-1">
+                <div class="h-2 bg-sunken rounded-chip"></div>
+                <div class="h-2 bg-line-soft rounded-chip"></div>
+                <div class="h-2 bg-line-soft rounded-chip"></div>
+                <div class="h-2 bg-line-soft rounded-chip"></div>
+              </div>
+            </div>
+          </div>
+          <p class="text-dense text-ink-soft">
+            상단 바 + 사이드 내비 + 그리드 뷰(툴바·표·페이저·상태바).
+          </p>
+        </div>
+      </a>
+
+      <a href="layouts/master-detail.html" class="pane no-underline text-ink hover:border-green transition-colors duration-[120ms]">
+        <div class="pane-head">
+          <b class="text-ui">Master-detail</b>
+          <span class="font-mono text-meta text-ink-soft">.split</span>
+        </div>
+        <div class="px-4 py-3.5">
+          <div class="border border-line rounded-panel overflow-hidden mb-3" aria-hidden="true">
+            <div class="h-4 bg-panel border-b border-line"></div>
+            <div class="grid grid-cols-[38%_1fr]">
+              <div class="h-20 bg-panel border-r border-line p-1.5 flex flex-col gap-1">
+                <div class="h-2 bg-green-soft rounded-chip"></div>
+                <div class="h-2 bg-line-soft rounded-chip"></div>
+                <div class="h-2 bg-line-soft rounded-chip"></div>
+              </div>
+              <div class="bg-paper p-1.5 flex flex-col gap-1">
+                <div class="h-3 bg-panel border border-line rounded-chip"></div>
+                <div class="h-10 bg-panel border border-line rounded-chip"></div>
+              </div>
+            </div>
+          </div>
+          <p class="text-dense text-ink-soft">
+            좌측 목록에서 고르고 우측에서 파고드는 2분할.
+          </p>
+        </div>
+      </a>
+
+      <a href="layouts/dashboard.html" class="pane no-underline text-ink hover:border-green transition-colors duration-[120ms]">
+        <div class="pane-head">
+          <b class="text-ui">Dashboard</b>
+          <span class="font-mono text-meta text-ink-soft">.stat + pane</span>
+        </div>
+        <div class="px-4 py-3.5">
+          <div class="border border-line rounded-panel overflow-hidden mb-3 bg-paper p-1.5" aria-hidden="true">
+            <div class="grid grid-cols-4 gap-1 mb-1">
+              <div class="h-5 bg-panel border border-line rounded-chip"></div>
+              <div class="h-5 bg-panel border border-line rounded-chip"></div>
+              <div class="h-5 bg-panel border border-line rounded-chip"></div>
+              <div class="h-5 bg-panel border border-line rounded-chip"></div>
+            </div>
+            <div class="grid grid-cols-[1.4fr_1fr] gap-1">
+              <div class="h-12 bg-panel border border-line rounded-chip flex items-end gap-0.5 p-1">
+                <div class="flex-1 h-1/3 bg-green rounded-bar"></div>
+                <div class="flex-1 h-2/3 bg-green rounded-bar"></div>
+                <div class="flex-1 h-full bg-green rounded-bar"></div>
+              </div>
+              <div class="h-12 bg-panel border border-line rounded-chip"></div>
+            </div>
+          </div>
+          <p class="text-dense text-ink-soft">
+            스탯 행 + 차트 + 테이블 패널 — 요약에서 상세로.
+          </p>
+        </div>
+      </a>
+
+    </div>
+
+    <p class="text-dense text-ink-soft mt-5 max-w-sub">
+      이 시스템의 모든 값이 추출된 원본 예제:
+      <a href="examples/tabular-pipeline-demo.html" class="text-green font-semi no-underline hover:underline">인터랙티브 데모 →</a>
+    </p>
   </section>
 
   <!-- ══ 원칙 ═══════════════════════════════════════════════ -->
-  <section class="py-11">
+  <section id="principles" class="py-9 border-b border-line">
     <div class="flex gap-2.5 items-baseline">
       <h2 class="text-title">설계 원칙</h2>
-      <span class="font-mono text-micro tracking-tag text-green">6 RULES</span>
+      <span class="font-mono text-micro tracking-tag text-green">7 RULES</span>
     </div>
 
-    <div class="grid grid-cols-1 fold:grid-cols-2 gap-4.5 mt-5.5">
+    <div class="grid grid-cols-1 fold:grid-cols-2 gap-4.5 mt-5">
       <div class="ds-card">
         <b class="text-ui">의미색은 겹치지 않는다</b>
         <p class="text-dense text-ink-soft mt-1.5">
-          green이면 승인·정상이라는 뜻이지 "그냥 강조"가 아니다.
+          green = 선택·통과·주 액션, amber = 연결·주의, red = 제외·부정, purple = 파생·메타.
           새 상태가 필요하면 색을 재활용하지 말고 팔레트 추가를 먼저 논의한다.
         </p>
       </div>
       <div class="ds-card">
         <b class="text-ui">그림자를 쓰지 않는다</b>
         <p class="text-dense text-ink-soft mt-1.5">
-          높이는 표면색 + 1px 보더로만 만든다.
-          <code class="font-mono text-micro">box-shadow</code>는 하이라이트 링 · 행 마커 ·
-          <code class="font-mono text-micro">.u-mark</code> 밑줄 세 곳에만 허용.
+          높이는 표면색 + 1px 보더로만. <code class="font-mono text-micro">box-shadow</code>는
+          전부 inset 마커(셀 링·행 마커·내비 마커·밑줄)이며 높이를 만들지 않는다.
         </p>
       </div>
       <div class="ds-card">
@@ -255,14 +363,14 @@
       <div class="ds-card">
         <b class="text-ui">표는 빽빽하다</b>
         <p class="text-dense text-ink-soft mt-1.5">
-          셀 패딩 5–5.5px는 의도된 값. 원본 시트와 fact 테이블을 눈으로 대조하기 위한
-          밀도이므로 넉넉하게 바꾸면 목적이 깨진다.
+          기본 셀 패딩 5–5.5px는 화면당 행 수를 최대화하는 의도된 값.
+          밀도는 <code class="font-mono text-micro">.tbl-compact/.tbl-roomy</code>로만 조절한다.
         </p>
       </div>
       <div class="ds-card">
         <b class="text-ui">곡률이 성격을 말한다</b>
         <p class="text-dense text-ink-soft mt-1.5">
-          시트 격자 0 → 표면 3px → 질의 버튼 20px.
+          시트 격자 0 → 컨트롤 2px → 표면 3px → 검색·자연어 입력 20px.
           데이터에서 멀어질수록 둥글어진다.
         </p>
       </div>
@@ -270,31 +378,50 @@
         <b class="text-ui">sparse ≠ zero</b>
         <p class="text-dense text-ink-soft mt-1.5">
           빈 값은 <code class="font-mono text-micro">0</code>이 아니라
-          <span class="text-ink-muted">–</span>. fact를 생성하지 않는다.
-          이 구분이 시스템의 핵심 계약이다.
+          <span class="text-ink-muted">–</span>. 값 없음과 0을 시각적으로 구분하는 것이
+          이 시스템의 핵심 계약이다.
+        </p>
+      </div>
+      <div class="ds-card fold:col-span-2">
+        <b class="text-ui">다크는 기계의 것</b>
+        <p class="text-dense text-ink-soft mt-1.5">
+          다크 표면(ink 배경)은 코드·스펙·로그·시스템 토스트 등 기계가 쓴 것에만 쓴다.
+          강조를 위해 일반 UI를 다크로 만들면 이 신호가 희석된다.
         </p>
       </div>
     </div>
+  </section>
 
-    <div class="ds-note mt-5.5 max-w-sub">
+  <!-- ══ AI 참조 · 설치 ═════════════════════════════════════ -->
+  <section id="ai" class="py-9">
+    <div class="flex gap-2.5 items-baseline">
+      <h2 class="text-title">AI 참조 · 설치</h2>
+      <span class="font-mono text-micro tracking-tag text-green">llms.txt</span>
+    </div>
+    <p class="text-body text-ink-soft max-w-sub mt-1.5">
+      외부 AI(코드 생성 도구·에이전트)가 이 시스템으로 UI를 만들 때는
+      <a href="llms.txt" class="text-green font-semi no-underline hover:underline">llms.txt</a> 하나만 컨텍스트에 넣으면 된다 —
+      토큰·클래스 API·규칙만 담은 도메인 중립 스펙이라, 특정 업무 화면의 문구나 데이터에
+      과적합되지 않는다. 문서 페이지들은 사람을 위한 해설이다.
+    </p>
+
+    <div class="ds-note mt-5 max-w-sub">
       <b>설치</b> — <code class="font-mono">npm i -D tailwindcss @tailwindcss/cli</code> 후
       앱 진입 CSS에서 <code class="font-mono">@import "green-sheet-design-system/theme.css";</code>
       하나만 import 하면 된다.
     </div>
   </section>
 
-  <footer class="pb-14 pt-2 text-dense text-ink-soft border-t border-line">
-    <div class="pt-6 flex flex-wrap gap-x-4 gap-y-1.5 items-baseline">
+  <footer class="pb-12 pt-2 text-dense text-ink-soft border-t border-line">
+    <div class="pt-5 flex flex-wrap gap-x-4 gap-y-1.5 items-baseline">
       <a href="https://github.com/jhleee/green-sheet-design-system"
          class="text-green no-underline hover:underline font-semi">GitHub</a>
       <a href="https://github.com/jhleee/green-sheet-design-system/blob/main/theme.css"
          class="text-green no-underline hover:underline font-mono text-micro">theme.css</a>
+      <a href="llms.txt" class="text-green no-underline hover:underline font-mono text-micro">llms.txt</a>
       <span class="font-mono text-micro">MIT</span>
       <span class="font-mono text-micro">Tailwind v4</span>
     </div>
-    <p class="mt-2.5 text-micro">
-      데모 데이터: 간편장부 샘플 · 휠라홀딩스 손익계산서(억원) · 삼성전자 연결손익계산서 제46·47기(백만원).
-    </p>
   </footer>
 
 </div>

@@ -1,0 +1,157 @@
+# Green Sheet Design System — AI Reference (domain-neutral spec)
+
+Tailwind v4 design system for data-grid-centric web applications.
+Paper-and-ink theme: no shadows, layering by surface color + 1px lines,
+4 semantic color families, dark surfaces reserved for machine-authored content.
+Use this file as the ONLY context when generating UI with this system.
+Do not copy sample data, product names, or copy text from the docs pages —
+they are illustrations, not part of the system.
+
+Setup: `@import "green-sheet-design-system/theme.css";` (includes `@import "tailwindcss"`).
+All tokens below are Tailwind v4 `@theme` values → usable as utilities
+(`bg-paper`, `text-ink-soft`, `border-line`, `rounded-chip`, `text-dense`, `max-w-wrap`, `fold:`).
+
+## Color tokens (24 — never invent new colors)
+
+Surfaces (elevation = surface color + 1px border; box-shadow for elevation is FORBIDDEN):
+- paper   #F4F6F1  page/app background, sidebar
+- panel   #FFFFFF  cards, panels, data cells, toolbars
+- sunken  #EDF1EA  table headers, row-number gutters, status bars, disabled surfaces
+
+Lines (exactly two weights):
+- line       #DCE3DA  structure — panel/card borders, layout separators
+- line-soft  #E4E9E1  inside data — cell grids, row separators, chart gridlines
+
+Ink:
+- ink        #1B2730  body text; also THE background of dark surfaces
+- ink-soft   #5C6E7A  secondary text, labels, chart axes
+- ink-muted  #B9C2BB  empty cells, disabled, placeholders
+
+Semantic families — each family has EXACTLY ONE meaning. Never use for generic emphasis.
+- GREEN = primary action · selected · passed/confirmed
+  green #1E7A5A (action, active border, focus ring, chart series 1) ·
+  green-deep #135C43 (text on green-soft) · green-soft #E2F0E9 (selected bg, mark underline) ·
+  green-bright #7FD1A7 (on dark: code keywords, chips)
+- AMBER = attention · cross-view link highlight (NOT an error)
+  amber #EFAF3B (highlight ring/marker, chart series 2) · amber-soft #FBF1DA (hover/link bg,
+  accent rows, warning notes) · amber-ink #8A6414 (text on amber-soft) ·
+  amber-code #F0C674 (on dark: code strings)
+- RED = excluded · negative · destructive (broader than failure; values must stay readable)
+  red #BE5B4E (excluded badge bg w/ white text — the ONLY solid red allowed) ·
+  red-soft #F8E9E6 (excluded row bg, danger hover) · red-ink #A3564C (error text) ·
+  red-strike #D19288 (strikethrough, lighter than text so digits stay legible)
+- PURPLE = metadata: derived/system-generated (about a value's origin, not the value)
+  purple #6C5DA8 (chart series 3) · purple-soft #ECE9F6
+
+Dark surface (machine-authored content ONLY — code, specs, logs, system toasts):
+- background is `ink` itself · code-fg #D8E2DC body · code-dim #6B7F8C comments/labels
+- semantic colors keep meaning on dark via green-bright (keywords) and amber-code (strings)
+
+Charts have NO dedicated tokens: series order green → amber → purple,
+gridlines line-soft, axes ink-soft. Flag uncertain data with opacity + dashed
+stroke + text label — never by color alone.
+
+## Typography
+
+Families: --font-sans Pretendard stack · --font-mono JetBrains Mono stack.
+Mono is a RULE, not a taste: only for machine-generated or column-aligned content
+(numbers, identifiers, code, table headers, paths, page numbers). Right-aligned
+numbers are always mono. 12-step scale (replaces Tailwind text-*):
+
+display clamp(26–42px)/800 · title 21px/800 · lede 15px · body 14px ·
+strong 13.5px (tab labels) · ui 13px (buttons, inputs, menus, panel titles) ·
+dense 12.5px (table body) · num 12px mono (numbers/code) · meta 11.5px (hints) ·
+micro 11px (tags/chips) · mono-sm 10.5px (table headers, tracking-th 0.05em) ·
+badge 10px. Weight 800 only for display/title. Tracking: eyebrow 0.14em ·
+tag 0.1em · th 0.05em.
+
+## Radius (personality scale — rounder = further from data)
+
+grid 0 (sheet cells, process steps) · chip 2px (badges, tabs, buttons, inputs, notes) ·
+panel 3px (panels, cards, menus, modals, code blocks) · bar 1px (chart bars) ·
+pill 20px — RESERVED for search/natural-language inputs and their buttons; the only curve.
+
+## Layout tokens
+
+max-w-wrap 1180px (document body) · max-w-lede 640px · max-w-sub 720px ·
+breakpoint `fold:` 900px (2-col → 1-col). CSS vars: --side-w 224px sidebar ·
+--top-h 46px top bar · --scroll-max 460px table viewport.
+Cell padding vars: --cell-pad-grid 5px 9px · --cell-pad-row 5.5px 10px ·
+--cell-pad-compact 3.5px 8px · --cell-pad-roomy 9px 12px.
+
+## Component classes
+
+Tables (the system's core):
+- `.sheet` spreadsheet-style full grid (cell-level interaction). Children:
+  `.rn` row-number gutter · `.hd` header cell · `.lbl` label · `.num` right mono number ·
+  `td.v` interactive value cell (hover/`.hl` = amber-soft bg + inset 2px amber ring) ·
+  `td.empty` sparse cell (ink-muted "–") · `td.co` muted mono center
+- `.tbl` standard data table (row separators only). Children: `.num`, `.dim` (ink-soft).
+  Row states on `<tr>`: `.hl` linked (amber bg + inset 3px left amber marker) ·
+  `.sel` selected (green-soft bg + inset 3px left green marker) ·
+  `.row-excl` excluded (red-soft bg, red-ink text, numbers struck with red-strike) ·
+  `.row-accent` subtotal/attention row (amber-soft bg)
+- Both: `th.sortable` + `.sort-asc`/`.sort-desc` (text arrows colored green) ·
+  `th/td.chk` checkbox column · `tfoot td` totals (sunken bg, semibold, line top border)
+- Density: `.tbl-compact` / `.tbl-roomy` (default is dense — intentional)
+- AMBER = linked, GREEN = selected; the two meanings never swap.
+- Sparse ≠ zero: an empty value renders as ink-muted "–", never "0".
+
+Badges (one meaning each): `.badge` + `.badge-green` (passed/auto/confirmed) ·
+`.badge-amber` (attention flag) · `.badge-red` (excluded/blocked — only solid badge) ·
+`.badge-purple` (derived/system-generated) · `.badge-neutral` (stateless counts/types).
+
+Surfaces: `.pane` (+ `.pane-head`, `.pane-foot`, `.pane-scroll`, `.pane-fill`) ·
+`.ds-card` · `.ds-note` (amber note) · `.stat` KPI card (+ `.stat-label`, `.stat-value` mono,
+`.stat-delta` + `-up` green / `-down` red-ink — always pair color with ▲▼ symbol).
+
+Buttons: `.btn` (bordered, 2px radius) + `.btn-primary` (green solid, ONE per view) ·
+`.btn-ghost` · `.btn-danger` (border + red-ink text; NEVER solid red) · `.btn-sm` ·
+`:disabled`. Pill: `.btn-pill` / `.btn-pill-on` (natural-language/search only).
+Tabs: `.tab` / `.tab-on`.
+
+Forms: `.input` (+ `.input-pill`, `.input-invalid`) · `.select` · `.field` +
+`.field-label` (mono-sm uppercase) + `.field-hint` / `.field-error` ·
+`.checkbox` `.radio` (native + green accent) · `.switch` (immediate on/off) · `.kbd`.
+Errors: red border + red-ink message — text, not color alone.
+
+Grid chrome: `.toolbar` (+ `.toolbar-sep`, `.toolbar-spacer`, `.toolbar-count`) ·
+`.pager` + `.pager-btn` / `.pager-btn-on` / `.pager-info` (mono) ·
+`.statusbar` (sunken, mono-sm).
+
+Navigation: `.crumbs` + `.crumb` / `.crumb-sep` / `.crumb-here` (mono — paths are
+machine-made) · `.nav-group` + `.nav-item` / `.nav-item-on` (green-soft + inset 2px
+left green marker) / `.nav-count` · `.menu` + `.menu-item` / `.menu-item-danger` /
+`.menu-sep` / `.menu-label` / `.menu-kbd` (menus stand on borders, no shadow) ·
+`.steps` + `.step` / `.step-off` / `.step-num` / `.step-title` / `.step-desc`
+(0-radius steps interlocked with -1px margins — one continuous process, not buttons).
+
+Feedback: `.alert` + `-green`/`-amber`/`-red`/`-neutral` (soft bg + same-family border) ·
+`.toast` (+ `.toast-ok`, `.toast-warn`) — dark surface because the system speaks ·
+`.scrim` (ink 40%) + `.modal` / `.modal-head` / `.modal-body` / `.modal-foot` ·
+`.empty-state` (+ `.empty-title`, `.empty-desc`) — dashed border; empty data is not
+an error · `.skeleton` (+ `-text`, `-num`).
+
+Code (dark): `.code-surface` (+ `.code-surface-spec` max-height variant) ·
+`.code-k` keyword green-bright · `.code-s` string amber-code · `.code-c` comment
+code-dim · `.code-lab` label · `.rule-chip` (translucent green chip on dark).
+
+App layout: `.app-shell` (h-screen grid rows [top|body]) → `.app-top` (+ `.app-brand`) →
+`.app-body` (grid cols [sidebar|main]) → `.app-side` + `.app-main`.
+Per view: `.page-head` (+ `.page-title`) → optional `.toolbar` → content →
+`.pane-foot` pager → `.statusbar`. Split view: `.split` + `.split-side` / `.split-main`.
+
+## Hard rules
+
+1. One meaning per color family. Green ≠ "emphasis"; amber ≠ "warning-error"; never reuse.
+2. No elevation shadows. All box-shadow uses are inset markers (cell ring, row marker,
+   nav marker, `.u-mark` underline). Menus/modals stand on 1px borders.
+3. Mono only for machine-made or column-aligned content. Right-aligned numbers: always mono.
+4. Tables are dense by default (5–5.5px cell padding); change density only via variants.
+5. Radius follows the personality scale; pill only for search/natural-language.
+6. Sparse ≠ zero: empty values are ink-muted "–", never 0, never blank confusion.
+7. Dark surfaces only for machine-authored content (code, specs, logs, system toasts).
+8. Focus is always `outline-2 outline-green outline-offset-2` (:focus-visible).
+9. Never convey state by color alone — pair with a word, symbol, or shape.
+10. One `.btn-primary` per view; destructive actions are bordered, never solid red.
+11. Interactions: background-color 120ms only; everything off under prefers-reduced-motion.

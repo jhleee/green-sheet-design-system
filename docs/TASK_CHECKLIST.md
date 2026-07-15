@@ -13,29 +13,29 @@
 
 ## [IMPL]
 
-- [ ] I1. `theme.css` 범용화 — 주석/의미 재서술, 밀도 변형 토큰 추가
-- [ ] I2. `theme.css` 테이블 확장 — `.sheet`/`.tbl` 명명, 정렬 헤더, 행 선택, 밀도 변형(`.tbl-compact`/`.tbl-roomy`), tfoot 합계
-- [ ] I3. `theme.css` 신규 컴포넌트 — btn(4변형)·input·select·field·switch·toolbar·pager·menu·crumbs·nav·alert·toast·modal·empty-state·skeleton·stat·kbd·statusbar
-- [ ] I4. `theme.css` 레이아웃 클래스 — app-shell(top/side/main)·split·page-head
-- [ ] I5. `components/data-tables.html` 재작성 — 범용 데이터, 정렬·선택·밀도·페이저 조합
-- [ ] I6. `components/buttons-and-forms.html` 신규
-- [ ] I7. `components/navigation.html` 신규 — 탭·크럼·사이드내비·페이저·메뉴·스텝
-- [ ] I8. `components/feedback.html` 신규 — 배지·얼럿·토스트·모달·빈상태·스켈레톤·스탯
-- [ ] I9. `components/code-and-chart.html` 문구 범용화
-- [ ] I10. `foundations/*` 문구 범용화 (colors/typography/space)
-- [ ] I11. `layouts/app-shell.html` 신규 — 풀페이지 앱 셸 + 그리드
-- [ ] I12. `layouts/master-detail.html` 신규
-- [ ] I13. `layouts/dashboard.html` 신규
-- [ ] I14. `index.html` 재작성 — 라이브러리 카탈로그 (히어로 축소, Foundations/Components/Layouts/AI 섹션)
-- [ ] I15. `llms.txt` — 외부 AI 참조용 도메인 중립 스펙
-- [ ] I16. `README.md` / `package.json` 범용 포지셔닝으로 갱신
+- [x] I1. `theme.css` 범용화 — 주석/의미 재서술, 밀도 변형 토큰 추가
+- [x] I2. `theme.css` 테이블 확장 — `.sheet`/`.tbl` 명명, 정렬 헤더, 행 선택, 밀도 변형(`.tbl-compact`/`.tbl-roomy`), tfoot 합계
+- [x] I3. `theme.css` 신규 컴포넌트 — btn(4변형)·input·select·field·switch·toolbar·pager·menu·crumbs·nav·alert·toast·modal·empty-state·skeleton·stat·kbd·statusbar
+- [x] I4. `theme.css` 레이아웃 클래스 — app-shell(top/side/main)·split·page-head
+- [x] I5. `components/data-tables.html` 재작성 — 범용 데이터, 정렬·선택·밀도·페이저 조합
+- [x] I6. `components/buttons-and-forms.html` 신규
+- [x] I7. `components/navigation.html` 신규 — 탭·크럼·사이드내비·페이저·메뉴·스텝
+- [x] I8. `components/feedback.html` 신규 — 배지·얼럿·토스트·모달·빈상태·스켈레톤·스탯
+- [x] I9. `components/code-and-chart.html` 문구 범용화
+- [x] I10. `foundations/*` 문구 범용화 (colors/typography/space)
+- [x] I11. `layouts/app-shell.html` 신규 — 풀페이지 앱 셸 + 그리드
+- [x] I12. `layouts/master-detail.html` 신규
+- [x] I13. `layouts/dashboard.html` 신규
+- [x] I14. `index.html` 재작성 — 라이브러리 카탈로그 (히어로 축소, Foundations/Components/Layouts/AI 섹션)
+- [x] I15. `llms.txt` — 외부 AI 참조용 도메인 중립 스펙
+- [x] I16. `README.md` / `package.json` 범용 포지셔닝으로 갱신
 
 ## [TEST]
 
-- [ ] T1. `tests/e2e/check-refs.mjs` — 모든 HTML에서 참조하는 클래스가 dist CSS에 존재하는지 검사
-- [ ] T2. 빌드 통과 (`npm run build`) + T1 통과
+- [x] T1. `tests/e2e/check-refs.mjs` — 모든 HTML에서 참조하는 클래스가 dist CSS에 존재하는지 검사
+- [x] T2. 빌드 통과 (`npm run build`) + T1 통과
 
 ## [E2E]
 
-- [ ] E1. 전 페이지 상호 링크 무결성 (index ↔ foundations/components/layouts/examples)
-- [ ] E2. 구 데모(`examples/tabular-pipeline-demo.html`)가 별칭 클래스로 깨지지 않고 동작
+- [x] E1. 전 페이지 상호 링크 무결성 (index ↔ foundations/components/layouts/examples)
+- [x] E2. 구 데모(`examples/tabular-pipeline-demo.html`)가 별칭 클래스로 깨지지 않고 동작
