@@ -1,5 +1,14 @@
 # FIX_LOG
 
+## FIX-5 | 2026-07-16
+
+- **발견 단계**: TEST
+- **관련 PRD 항목**: OG 이미지 추가
+- **증상**: `npm test` 실패 3건 — og-image.html의 `!text-[12.5px]` 등 유틸리티가 dist CSS에 없음
+- **원인**: `assets/og-image.html`을 마지막 빌드 이후에 작성해 Tailwind 스캔에서 누락
+- **수정 내용**: 재빌드 후 PNG 재렌더 (배지 크기 오버라이드가 실제 반영된 최종본)
+- **검증**: `npm test` 14개 HTML PASS
+
 ## FIX-3 | 2026-07-16
 
 - **발견 단계**: DESIGN (다크 모드 대비 실측 중 발견)
