@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>OG — Green Sheet</title>
+<link rel="stylesheet" href="../dist/green-sheet.css">
+<link rel="stylesheet" href="../fonts.css">
+<style>
+  /* 1200×630 고정 카드 — og:image 전용, 시스템 토큰으로만 그린다 */
+  html,body{ margin:0; width:1200px; height:630px; overflow:hidden; }
+</style>
+</head>
+<body class="bg-paper text-ink font-sans antialiased">
+
+<div class="w-[1200px] h-[630px] relative flex flex-col">
+
+  <!-- 상단 바 — 앱 셸 문법 -->
+  <div class="flex items-center gap-3 px-10 h-[56px] bg-panel border-b border-line shrink-0">
+    <span class="font-mono text-[15px] tracking-eyebrow uppercase text-green-deep font-semi">◳ Green Sheet</span>
+    <span class="font-mono text-[13px] text-ink-soft">jhleee.github.io/green-sheet-design-system</span>
+    <div class="flex-1"></div>
+    <span class="badge badge-green ml-0 !text-[12px] !px-2">Tailwind v4</span>
+    <span class="badge badge-neutral ml-0 !text-[12px] !px-2">25 tokens</span>
+    <span class="badge badge-neutral ml-0 !text-[12px] !px-2">MIT</span>
+  </div>
+
+  <div class="flex-1 grid grid-cols-[1.05fr_1fr] min-h-0">
+
+    <!-- 좌측 — 타이틀 -->
+    <div class="px-10 pt-12 flex flex-col">
+      <div class="font-mono text-[14px] tracking-eyebrow text-green uppercase mb-5">
+        Data-Grid Design System
+      </div>
+      <h1 class="m-0 font-heavy text-[54px] leading-[1.18] tracking-display">
+        장표는 무한히 다양해도,<br>
+        <span class="u-mark">디자인 시스템은 하나</span>로<br>
+        수렴한다
+      </h1>
+      <p class="text-[19px] leading-[1.55] text-ink-soft mt-5 mb-0 max-w-[480px]">
+        녹빛 종이 위의 잉크 — 그림자 없이 표면색과 1px 선으로만 층을 만들고,
+        의미색 4계열이 데이터의 상태를 말한다.
+      </p>
+
+      <!-- 의미 배지 — 각 색은 하나의 뜻만 -->
+      <div class="flex gap-2 mt-7">
+        <span class="badge badge-green ml-0 !text-[12.5px] !px-2.5 !py-1">통과 · 선택</span>
+        <span class="badge badge-amber ml-0 !text-[12.5px] !px-2.5 !py-1">주의 · 연결</span>
+        <span class="badge badge-red ml-0 !text-[12.5px] !px-2.5 !py-1">제외</span>
+        <span class="badge badge-purple ml-0 !text-[12.5px] !px-2.5 !py-1">파생</span>
+        <span class="badge badge-neutral ml-0 !text-[12.5px] !px-2.5 !py-1">sparse ≠ zero</span>
+      </div>
+
+      <!-- 팔레트 스트립 -->
+      <div class="flex gap-[6px] mt-auto mb-10">
+        <div class="h-9 w-9 rounded-chip border border-line bg-paper"></div>
+        <div class="h-9 w-9 rounded-chip border border-line bg-panel"></div>
+        <div class="h-9 w-9 rounded-chip border border-line bg-sunken"></div>
+        <div class="h-9 w-9 rounded-chip border border-line bg-ink"></div>
+        <div class="h-9 w-9 rounded-chip border border-line bg-ink-soft"></div>
+        <div class="h-9 w-9 rounded-chip border border-line bg-green"></div>
+        <div class="h-9 w-9 rounded-chip border border-line bg-green-soft"></div>
+        <div class="h-9 w-9 rounded-chip border border-line bg-green-bright"></div>
+        <div class="h-9 w-9 rounded-chip border border-line bg-amber"></div>
+        <div class="h-9 w-9 rounded-chip border border-line bg-amber-soft"></div>
+        <div class="h-9 w-9 rounded-chip border border-line bg-red"></div>
+        <div class="h-9 w-9 rounded-chip border border-line bg-red-soft"></div>
+        <div class="h-9 w-9 rounded-chip border border-line bg-purple"></div>
+        <div class="h-9 w-9 rounded-chip border border-line bg-purple-soft"></div>
+      </div>
+    </div>
+
+    <!-- 우측 — 실물: 그리드 뷰 + 코드 -->
+    <div class="relative pt-12 pr-10">
+      <div class="pane !rounded-panel h-full !border-b-0 !rounded-b-none">
+        <div class="toolbar !py-2.5">
+          <span class="font-mono text-[12px] text-ink-soft">fact_sales · 1,204 rows</span>
+          <div class="toolbar-spacer"></div>
+          <span class="badge badge-green ml-0">검증 통과</span>
+        </div>
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th class="!text-[12px]">sku</th>
+              <th class="!text-[12px]">period</th>
+              <th class="!text-[12px] text-right">qty</th>
+              <th class="!text-[12px]">status</th>
+            </tr>
+          </thead>
+          <tbody class="text-[15px]">
+            <tr>
+              <td>SKU-0208</td><td class="dim">2026-01</td>
+              <td class="num !text-[14px]">4,530</td>
+              <td><span class="badge badge-amber ml-0 !text-[11px]">review</span></td>
+            </tr>
+            <tr class="sel">
+              <td>SKU-0311</td><td class="dim">2026-01</td>
+              <td class="num !text-[14px]">8,120</td>
+              <td><span class="badge badge-green ml-0 !text-[11px]">active</span></td>
+            </tr>
+            <tr class="hl">
+              <td>SKU-0977</td><td class="dim">2026-02</td>
+              <td class="num !text-[14px]">14,210</td>
+              <td><span class="badge badge-green ml-0 !text-[11px]">active</span></td>
+            </tr>
+            <tr class="row-excl">
+              <td>SKU-1201<span class="badge badge-red !text-[11px]">제외</span></td><td class="dim">2026-03</td>
+              <td class="num !text-[14px]">42,350</td>
+              <td class="dim !text-[13px]">dup key</td>
+            </tr>
+            <tr>
+              <td>SKU-1240</td><td class="dim">2026-03</td>
+              <td class="num text-ink-muted !text-[14px]">–</td>
+              <td><span class="badge badge-neutral ml-0 !text-[11px]">draft</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- 코드 표면 — 다크 = 기계 -->
+        <div class="code-surface !rounded-none flex-1 !text-[14px] leading-[1.7] !px-5 !pt-4">
+<span class="code-c"># 다크 표면은 기계가 쓴 것에만</span><br>
+<span class="code-k">SELECT</span> period, <span class="code-k">SUM</span>(qty)<br>
+<span class="code-k">FROM</span> fact_sales <span class="code-k">WHERE</span> status = <span class="code-s">'active'</span><br>
+<span class="rule-chip !text-[12px] !mt-3 inline-block">✓ 소계 미적재 → 이중집계 없음</span>
+<span class="rule-chip !text-[12px] !mt-3 !ml-1.5 inline-block">✓ 제외 행 필터 적용</span>
+        </div>
+
+        <!-- 상태바 — 그리드 앱의 마감 -->
+        <div class="statusbar !text-[12px] !py-2">
+          <span class="text-green-deep">● 연결됨</span>
+          <span>검증 12/12 통과</span>
+          <span class="ml-auto">SUM=26,860 · COUNT=4</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
