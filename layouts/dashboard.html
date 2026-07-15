@@ -1,0 +1,164 @@
+<!-- @dsCard group="Layouts" name="Dashboard" subtitle="스탯 행 + 차트 + 테이블 패널 — 요약에서 상세로 내려가는 개요 화면" -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Green Sheet</title>
+<link rel="stylesheet" href="../dist/green-sheet.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <header class="app-top">
+    <a class="app-brand" href="../index.html">◳ Green Sheet</a>
+    <nav class="crumbs" aria-label="현재 위치">
+      <a class="crumb" href="#">workspace</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-here" aria-current="page">개요</span>
+    </nav>
+    <div class="flex-1"></div>
+    <select class="select max-w-[140px]" aria-label="기간">
+      <option>2026 1분기</option><option>2025 4분기</option>
+    </select>
+    <button class="btn btn-sm">보고서 내보내기</button>
+  </header>
+
+  <div class="app-body">
+
+    <aside class="app-side">
+      <span class="nav-group !pt-2">워크스페이스</span>
+      <a class="nav-item nav-item-on" href="#">개요</a>
+      <a class="nav-item" href="#">테이블<span class="nav-count">24</span></a>
+      <a class="nav-item" href="#">뷰<span class="nav-count">7</span></a>
+      <span class="nav-group">검증</span>
+      <a class="nav-item" href="#">규칙<span class="nav-count">12</span></a>
+      <a class="nav-item" href="#">실패 항목<span class="nav-count">3</span></a>
+    </aside>
+
+    <main class="app-main !overflow-y-auto">
+      <div class="p-4 flex flex-col gap-4 max-w-[1080px]">
+
+        <!-- ══ 스탯 행 ════════════════════════════════════ -->
+        <div class="grid grid-cols-2 fold:grid-cols-4 gap-4.5">
+          <div class="stat">
+            <span class="stat-label">총 행 수</span>
+            <div class="stat-value">1,204</div>
+            <span class="stat-delta stat-delta-up">▲ 218 이번 주</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">검증 통과율</span>
+            <div class="stat-value">99.2%</div>
+            <span class="stat-delta stat-delta-up">▲ 0.4pt</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">실패 항목</span>
+            <div class="stat-value text-red-ink">3</div>
+            <span class="stat-delta stat-delta-down">▼ 해결 필요</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">활성 사용자</span>
+            <div class="stat-value">17</div>
+            <span class="stat-delta text-ink-soft">지난 24시간</span>
+          </div>
+        </div>
+
+        <!-- ══ 차트 + 최근 적재 ═══════════════════════════ -->
+        <div class="grid grid-cols-1 fold:grid-cols-[1.4fr_1fr] gap-4.5">
+
+          <div class="pane">
+            <div class="pane-head">
+              <b class="text-ui">월별 처리량</b>
+              <span class="font-mono text-meta text-ink-soft">시리즈: green → amber → purple</span>
+            </div>
+            <div class="px-4 py-4">
+              <!-- CSS 막대 차트 — 그리드는 line-soft, 막대 radius 1px -->
+              <div class="grid grid-cols-6 gap-3 items-end h-36 border-b border-line-soft">
+                <div class="flex items-end gap-1 h-full"><div class="flex-1 bg-green rounded-bar" style="height:42%"></div><div class="flex-1 bg-amber rounded-bar" style="height:30%"></div><div class="flex-1 bg-purple rounded-bar" style="height:18%"></div></div>
+                <div class="flex items-end gap-1 h-full"><div class="flex-1 bg-green rounded-bar" style="height:55%"></div><div class="flex-1 bg-amber rounded-bar" style="height:34%"></div><div class="flex-1 bg-purple rounded-bar" style="height:22%"></div></div>
+                <div class="flex items-end gap-1 h-full"><div class="flex-1 bg-green rounded-bar" style="height:63%"></div><div class="flex-1 bg-amber rounded-bar" style="height:41%"></div><div class="flex-1 bg-purple rounded-bar" style="height:26%"></div></div>
+                <div class="flex items-end gap-1 h-full"><div class="flex-1 bg-green rounded-bar" style="height:58%"></div><div class="flex-1 bg-amber rounded-bar" style="height:39%"></div><div class="flex-1 bg-purple rounded-bar" style="height:31%"></div></div>
+                <div class="flex items-end gap-1 h-full"><div class="flex-1 bg-green rounded-bar" style="height:74%"></div><div class="flex-1 bg-amber rounded-bar" style="height:47%"></div><div class="flex-1 bg-purple rounded-bar" style="height:35%"></div></div>
+                <div class="flex items-end gap-1 h-full"><div class="flex-1 bg-green rounded-bar" style="height:88%"></div><div class="flex-1 bg-amber rounded-bar" style="height:52%"></div><div class="flex-1 bg-purple rounded-bar" style="height:41%"></div></div>
+              </div>
+              <div class="grid grid-cols-6 gap-3 mt-1.5 font-mono text-mono-sm text-ink-soft text-center">
+                <span>1월</span><span>2월</span><span>3월</span><span>4월</span><span>5월</span><span>6월</span>
+              </div>
+              <div class="flex gap-4 mt-3 font-mono text-micro text-ink-soft">
+                <span><i class="inline-block w-2.5 h-2.5 bg-green rounded-bar mr-1"></i>적재</span>
+                <span><i class="inline-block w-2.5 h-2.5 bg-amber rounded-bar mr-1"></i>검토</span>
+                <span><i class="inline-block w-2.5 h-2.5 bg-purple rounded-bar mr-1"></i>파생</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pane">
+            <div class="pane-head">
+              <b class="text-ui">최근 적재</b>
+              <a href="#" class="font-mono text-meta text-green no-underline hover:underline">전체 →</a>
+            </div>
+            <table class="tbl">
+              <tbody>
+                <tr>
+                  <td><b class="text-dense">sales_2026_q1</b><span class="block text-meta text-ink-soft">09:41 · lee</span></td>
+                  <td class="num">218</td>
+                  <td><span class="badge badge-green ml-0">통과</span></td>
+                </tr>
+                <tr>
+                  <td><b class="text-dense">inventory_snap</b><span class="block text-meta text-ink-soft">08:15 · system</span></td>
+                  <td class="num">1,046</td>
+                  <td><span class="badge badge-green ml-0">통과</span></td>
+                </tr>
+                <tr>
+                  <td><b class="text-dense">vendor_master</b><span class="block text-meta text-ink-soft">어제 · kim</span></td>
+                  <td class="num">96</td>
+                  <td><span class="badge badge-amber ml-0">경고 8</span></td>
+                </tr>
+                <tr>
+                  <td><b class="text-dense">returns_march</b><span class="block text-meta text-ink-soft">어제 · park</span></td>
+                  <td class="num">43</td>
+                  <td><span class="badge badge-red ml-0">차단</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ══ 주의 필요 항목 ═════════════════════════════ -->
+        <div class="pane">
+          <div class="pane-head">
+            <b class="text-ui">주의 필요 항목</b>
+            <span class="badge badge-amber ml-0">3</span>
+          </div>
+          <table class="tbl">
+            <thead>
+              <tr><th>항목</th><th>테이블</th><th class="text-right">영향 행</th><th>상태</th><th></th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>키 중복 43건</td><td class="dim">returns_march</td><td class="num">43</td>
+                <td><span class="badge badge-red ml-0">차단</span></td>
+                <td class="text-right"><button class="btn btn-sm">해결하기</button></td>
+              </tr>
+              <tr>
+                <td>단위 추정 8건</td><td class="dim">vendor_master</td><td class="num">8</td>
+                <td><span class="badge badge-amber ml-0">검토</span></td>
+                <td class="text-right"><button class="btn btn-sm">검토하기</button></td>
+              </tr>
+              <tr>
+                <td>스키마 변경 감지</td><td class="dim">inventory_snap</td><td class="num">–</td>
+                <td><span class="badge badge-purple ml-0">시스템</span></td>
+                <td class="text-right"><button class="btn btn-sm">비교하기</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+</body>
+</html>

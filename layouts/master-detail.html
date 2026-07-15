@@ -1,0 +1,168 @@
+<!-- @dsCard group="Layouts" name="Master-detail" subtitle="좌측 목록 + 우측 상세 — 항목을 고르고 파고드는 2분할 레이아웃" -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Master-detail — Green Sheet</title>
+<link rel="stylesheet" href="../dist/green-sheet.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <header class="app-top">
+    <a class="app-brand" href="../index.html">◳ Green Sheet</a>
+    <nav class="crumbs" aria-label="현재 위치">
+      <a class="crumb" href="#">workspace</a>
+      <span class="crumb-sep">/</span>
+      <a class="crumb" href="#">검증 규칙</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-here" aria-current="page">RULE-07</span>
+    </nav>
+    <div class="flex-1"></div>
+    <button class="btn btn-primary btn-sm">규칙 추가</button>
+  </header>
+
+  <div class="app-body !grid-cols-[1fr]">
+    <main class="app-main">
+      <div class="split">
+
+        <!-- ══ 마스터 — 규칙 목록 ═══════════════════════════ -->
+        <aside class="split-side">
+          <div class="toolbar !border-b !border-line">
+            <input class="input" type="search" placeholder="규칙 검색…" aria-label="규칙 검색">
+          </div>
+          <table class="tbl">
+            <tbody>
+              <tr>
+                <td>
+                  <b class="text-dense">RULE-03</b><span class="badge badge-green">통과</span>
+                  <span class="block text-meta text-ink-soft">키 열 유일성</span>
+                </td>
+                <td class="num dim">1,204</td>
+              </tr>
+              <tr>
+                <td>
+                  <b class="text-dense">RULE-05</b><span class="badge badge-green">통과</span>
+                  <span class="block text-meta text-ink-soft">수량 ≥ 0</span>
+                </td>
+                <td class="num dim">1,204</td>
+              </tr>
+              <tr class="sel">
+                <td>
+                  <b class="text-dense">RULE-07</b><span class="badge badge-red">실패 43</span>
+                  <span class="block text-meta text-ink-soft">기간 중복 금지</span>
+                </td>
+                <td class="num dim">1,161</td>
+              </tr>
+              <tr>
+                <td>
+                  <b class="text-dense">RULE-09</b><span class="badge badge-amber">경고 8</span>
+                  <span class="block text-meta text-ink-soft">단위 일관성</span>
+                </td>
+                <td class="num dim">1,196</td>
+              </tr>
+              <tr>
+                <td>
+                  <b class="text-dense">RULE-12</b><span class="badge badge-purple">파생</span>
+                  <span class="block text-meta text-ink-soft">소계 = 합(부분)</span>
+                </td>
+                <td class="num dim">96</td>
+              </tr>
+            </tbody>
+          </table>
+        </aside>
+
+        <!-- ══ 디테일 — 선택 항목 상세 ══════════════════════ -->
+        <section class="split-main">
+
+          <div class="page-head">
+            <h1 class="page-title">RULE-07 · 기간 중복 금지</h1>
+            <span class="badge badge-red ml-0">실패 43</span>
+            <button class="btn btn-sm">규칙 편집</button>
+            <button class="btn btn-danger btn-sm">비활성화</button>
+          </div>
+
+          <div class="p-4 flex flex-col gap-4">
+
+            <div class="grid grid-cols-2 fold:grid-cols-4 gap-4.5">
+              <div class="stat">
+                <span class="stat-label">검사 대상</span>
+                <div class="stat-value">1,204</div>
+              </div>
+              <div class="stat">
+                <span class="stat-label">실패</span>
+                <div class="stat-value text-red-ink">43</div>
+                <span class="stat-delta stat-delta-down">▼ 해결 필요</span>
+              </div>
+              <div class="stat">
+                <span class="stat-label">통과율</span>
+                <div class="stat-value">96.4%</div>
+              </div>
+              <div class="stat">
+                <span class="stat-label">마지막 실행</span>
+                <div class="stat-value">09:41</div>
+              </div>
+            </div>
+
+            <div class="alert alert-red max-w-none">
+              <b>적재 차단</b> 동일 (sku, region, period) 조합이 43건 중복 — 해결 전까지 이 테이블의 적재가 차단됩니다.
+            </div>
+
+            <div class="pane">
+              <div class="pane-head">
+                <b class="text-ui">실패 행</b>
+                <span class="font-mono text-meta text-ink-soft">43 rows</span>
+              </div>
+              <div class="pane-scroll">
+                <table class="tbl">
+                  <thead>
+                    <tr><th>sku</th><th>region</th><th>period</th><th class="text-right">qty</th><th>충돌 대상</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr class="hl">
+                      <td>SKU-1201</td><td class="dim">수도권</td><td class="dim">2026-03</td>
+                      <td class="num">42,350</td><td class="dim font-mono text-num">row 812</td>
+                    </tr>
+                    <tr>
+                      <td>SKU-0655</td><td class="dim">영남</td><td class="dim">2026-02</td>
+                      <td class="num">3,310</td><td class="dim font-mono text-num">row 244</td>
+                    </tr>
+                    <tr>
+                      <td>SKU-0912</td><td class="dim">호남</td><td class="dim">2026-01</td>
+                      <td class="num">1,970</td><td class="dim font-mono text-num">row 108</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="pane-foot">
+                <span class="pager-info">1–3 / 43</span>
+                <div class="pager">
+                  <button class="pager-btn" disabled>‹</button>
+                  <button class="pager-btn pager-btn-on">1</button>
+                  <button class="pager-btn">2</button>
+                  <button class="pager-btn">›</button>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="code-lab">RULE SPEC</div>
+              <div class="code-surface">
+<span class="code-c"># 기계가 실행하는 정의 — 다크 표면</span><br>
+<span class="code-k">ASSERT UNIQUE</span> (sku, region, period)<br>
+<span class="code-k">ON VIOLATION</span> <span class="code-s">'block_load'</span> <span class="code-c"># 제외 후 재검증</span>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+</body>
+</html>
