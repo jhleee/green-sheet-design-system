@@ -1,9 +1,9 @@
 /* ============================================================
    GREEN SHEET DESIGN SYSTEM
-   장표 정규화 파이프라인 UI를 위한 Tailwind v4 디자인 시스템
+   데이터 그리드 중심 웹 애플리케이션을 위한 Tailwind v4 디자인 시스템
    ------------------------------------------------------------
-   24 tokens. 값은 examples/tabular-pipeline-demo.html에서 추출했고
-   중복은 병합했다. 발명한 색은 없다.
+   24 color tokens. 종이·잉크 테마 — 그림자 없이 표면색과 1px 선으로
+   층을 만들고, 의미색 4계열이 데이터의 상태를 말한다.
 
    사용:  @import "green-sheet-design-system/theme.css";
    ============================================================ */
@@ -16,60 +16,62 @@
      그림자가 없다. 높이는 표면색 + 1px 선으로만 만든다.
      배경이 순백이 아니라 녹빛 종이라서 흰 패널이 스스로 떠오른다. */
 
-  --color-paper:   #F4F6F1;  /* 페이지 배경 · 시트 헤더 셀 */
-  --color-panel:   #FFFFFF;  /* 카드 · 패널 · 데이터 셀 */
-  --color-sunken:  #EDF1EA;  /* 표 헤더 · 행번호 거터 */
+  --color-paper:   #F4F6F1;  /* 페이지·앱 배경 · 사이드바 */
+  --color-panel:   #FFFFFF;  /* 카드 · 패널 · 데이터 셀 · 툴바 */
+  --color-sunken:  #EDF1EA;  /* 표 헤더 · 행번호 거터 · 상태바 · 비활성 표면 */
 
   /* ══ LINES ══════════════════════════════════════════════
      두 무게뿐이다. 구조를 나누는 선과, 데이터 안을 나누는 선. */
 
-  --color-line:       #DCE3DA;  /* 구조 — 패널·카드 외곽, 섹션 구분 */
+  --color-line:       #DCE3DA;  /* 구조 — 패널·카드 외곽, 섹션·레이아웃 구분 */
   --color-line-soft:  #E4E9E1;  /* 데이터 내부 — 셀 격자, 행 구분선, 차트 그리드 */
 
   /* ══ INK ════════════════════════════════════════════════ */
 
-  --color-ink:        #1B2730;  /* 본문 · 코드 표면 배경 */
+  --color-ink:        #1B2730;  /* 본문 · 다크(코드·토스트) 표면 배경 */
   --color-ink-soft:   #5C6E7A;  /* 보조 텍스트 · 라벨 · 차트 축 */
-  --color-ink-muted:  #B9C2BB;  /* 빈 셀 · 비활성 — sparse를 zero와 구분하는 색 */
+  --color-ink-muted:  #B9C2BB;  /* 빈 셀 · 비활성 · 플레이스홀더 — sparse를 zero와 구분 */
 
-  /* ══ GREEN — primary ════════════════════════════════════
-     승인 · 통과 · 구조. "정상적으로 처리됨"을 뜻하는 유일한 색이며
-     "그냥 강조"의 의미로는 쓰지 않는다. */
+  /* ══ GREEN — primary · positive ═════════════════════════
+     주 액션 · 선택 · 통과. "정상적으로 처리됨/선택됨"을 뜻하는
+     유일한 색이며 "그냥 강조"의 의미로는 쓰지 않는다. */
 
-  --color-green:        #1E7A5A;  /* 주 액션 · PASS · 포커스 링 · 차트 시리즈 1 */
+  --color-green:        #1E7A5A;  /* 주 액션 · 활성 보더 · 포커스 링 · 차트 시리즈 1 */
   --color-green-deep:   #135C43;  /* green-soft 위 텍스트 */
   --color-green-soft:   #E2F0E9;  /* 선택 상태 배경 · 강조 밑줄 */
   --color-green-bright: #7FD1A7;  /* 다크 표면 위 — 코드 키워드, 규칙 칩 */
 
-  /* ══ AMBER — attention ══════════════════════════════════
-     에러가 아니라 "사람이 봐야 할 지점". 호버 연결, 기간 타입 경고. */
+  /* ══ AMBER — attention · linked ═════════════════════════
+     에러가 아니라 "사람이 봐야 할 지점". 셀↔행 연결 하이라이트,
+     주의 플래그, 경고성 노트. */
 
-  --color-amber:       #EFAF3B;  /* 하이라이트 테두리 · 차트 시리즈 2 */
-  --color-amber-soft:  #FBF1DA;  /* 호버·연결 배경 · 소계 행 · 경고 노트 */
-  --color-amber-ink:   #8A6414;  /* amber-soft 위 텍스트 · 차트 플래그 라벨 */
+  --color-amber:       #EFAF3B;  /* 하이라이트 링·마커 · 차트 시리즈 2 */
+  --color-amber-soft:  #FBF1DA;  /* 호버·연결 배경 · 강조 행 · 경고 노트 */
+  --color-amber-ink:   #8A6414;  /* amber-soft 위 텍스트 · 플래그 라벨 */
   --color-amber-code:  #F0C674;  /* 다크 표면 위 — 코드 문자열 */
 
-  /* ══ RED — exclusion ════════════════════════════════════
-     실패가 아니라 의도적 제외. 파생 가능한 소계는 적재에서 빠지고
-     checksum 검증에만 쓰인다. */
+  /* ══ RED — negative · excluded ══════════════════════════
+     실패보다 넓다 — 제외·삭제 예정·파괴적 액션. 값이 여전히
+     읽혀야 하므로 명도를 크게 떨어뜨리지 않는다. */
 
-  --color-red:         #BE5B4E;  /* 제외 배지 배경 (흰 텍스트) */
-  --color-red-soft:    #F8E9E6;  /* 제외 행 배경 */
-  --color-red-ink:     #A3564C;  /* red-soft 위 텍스트 — 대비 확보용으로 red보다 어둡다 */
+  --color-red:         #BE5B4E;  /* 제외 배지 배경 (흰 텍스트) — 유일한 solid red */
+  --color-red-soft:    #F8E9E6;  /* 제외 행 배경 · 파괴적 액션 호버 */
+  --color-red-ink:     #A3564C;  /* red-soft 위 텍스트 · 에러 메시지 */
   --color-red-strike:  #D19288;  /* 취소선 — 숫자가 읽히도록 텍스트보다 연하다 */
 
-  /* ══ PURPLE — derived ═══════════════════════════════════
-     값이 아니라 값의 출처를 말하는 메타데이터. is_derived 전용. */
+  /* ══ PURPLE — meta · derived ════════════════════════════
+     값이 아니라 값의 출처·성격을 말하는 메타데이터. 계산된 값,
+     시스템 생성 항목 표시 전용. */
 
   --color-purple:       #6C5DA8;  /* 차트 시리즈 3 겸용 */
   --color-purple-soft:  #ECE9F6;
 
   /* ══ CODE — 유일한 다크 영역 ════════════════════════════
-     배경은 ink 그 자체다. 종이에 잉크를 얹는 게 아니라 잉크 위에 쓴다.
-     키워드는 green-bright, 문자열은 amber-code — 라이트 UI의 의미색이
-     다크에서도 같은 뜻을 유지한다. */
+     배경은 ink 그 자체다. 다크 표면은 기계가 쓴 것(코드·로그·
+     시스템 토스트)에만 쓴다. 라이트 UI의 의미색이 다크에서도
+     같은 뜻을 유지한다. */
 
-  --color-code-fg:   #D8E2DC;  /* 코드 본문 */
+  --color-code-fg:   #D8E2DC;  /* 코드·토스트 본문 */
   --color-code-dim:  #6B7F8C;  /* 주석 · 라벨 */
 
   /* ══ TYPE ═══════════════════════════════════════════════
@@ -99,7 +101,7 @@
   --text-strong:                  13.5px; /* 탭 라벨 · 스텝 제목 */
   --text-strong--line-height:     1.4;
 
-  --text-ui:                      13px;   /* 버튼 · 패널 제목 */
+  --text-ui:                      13px;   /* 버튼 · 입력 · 메뉴 · 패널 제목 */
   --text-ui--line-height:         1.4;
 
   --text-dense:                   12.5px; /* 표 본문 · 리스트 */
@@ -136,18 +138,18 @@
   --leading-sql:  1.75;
 
   /* ══ RADIUS ═════════════════════════════════════════════
-     곡률이 커질수록 데이터에서 멀어지고 컨트롤에 가까워진다.
+     곡률이 커질수록 데이터에서 멀어지고 사람의 말에 가까워진다.
      Tailwind 기본 rounded-sm/md/lg는 건드리지 않는다. */
 
-  --radius-grid:  0px;   /* 시트 격자 · 파이프라인 스텝 */
-  --radius-chip:  2px;   /* 배지 · 칩 · 탭 · 노트 */
-  --radius-panel: 3px;   /* 패널 · 카드 · 코드블록 */
-  --radius-pill:  20px;  /* 질의 버튼 — 이 시스템의 유일한 곡선 */
+  --radius-grid:  0px;   /* 시트 격자 · 프로세스 스텝 */
+  --radius-chip:  2px;   /* 배지 · 칩 · 탭 · 버튼 · 입력 · 노트 */
+  --radius-panel: 3px;   /* 패널 · 카드 · 메뉴 · 모달 · 코드블록 */
+  --radius-pill:  20px;  /* 자연어·검색 입력과 그 버튼 — 유일한 곡선 */
   --radius-bar:   1px;   /* 차트 막대 */
 
   /* ══ LAYOUT ═════════════════════════════════════════════ */
 
-  --container-wrap: 1180px;  /* max-w-wrap — 본문 */
+  --container-wrap: 1180px;  /* max-w-wrap — 문서 본문 */
   --container-lede: 640px;   /* max-w-lede — 리드 문단 */
   --container-sub:  720px;   /* max-w-sub  — 설명 문단 */
 
@@ -157,10 +159,17 @@
 /* ── 컴포넌트 상수 ─────────────────────────────────────────
    유틸리티로 생성될 필요가 없어 @theme 밖에 둔다. */
 :root{
-  --cell-pad-grid: 5px 9px;    /* 시트 격자 셀 */
-  --cell-pad-fact: 5.5px 10px; /* fact 테이블 셀 */
-  --scroll-max:    460px;      /* 표 뷰포트 */
-  --spec-max:      340px;      /* 스펙 코드블록 */
+  /* 셀 밀도 3단 — 기본은 dense. 데이터 대조가 목적인 화면은
+     compact·default를, 폼 결과 등 읽기 위주 표만 roomy를 쓴다. */
+  --cell-pad-grid:    5px 9px;     /* .sheet 격자 셀 */
+  --cell-pad-row:     5.5px 10px;  /* .tbl 행 셀 (기본) */
+  --cell-pad-compact: 3.5px 8px;
+  --cell-pad-roomy:   9px 12px;
+
+  --scroll-max:  460px;  /* 표 뷰포트 */
+  --spec-max:    340px;  /* 스펙 코드블록 */
+  --side-w:      224px;  /* 앱 셸 사이드바 */
+  --top-h:       46px;   /* 앱 셸 상단 바 */
 }
 
 /* ============================================================
@@ -170,72 +179,308 @@
    ============================================================ */
 @layer components{
 
-  /* ── .xl — 시트 복제. 사용자가 자기 파일을 알아보게 하는 표 ── */
-  .xl{ @apply w-full border-collapse text-dense; }
-  .xl th, .xl td{
+  /* ════════════════════════════════════════════════════════
+     1. TABLES — 이 시스템의 중심
+     .sheet — 스프레드시트형 풀 격자 (원본 대조·셀 단위 상호작용)
+     .tbl   — 표준 데이터 테이블 (행 구분선만, 목록·결과)
+     .xl / .ft 는 v0.1 별칭이다.
+     ════════════════════════════════════════════════════════ */
+
+  /* ── .sheet ── */
+  .sheet, .xl{ @apply w-full border-collapse text-dense; --cell-pad: var(--cell-pad-grid); }
+  :is(.sheet,.xl) th, :is(.sheet,.xl) td{
     @apply border border-line-soft whitespace-nowrap;
-    padding: var(--cell-pad-grid);
+    padding: var(--cell-pad);
   }
-  .xl thead th{
+  :is(.sheet,.xl) thead th{
     @apply bg-sunken font-mono font-medium text-mono-sm text-ink-soft text-center sticky top-0 z-20;
   }
-  .xl .rn{ @apply bg-sunken font-mono text-mono-sm text-ink-soft text-center min-w-[30px]; }
-  .xl .hd{ @apply bg-paper font-bold text-center; }
-  .xl .lbl{ @apply font-semi; }
-  .xl .num{ @apply text-right font-mono text-num; }
-  .xl td.v{ @apply cursor-crosshair transition-colors duration-[120ms]; }
-  .xl td.v:hover, .xl td.v.hl{
+  :is(.sheet,.xl) .rn{ @apply bg-sunken font-mono text-mono-sm text-ink-soft text-center min-w-[30px]; }
+  :is(.sheet,.xl) .hd{ @apply bg-paper font-bold text-center; }
+  :is(.sheet,.xl) .lbl{ @apply font-semi; }
+  :is(.sheet,.xl) .num{ @apply text-right font-mono text-num; }
+  :is(.sheet,.xl) td.v{ @apply cursor-crosshair transition-colors duration-[120ms]; }
+  :is(.sheet,.xl) td.v:hover, :is(.sheet,.xl) td.v.hl{
     @apply bg-amber-soft;
     box-shadow: inset 0 0 0 2px var(--color-amber);
   }
-  .xl tr.excl td{ @apply text-red-ink bg-red-soft; }
-  .xl tr.excl .num{
+  :is(.sheet,.xl) tr:is(.row-excl,.excl) td{ @apply text-red-ink bg-red-soft; }
+  :is(.sheet,.xl) tr:is(.row-excl,.excl) .num{
     @apply line-through decoration-red-strike;
     text-decoration-thickness: 1px;
   }
-  .xl tr.sub2 td{ @apply bg-amber-soft; }   /* 2차 소계 */
-  .xl td.co{ @apply text-ink-muted font-mono text-center; }
-  .xl td.empty{ @apply text-ink-muted; }    /* sparse — 0이 아니다 */
+  :is(.sheet,.xl) tr:is(.row-accent,.sub2) td{ @apply bg-amber-soft; }  /* 강조·소계 행 */
+  :is(.sheet,.xl) td.co{ @apply text-ink-muted font-mono text-center; }
+  :is(.sheet,.xl) td.empty{ @apply text-ink-muted; }  /* sparse — 0이 아니다 */
 
-  /* ── .ft — fact 테이블. 정규화 결과 ────────────────────── */
-  .ft{ @apply w-full border-collapse text-dense; }
-  .ft th, .ft td{
+  /* ── .tbl ── */
+  .tbl, .ft{ @apply w-full border-collapse text-dense; --cell-pad: var(--cell-pad-row); }
+  :is(.tbl,.ft) th, :is(.tbl,.ft) td{
     @apply border-b border-line-soft text-left whitespace-nowrap;
-    padding: var(--cell-pad-fact);
+    padding: var(--cell-pad);
   }
-  .ft thead th{
-    @apply bg-sunken font-mono text-mono-sm font-semi text-ink-soft sticky top-0 tracking-th;
+  :is(.tbl,.ft) thead th{
+    @apply bg-sunken font-mono text-mono-sm font-semi text-ink-soft sticky top-0 z-20 tracking-th;
   }
-  .ft .num{ @apply text-right font-mono text-num; }
-  .ft .dim{ @apply text-ink-soft; }
-  .ft tbody tr{ @apply transition-colors duration-[120ms] cursor-crosshair; }
-  .ft tbody tr:hover td, .ft tbody tr.hl td{ @apply bg-amber-soft; }
-  .ft tbody tr.hl td:first-child{ box-shadow: inset 3px 0 0 var(--color-amber); }
+  :is(.tbl,.ft) .num{ @apply text-right font-mono text-num; }
+  :is(.tbl,.ft) .dim{ @apply text-ink-soft; }
+  :is(.tbl,.ft) tbody tr{ @apply transition-colors duration-[120ms]; }
+  :is(.tbl,.ft) tbody tr:is(:hover,.hl) td{ @apply bg-amber-soft; }
+  :is(.tbl,.ft) tbody tr.hl td:first-child{ box-shadow: inset 3px 0 0 var(--color-amber); }
 
-  /* ── 배지 — 상태를 한 단어로. 각 배지는 정확히 하나의 뜻만 ── */
+  /* 선택 행 — 연결(amber)과 구분되는 green. 체크박스 열과 함께 쓴다 */
+  :is(.tbl,.ft) tbody tr.sel td{ @apply bg-green-soft; }
+  :is(.tbl,.ft) tbody tr.sel td:first-child{ box-shadow: inset 3px 0 0 var(--color-green); }
+
+  /* 제외·강조 행 — .sheet와 동일한 문법 */
+  :is(.tbl,.ft) tbody tr:is(.row-excl,.excl) td{ @apply text-red-ink bg-red-soft; }
+  :is(.tbl,.ft) tbody tr:is(.row-excl,.excl) .num{
+    @apply line-through decoration-red-strike;
+    text-decoration-thickness: 1px;
+  }
+  :is(.tbl,.ft) tbody tr:is(.row-accent,.sub2) td{ @apply bg-amber-soft; }
+
+  /* 합계 행 — tfoot */
+  :is(.tbl,.ft,.sheet,.xl) tfoot td{
+    @apply bg-sunken font-semi border-t border-line;
+  }
+
+  /* 정렬 가능 헤더 — 화살표는 텍스트로, 색만이 아니라 형태로 읽힌다 */
+  :is(.tbl,.ft,.sheet,.xl) th.sortable{ @apply cursor-pointer select-none; }
+  :is(.tbl,.ft,.sheet,.xl) th.sortable:hover{ @apply text-ink; }
+  :is(.tbl,.ft,.sheet,.xl) th.sort-asc::after{  content:" ↑"; color: var(--color-green); }
+  :is(.tbl,.ft,.sheet,.xl) th.sort-desc::after{ content:" ↓"; color: var(--color-green); }
+
+  /* 밀도 변형 — 값이 아니라 변수만 바꾼다 */
+  .tbl-compact{ --cell-pad: var(--cell-pad-compact); }
+  .tbl-roomy{   --cell-pad: var(--cell-pad-roomy); }
+
+  /* 체크박스 열 */
+  :is(.tbl,.ft,.sheet,.xl) :is(th,td).chk{ @apply w-8 text-center; }
+
+  /* ════════════════════════════════════════════════════════
+     2. BADGES — 상태를 한 단어로. 각 배지는 정확히 하나의 뜻만
+     ════════════════════════════════════════════════════════ */
   .badge{ @apply inline-block font-mono text-badge px-1.5 py-px rounded-chip ml-1.5 align-[1px]; }
-  .badge-red{    @apply bg-red text-white; }             /* 적재 제외 — 유일한 solid */
-  .badge-purple{ @apply bg-purple-soft text-purple; }    /* is_derived */
-  .badge-green{  @apply bg-green-soft text-green-deep; } /* formula · auto */
-  .badge-amber{  @apply bg-amber-soft text-amber-ink; }  /* 기간 플래그 */
+  .badge-red{    @apply bg-red text-white; }             /* 제외·차단 — 유일한 solid */
+  .badge-purple{ @apply bg-purple-soft text-purple; }    /* 파생·시스템 생성 */
+  .badge-green{  @apply bg-green-soft text-green-deep; } /* 통과·자동·확정 */
+  .badge-amber{  @apply bg-amber-soft text-amber-ink; }  /* 주의 플래그 */
+  .badge-neutral{@apply bg-sunken text-ink-soft; }       /* 무상태 카운트·타입 */
 
-  /* ── 표면 ─────────────────────────────────────────────── */
+  /* ════════════════════════════════════════════════════════
+     3. SURFACES
+     ════════════════════════════════════════════════════════ */
   .pane{ @apply bg-panel border border-line rounded-panel overflow-hidden flex flex-col; }
-  .pane-head{ @apply px-3.5 py-2.5 border-b border-line flex justify-between items-center; }
+  .pane-head{ @apply px-3.5 py-2.5 border-b border-line flex justify-between items-center gap-2 shrink-0; }
+  .pane-foot{ @apply px-3.5 py-2 border-t border-line flex justify-between items-center gap-2 shrink-0; }
   .pane-scroll{ overflow:auto; max-height: var(--scroll-max); }
+  .pane-fill{ @apply flex-1 min-h-0 overflow-auto; }  /* 앱 셸 안에서 남은 높이를 채우는 표 뷰포트 */
   .ds-card{ @apply bg-panel border border-line rounded-panel px-4 py-3.5; }
   .ds-note{ @apply text-num text-amber-ink bg-amber-soft px-3 py-2 rounded-chip; }
 
-  /* ── 컨트롤 ───────────────────────────────────────────── */
-  .tab{ @apply border border-line bg-panel px-4 py-2.5 text-strong font-semi cursor-pointer text-ink-soft rounded-chip; }
-  .tab-on{ @apply border-green text-green-deep bg-green-soft; }
-  .qbtn{ @apply border border-line bg-panel px-4 py-2.5 text-ui cursor-pointer rounded-pill font-sans; }
-  .qbtn-on{ @apply border-green bg-green-soft text-green-deep font-semi; }
-  .tab:focus-visible, .qbtn:focus-visible{ @apply outline-2 outline-green outline-offset-2; }
+  /* 스탯 카드 — KPI 요약. 수치는 mono */
+  .stat{ @apply bg-panel border border-line rounded-panel px-4 py-3; }
+  .stat-label{ @apply font-mono text-mono-sm text-ink-soft tracking-th uppercase; }
+  .stat-value{ @apply font-mono text-[22px] leading-tight font-bold mt-1; }
+  .stat-delta{ @apply font-mono text-micro mt-0.5 inline-block; }
+  .stat-delta-up{   @apply text-green; }
+  .stat-delta-down{ @apply text-red-ink; }
 
-  /* ── 코드 표면 (다크) ─────────────────────────────────── */
+  /* ════════════════════════════════════════════════════════
+     4. BUTTONS — 데이터 곁의 컨트롤은 각지다(2px).
+        pill(20px)은 자연어·검색 입력에만 허용된다.
+     ════════════════════════════════════════════════════════ */
+  .btn{
+    @apply inline-flex items-center justify-center gap-1.5 border border-line bg-panel
+           px-3.5 py-2 text-ui font-semi text-ink cursor-pointer rounded-chip
+           transition-colors duration-[120ms] whitespace-nowrap select-none;
+  }
+  .btn:hover{ @apply bg-sunken; }
+  .btn:disabled{ @apply text-ink-muted cursor-not-allowed bg-sunken; }
+  .btn-primary{ @apply bg-green border-green text-white; }
+  .btn-primary:hover{ @apply bg-green-deep border-green-deep; }
+  .btn-ghost{ @apply border-transparent bg-transparent text-ink-soft; }
+  .btn-ghost:hover{ @apply bg-sunken text-ink; }
+  .btn-danger{ @apply border-red-strike text-red-ink; }
+  .btn-danger:hover{ @apply bg-red-soft border-red; }
+  .btn-sm{ @apply px-2.5 py-1 text-num; }
+
+  /* 알약 — 자연어 질의·검색 전용 곡선 (v0.1 .qbtn) */
+  .btn-pill, .qbtn{ @apply border border-line bg-panel px-4 py-2.5 text-ui cursor-pointer rounded-pill font-sans transition-colors duration-[120ms]; }
+  :is(.btn-pill,.qbtn):hover{ @apply bg-sunken; }
+  .btn-pill-on, .qbtn-on{ @apply border-green bg-green-soft text-green-deep font-semi; }
+
+  /* 탭 — 데이터셋·뷰 전환 */
+  .tab{ @apply border border-line bg-panel px-4 py-2.5 text-strong font-semi cursor-pointer text-ink-soft rounded-chip transition-colors duration-[120ms]; }
+  .tab:hover{ @apply text-ink; }
+  .tab-on{ @apply border-green text-green-deep bg-green-soft; }
+
+  /* 공통 포커스 — 2px green 링, 2px offset. 색이 아니라 형태로도 읽힌다 */
+  :is(.btn,.btn-pill,.qbtn,.tab,.input,.select,.pager-btn,.menu-item,.nav-item,.switch):focus-visible{
+    @apply outline-2 outline-green outline-offset-2;
+  }
+
+  /* ════════════════════════════════════════════════════════
+     5. FORMS
+     ════════════════════════════════════════════════════════ */
+  .input{
+    @apply w-full border border-line bg-panel px-2.5 py-2 text-ui text-ink rounded-chip
+           transition-colors duration-[120ms];
+  }
+  .input::placeholder{ @apply text-ink-muted; }
+  .input:hover{ @apply border-ink-muted; }
+  .input:disabled{ @apply bg-sunken text-ink-muted cursor-not-allowed; }
+  .input-invalid{ @apply border-red; }
+
+  /* 검색·자연어 입력 — 이 시스템의 유일한 곡선 입력 */
+  .input-pill{ @apply rounded-pill px-4; }
+
+  .select{
+    @apply w-full appearance-none border border-line bg-panel pl-2.5 pr-7 py-2 text-ui text-ink
+           rounded-chip cursor-pointer bg-no-repeat transition-colors duration-[120ms];
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%235C6E7A' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-position: right 9px center;
+  }
+  .select:hover{ @apply border-ink-muted; }
+
+  .field{ @apply flex flex-col gap-1.5; }
+  .field-label{ @apply font-mono text-mono-sm text-ink-soft tracking-th uppercase; }
+  .field-hint{ @apply text-meta text-ink-soft; }
+  .field-error{ @apply text-meta text-red-ink; }
+
+  /* 체크박스·라디오 — 네이티브 + accent */
+  .checkbox, .radio{ accent-color: var(--color-green); @apply w-3.5 h-3.5 cursor-pointer align-middle; }
+
+  /* 스위치 — 즉시 적용되는 on/off. 저장 버튼이 따로 있으면 checkbox를 쓴다 */
+  .switch{
+    @apply appearance-none w-8 h-4.5 rounded-pill bg-ink-muted relative cursor-pointer
+           transition-colors duration-[120ms] align-middle shrink-0;
+  }
+  .switch::before{
+    content:""; position:absolute; top:2px; left:2px; width:14px; height:14px;
+    border-radius:50%; background:var(--color-panel); transition:left 120ms;
+  }
+  .switch:checked{ @apply bg-green; }
+  .switch:checked::before{ left:16px; }
+
+  .kbd{
+    @apply inline-block font-mono text-micro text-ink-soft bg-sunken border border-line
+           rounded-chip px-1 py-px align-middle;
+  }
+
+  /* ════════════════════════════════════════════════════════
+     6. TOOLBAR · PAGER · STATUSBAR — 그리드를 감싸는 크롬
+     ════════════════════════════════════════════════════════ */
+  .toolbar{ @apply flex flex-wrap items-center gap-2 px-3 py-2 bg-panel border-b border-line shrink-0; }
+  .toolbar-sep{ @apply w-px h-4.5 bg-line mx-0.5 self-center; }
+  .toolbar-spacer{ @apply flex-1; }
+  .toolbar-count{ @apply font-mono text-mono-sm text-ink-soft whitespace-nowrap; }
+
+  .pager{ @apply flex items-center gap-1; }
+  .pager-btn{
+    @apply min-w-7 h-7 inline-flex items-center justify-center border border-line bg-panel
+           rounded-chip font-mono text-num text-ink-soft cursor-pointer px-1.5
+           transition-colors duration-[120ms];
+  }
+  .pager-btn:hover{ @apply bg-sunken text-ink; }
+  .pager-btn:disabled{ @apply text-ink-muted cursor-not-allowed bg-transparent; }
+  .pager-btn-on{ @apply border-green bg-green-soft text-green-deep font-semi; }
+  .pager-info{ @apply font-mono text-mono-sm text-ink-soft px-1.5 whitespace-nowrap; }
+
+  .statusbar{
+    @apply flex items-center gap-3 px-3 py-1.5 bg-sunken border-t border-line
+           font-mono text-mono-sm text-ink-soft shrink-0 overflow-x-auto whitespace-nowrap;
+  }
+
+  /* ════════════════════════════════════════════════════════
+     7. NAVIGATION
+     ════════════════════════════════════════════════════════ */
+  .crumbs{ @apply flex items-center gap-1.5 font-mono text-meta text-ink-soft; }
+  .crumb{ @apply no-underline text-ink-soft hover:text-ink hover:underline; }
+  .crumb-sep{ @apply text-ink-muted select-none; }
+  .crumb-here{ @apply text-ink font-semi; }
+
+  .nav-group{ @apply font-mono text-micro text-ink-soft tracking-tag uppercase px-3 pt-4 pb-1.5 block; }
+  .nav-item{
+    @apply flex items-center gap-2 px-3 py-1.5 text-ui text-ink-soft no-underline rounded-chip
+           cursor-pointer transition-colors duration-[120ms];
+  }
+  .nav-item:hover{ @apply bg-sunken text-ink; }
+  .nav-item-on{ @apply bg-green-soft text-green-deep font-semi; }
+  .nav-item-on{ box-shadow: inset 2px 0 0 var(--color-green); }  /* 행 마커와 같은 문법 */
+  .nav-count{ @apply ml-auto font-mono text-micro text-ink-muted; }
+  .nav-item-on .nav-count{ @apply text-green; }
+
+  /* 드롭다운 메뉴 — 그림자 대신 line 보더. 띄우기는 position만 담당 */
+  .menu{ @apply bg-panel border border-line rounded-panel py-1 min-w-[180px]; }
+  .menu-item{
+    @apply flex items-center gap-2 w-full text-left px-3 py-1.5 text-ui text-ink cursor-pointer
+           bg-transparent border-0 transition-colors duration-[120ms] no-underline;
+  }
+  .menu-item:hover{ @apply bg-sunken; }
+  .menu-item-danger{ @apply text-red-ink; }
+  .menu-item-danger:hover{ @apply bg-red-soft; }
+  .menu-sep{ @apply h-px bg-line-soft my-1; }
+  .menu-label{ @apply block font-mono text-micro text-ink-soft tracking-tag px-3 pt-1.5 pb-0.5; }
+  .menu-kbd{ @apply ml-auto font-mono text-micro text-ink-muted; }
+
+  /* 프로세스 스텝 — 각진 스텝이 -1px로 맞물려 한 줄의 공정을 이룬다 */
+  .steps{ @apply flex flex-wrap; }
+  .step{ @apply flex-1 min-w-[150px] border border-green bg-green-soft rounded-grid p-3.5; }
+  .step + .step{ @apply -ml-px; }
+  .step-off{ @apply border-line bg-panel; }
+  .step-num{ @apply font-mono text-micro text-green block mb-1; }
+  .step-off .step-num{ @apply text-ink-soft; }
+  .step-title{ @apply block text-strong font-semi; }
+  .step-desc{ @apply block text-num text-ink-soft; }
+
+  /* ════════════════════════════════════════════════════════
+     8. FEEDBACK — 얼럿 · 토스트 · 모달 · 빈 상태 · 스켈레톤
+     ════════════════════════════════════════════════════════ */
+  .alert{ @apply border rounded-panel px-3.5 py-2.5 text-dense flex gap-2 items-baseline; }
+  .alert b{ @apply text-ui; }
+  .alert-green{   @apply bg-green-soft border-green text-green-deep; }
+  .alert-amber{   @apply bg-amber-soft border-amber text-amber-ink; }
+  .alert-red{     @apply bg-red-soft border-red text-red-ink; }
+  .alert-neutral{ @apply bg-sunken border-line text-ink-soft; }
+
+  /* 토스트 — 시스템이 말하는 것이므로 다크 표면 */
+  .toast{
+    @apply bg-ink text-code-fg rounded-panel px-3.5 py-2.5 text-ui
+           inline-flex items-center gap-2.5;
+  }
+  .toast-ok{   @apply text-green-bright; }
+  .toast-warn{ @apply text-amber-code; }
+  .toast .kbd{ @apply bg-transparent border-code-dim text-code-dim; }
+
+  /* 모달 — 스크림은 잉크 40%. 그림자 없이 보더로 선다 */
+  .scrim{
+    @apply fixed inset-0 z-40 flex items-center justify-center p-5;
+    background: color-mix(in srgb, var(--color-ink) 40%, transparent);
+  }
+  .modal{ @apply bg-panel border border-line rounded-panel w-full max-w-[440px] z-50; }
+  .modal-head{ @apply px-4 py-3 border-b border-line flex justify-between items-center; }
+  .modal-body{ @apply px-4 py-3.5 text-body; }
+  .modal-foot{ @apply px-4 py-3 border-t border-line flex justify-end gap-2; }
+
+  /* 빈 상태 — 데이터 없음은 에러가 아니다. 점선 = 아직 채워지지 않은 자리 */
+  .empty-state{
+    @apply border border-dashed border-line rounded-panel px-5 py-10 text-center;
+  }
+  .empty-title{ @apply text-ui font-semi text-ink-soft block; }
+  .empty-desc{ @apply text-num text-ink-soft mt-1 block; }
+
+  /* 스켈레톤 — 로딩 자리 표시 */
+  .skeleton{ @apply bg-sunken rounded-chip; animation: gs-pulse 1.6s ease-in-out infinite; }
+  .skeleton-text{ @apply h-3 w-full; }
+  .skeleton-num{ @apply h-3 w-16 ml-auto; }
+
+  /* ════════════════════════════════════════════════════════
+     9. CODE SURFACE (다크)
+     ════════════════════════════════════════════════════════ */
   .code-surface{ @apply bg-ink text-code-fg rounded-panel p-4 overflow-auto font-mono text-num; }
-  .code-surface-spec{ max-height: var(--spec-max); }  /* 스펙 변형 — 길어지면 스크롤 */
+  .code-surface-spec{ max-height: var(--spec-max); }  /* 길어지면 스크롤 */
   .code-k{   @apply text-green-bright; }  /* 키워드 */
   .code-c{   @apply text-code-dim; }      /* 주석 */
   .code-s{   @apply text-amber-code; }    /* 문자열 */
@@ -245,13 +490,37 @@
     background: color-mix(in srgb, var(--color-green-bright) 14%, transparent);
   }
 
-  /* ── 강조 밑줄 ────────────────────────────────────────
-     이 시스템에서 box-shadow가 허용되는 곳은 셋뿐이다:
-     .xl td.v 하이라이트 링 · .ft tr.hl 좌측 마커 · 아래 .u-mark 밑줄.
-     높이(elevation)를 만드는 데는 절대 쓰지 않는다. */
-  .u-mark{ box-shadow: inset 0 -0.42em 0 var(--color-green-soft); }
+  /* ════════════════════════════════════════════════════════
+     10. APP SHELL — 애플리케이션 레이아웃 뼈대
+     상단 바 + 사이드바 + 메인. 문서가 아니라 도구의 골격이다.
+     ════════════════════════════════════════════════════════ */
+  .app-shell{ @apply h-screen grid grid-rows-[auto_1fr] bg-paper text-ink font-sans antialiased overflow-hidden; }
+  .app-top{
+    @apply flex items-center gap-3 px-4 bg-panel border-b border-line shrink-0;
+    height: var(--top-h);
+  }
+  .app-brand{ @apply font-mono text-num tracking-eyebrow uppercase text-green-deep font-semi no-underline whitespace-nowrap; }
+  .app-body{ @apply grid grid-cols-[var(--side-w)_1fr] min-h-0; }
+  .app-side{ @apply bg-paper border-r border-line overflow-y-auto py-2 px-2 min-h-0; }
+  .app-main{ @apply min-w-0 min-h-0 flex flex-col overflow-hidden; }
+
+  /* 페이지 헤더 — 앱 셸 안에서 뷰의 제목 줄. 문서의 히어로가 아니다 */
+  .page-head{ @apply flex flex-wrap items-center gap-2.5 px-4 py-2.5 bg-panel border-b border-line shrink-0; }
+  .page-title{ @apply text-strong font-bold mr-auto; }
+
+  /* 마스터-디테일 분할 — 좌 목록, 우 상세 */
+  .split{ @apply grid grid-cols-[minmax(260px,340px)_1fr] min-h-0 flex-1; }
+  .split-side{ @apply border-r border-line min-h-0 overflow-y-auto bg-panel; }
+  .split-main{ @apply min-w-0 min-h-0 overflow-y-auto; }
+
+  /* ════════════════════════════════════════════════════════
+     11. MISC
+     ════════════════════════════════════════════════════════ */
+  .u-mark{ box-shadow: inset 0 -0.42em 0 var(--color-green-soft); }  /* 강조 밑줄 */
 }
 
+@keyframes gs-pulse{ 0%,100%{ opacity:1 } 50%{ opacity:.45 } }
+
 @media (prefers-reduced-motion:reduce){
-  *{ transition:none !important }
+  *{ transition:none !important; animation:none !important }
 }
