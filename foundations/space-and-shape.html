@@ -16,19 +16,19 @@
     <span class="font-mono text-micro tracking-tag text-green">0 · 2 · 3 · 20PX</span>
   </div>
   <p class="text-dense text-ink-soft mb-3 max-w-sub">
-    곡률이 커질수록 "데이터"에서 멀어지고 "컨트롤"에 가까워진다. 시트 격자는 0, 표면은 3px,
-    사람이 말을 거는 질의 버튼만 20px 알약이다 — 이 시스템의 유일한 곡선.
+    곡률이 커질수록 "데이터"에서 멀어지고 "사람의 말"에 가까워진다. 시트 격자는 0, 컨트롤은 2px, 표면은 3px,
+    검색·자연어 입력만 20px 알약이다 — 이 시스템의 유일한 곡선.
   </p>
   <div class="grid grid-cols-[repeat(auto-fill,minmax(168px,1fr))] gap-3">
     <div class="ds-card">
       <div class="h-11 bg-green-soft border border-green rounded-grid mb-2.5"></div>
       <b class="block text-micro font-semi">grid</b>
-      <code class="block font-mono text-mono-sm text-ink-soft mt-0.5">0 — 시트 격자·파이프 스텝</code>
+      <code class="block font-mono text-mono-sm text-ink-soft mt-0.5">0 — 시트 격자·프로세스 스텝</code>
     </div>
     <div class="ds-card">
       <div class="h-11 bg-green-soft border border-green rounded-chip mb-2.5"></div>
       <b class="block text-micro font-semi">chip</b>
-      <code class="block font-mono text-mono-sm text-ink-soft mt-0.5">2px — 배지·칩·탭·note</code>
+      <code class="block font-mono text-mono-sm text-ink-soft mt-0.5">2px — 배지·탭·버튼·입력</code>
     </div>
     <div class="ds-card">
       <div class="h-11 bg-green-soft border border-green rounded-panel mb-2.5"></div>
@@ -38,7 +38,7 @@
     <div class="ds-card">
       <div class="h-11 bg-green-soft border border-green rounded-pill mb-2.5"></div>
       <b class="block text-micro font-semi">pill</b>
-      <code class="block font-mono text-mono-sm text-ink-soft mt-0.5">20px — 질의 버튼 전용</code>
+      <code class="block font-mono text-mono-sm text-ink-soft mt-0.5">20px — 검색·자연어 입력 전용</code>
     </div>
     <div class="ds-card">
       <div class="h-11 flex items-end gap-1 mb-2.5">
@@ -232,7 +232,7 @@
 
   <div class="pane">
     <div class="pane-head">
-      <b class="text-ui">fact_financials</b>
+      <b class="text-ui">fact_sales</b>
       <span class="font-mono text-meta text-ink-soft">border-bottom만으로 구분</span>
     </div>
     <div class="p-4 text-dense text-ink-soft">패널 본문 — 헤더와 똑같은 panel 색이다.</div>
@@ -255,9 +255,10 @@
 
   <div class="ds-note mt-7">
     <b>규칙</b> — 새 컴포넌트에 <code class="font-mono">box-shadow</code>로 높이를 만들지 않는다.
-    이 시스템에서 box-shadow는 <b>세 곳</b>에만 쓰이고, 셋 다 높이가 아니라 <b>연결</b>이나 <b>강조</b>를 뜻한다:
-    값 셀 하이라이트 링(<code class="font-mono">inset 0 0 0 2px amber</code>, <code class="font-mono">.xl td.v</code>),
-    매칭 행 좌측 마커(<code class="font-mono">inset 3px 0 0 amber</code>, <code class="font-mono">.ft tr.hl</code>),
+    이 시스템에서 box-shadow는 전부 <b>inset 마커</b>이고, 높이가 아니라 <b>연결·선택·강조</b>를 뜻한다:
+    값 셀 하이라이트 링(<code class="font-mono">inset 0 0 0 2px amber</code>, <code class="font-mono">.sheet td.v</code>),
+    행 좌측 마커(<code class="font-mono">inset 3px 0 0</code>, <code class="font-mono">.tbl tr.hl</code> amber · <code class="font-mono">tr.sel</code> green),
+    내비 활성 마커(<code class="font-mono">inset 2px 0 0 green</code>, <code class="font-mono">.nav-item-on</code>),
     강조 밑줄(<code class="font-mono">inset 0 -0.42em 0 green-soft</code>, <code class="font-mono">.u-mark</code>).
   </div>
 

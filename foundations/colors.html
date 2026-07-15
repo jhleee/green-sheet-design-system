@@ -4,11 +4,11 @@
 <div class="bg-paper text-ink font-sans px-6 py-8">
   <div class="max-w-wrap mx-auto">
 
-    <div class="font-mono text-micro tracking-eyebrow text-green uppercase mb-2">Ledger → Long Format → Semantic SQL</div>
+    <div class="font-mono text-micro tracking-eyebrow text-green uppercase mb-2">Foundations · Color</div>
     <h1 class="text-title">Colors</h1>
     <p class="text-body text-ink-soft max-w-sub mt-1.5">
       24개. 표면 3, 선 2, 잉크 3, 의미색 4계열, 다크 코드 2.
-      값은 전부 원본 데모에서 왔고 발명한 색은 없다. 의미색은 장식이 아니라 파이프라인의 상태를
+      값은 전부 원본 데모에서 왔고 발명한 색은 없다. 의미색은 장식이 아니라 데이터의 상태를
       나타내는 신호이며, <b class="text-ink">각 색은 정확히 하나의 뜻만 가진다</b>.
     </p>
 
@@ -145,7 +145,7 @@
     </div>
     <p class="text-dense text-ink-soft max-w-sub mb-3.5">
       호버 하이라이트와 데이터 연결 강조. <b class="text-ink">에러가 아니라 "사람이 봐야 할 지점"</b>을 뜻한다
-      — 원본 셀과 fact 행이 서로를 가리킬 때, YTD 기간을 연간과 비교하려 할 때.
+      — 두 뷰의 값이 서로를 가리킬 때, 부분 기간을 전체 기간과 비교하려 할 때.
     </p>
     <div class="grid grid-cols-[repeat(auto-fill,minmax(190px,1fr))] gap-3.5">
       <div class="ds-card">
@@ -178,11 +178,11 @@
     <div class="flex gap-2 items-baseline mt-8 mb-1.5">
       <b class="text-ui">Red</b>
       <span class="badge badge-red">exclusion</span>
-      <span class="font-mono text-micro tracking-tag text-green">적재 제외 · 거절</span>
+      <span class="font-mono text-micro tracking-tag text-green">제외 · 부정 · 파괴적 액션</span>
     </div>
     <p class="text-dense text-ink-soft max-w-sub mb-3.5">
-      <b class="text-ink">실패가 아니라 의도적 제외</b>다. 파생 가능한 소계 행은 붉은 취소선으로 표시되어
-      적재에서 빠지고 checksum 검증에만 쓰인다. red와 red-ink는 값이 비슷하지만 병합하지 않았다 —
+      <b class="text-ink">실패보다 넓다 — 제외·삭제 예정·파괴적 액션</b>. 제외된 행은 붉은 취소선으로
+      표시되지만 값은 여전히 읽혀야 하므로 명도를 크게 떨어뜨리지 않는다. red와 red-ink는 값이 비슷하지만 병합하지 않았다 —
       하나는 흰 텍스트를 받는 배지 배경이고 하나는 연한 배경 위의 텍스트라, 각자의 대비에 맞춰져 있다.
     </p>
     <div class="grid grid-cols-[repeat(auto-fill,minmax(190px,1fr))] gap-3.5">
@@ -219,21 +219,21 @@
       <span class="font-mono text-micro tracking-tag text-green">파생 · 계산됨</span>
     </div>
     <p class="text-dense text-ink-soft max-w-sub mb-3.5">
-      <b class="text-ink">값이 아니라 값의 출처</b>를 말하는 메타데이터 색.
-      <code class="font-mono text-micro">is_derived</code> 배지 전용이며 다른 용도로 쓰지 않는다.
+      <b class="text-ink">값이 아니라 값의 출처·성격</b>을 말하는 메타데이터 색.
+      파생·시스템 생성 표시 전용이며 다른 용도로 쓰지 않는다.
     </p>
     <div class="grid grid-cols-[repeat(auto-fill,minmax(190px,1fr))] gap-3.5">
       <div class="ds-card">
         <div class="h-13 rounded-chip border border-line bg-purple"></div>
         <div class="mt-2.5 font-semi text-ui">purple</div>
         <div class="font-mono text-mono-sm text-ink-soft">#6C5DA8</div>
-        <div class="text-micro text-ink-soft mt-1">is_derived 배지 텍스트 · 차트 시리즈 3</div>
+        <div class="text-micro text-ink-soft mt-1">파생 배지 텍스트 · 차트 시리즈 3</div>
       </div>
       <div class="ds-card">
         <div class="h-13 rounded-chip border border-line bg-purple-soft"></div>
         <div class="mt-2.5 font-semi text-ui">purple-soft</div>
         <div class="font-mono text-mono-sm text-ink-soft">#ECE9F6</div>
-        <div class="text-micro text-ink-soft mt-1">is_derived 배지 배경</div>
+        <div class="text-micro text-ink-soft mt-1">파생 배지 배경</div>
       </div>
     </div>
 
@@ -243,7 +243,7 @@
       <span class="font-mono text-micro tracking-tag text-green">유일한 다크 영역</span>
     </div>
     <p class="text-dense text-ink-soft max-w-sub mb-3.5">
-      파싱 스펙과 생성된 SQL. 배경은 별도의 색이 아니라 <b class="text-ink">ink 그 자체</b>다 —
+      설정 스펙 · 생성된 쿼리 · 로그. 배경은 별도의 색이 아니라 <b class="text-ink">ink 그 자체</b>다 —
       종이에 잉크를 얹는 게 아니라 잉크 위에 쓴다. 키워드는 green-bright, 문자열은 amber-code로
       <b class="text-ink">라이트 UI의 의미색이 다크에서도 같은 뜻을 유지한다</b>.
     </p>
@@ -263,9 +263,9 @@
     </div>
     <div class="code-surface leading-code mt-3.5 max-w-sub">
       <div class="code-lab">CODE SURFACE</div>
-      <div><span class="code-c"># parsing_spec: 간편장부.yaml</span></div>
+      <div><span class="code-c"># import_spec: sales_2026_q1.yaml</span></div>
       <div><span class="code-k">grain</span>: month</div>
-      <div><span class="code-k">pattern</span>: <span class="code-s">"(분기|반기|연) 합계"</span></div>
+      <div><span class="code-k">pattern</span>: <span class="code-s">"(소계|합계)"</span></div>
     </div>
 
     <!-- ══ CHART ═════════════════════════════════════════════ -->
