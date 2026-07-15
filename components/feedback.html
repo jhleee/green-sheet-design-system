@@ -1,0 +1,152 @@
+<!-- @dsCard group="Components" name="Feedback" subtitle="배지 5종, 얼럿, 토스트, 모달, 빈 상태, 스켈레톤, 스탯 카드" -->
+<link rel="stylesheet" href="../dist/green-sheet.css">
+
+<div class="bg-paper text-ink font-sans px-6 py-7">
+
+  <div class="font-mono text-micro tracking-eyebrow text-green uppercase mb-3">Components</div>
+  <h2 class="text-title">Feedback</h2>
+  <p class="text-body text-ink-soft max-w-sub mt-1.5">
+    시스템이 사람에게 상태를 알리는 것들. 의미색 규칙이 그대로 적용된다 —
+    green은 통과·확정, amber는 봐야 할 지점, red는 제외·오류, purple은 파생·시스템 생성.
+    빈 데이터는 에러가 아니므로 중립으로 말한다.
+  </p>
+
+  <!-- ── 1. 배지 ─────────────────────────────────────── -->
+  <section class="mt-9">
+    <h3 class="text-ui font-bold">배지</h3>
+    <p class="text-num text-ink-soft max-w-sub mt-1.5">
+      상태를 한 단어로. 각 배지는 정확히 하나의 뜻만 가지며, solid는 red 하나 —
+      가장 강한 신호를 위해 아껴 둔다. 중립 배지는 카운트·타입 등 무상태 표기용.
+    </p>
+    <div class="flex flex-wrap gap-2 items-center mt-4">
+      <span class="badge badge-green ml-0">통과 · 자동 · 확정</span>
+      <span class="badge badge-amber ml-0">주의 플래그</span>
+      <span class="badge badge-red ml-0">제외 · 차단</span>
+      <span class="badge badge-purple ml-0">파생 · 시스템 생성</span>
+      <span class="badge badge-neutral ml-0">중립 · 카운트</span>
+    </div>
+    <div class="font-mono text-mono-sm text-ink-soft mt-3">.badge · -green · -amber · -red(유일한 solid) · -purple · -neutral</div>
+  </section>
+
+  <!-- ── 2. 얼럿 ─────────────────────────────────────── -->
+  <section class="mt-9">
+    <h3 class="text-ui font-bold">얼럿</h3>
+    <p class="text-num text-ink-soft max-w-sub mt-1.5">
+      뷰 안에 머무는 상태 메시지. soft 배경 + 같은 계열 보더 + ink 텍스트 —
+      전 계열이 동일한 공식이라 색이 곧 의미다.
+    </p>
+    <div class="flex flex-col gap-2.5 mt-4 max-w-[560px]">
+      <div class="alert alert-green"><b>적재 완료</b> 1,204행이 처리되었고 검증 12건이 모두 통과했습니다.</div>
+      <div class="alert alert-amber"><b>확인 필요</b> 8개 행의 단위가 추정값입니다. 적재 전에 검토하세요.</div>
+      <div class="alert alert-red"><b>검증 실패</b> 키 열에 중복 43건 — 해결 전까지 적재가 차단됩니다.</div>
+      <div class="alert alert-neutral"><b>보관됨</b> 이 데이터셋은 읽기 전용입니다.</div>
+    </div>
+    <div class="font-mono text-mono-sm text-ink-soft mt-3">.alert · -green · -amber · -red · -neutral</div>
+  </section>
+
+  <!-- ── 3. 토스트 ───────────────────────────────────── -->
+  <section class="mt-9">
+    <h3 class="text-ui font-bold">토스트</h3>
+    <p class="text-num text-ink-soft max-w-sub mt-1.5">
+      잠깐 떴다 사라지는 시스템의 말 — 그래서 다크 표면이다(다크 = 기계가 쓴 것).
+      의미색은 다크용 변형(green-bright·amber-code)을 쓴다.
+    </p>
+    <div class="flex flex-col items-start gap-2.5 mt-4">
+      <div class="toast"><span class="toast-ok font-semi">✓ 저장됨</span> fact_sales에 218행 추가 <span class="kbd">⌘Z</span></div>
+      <div class="toast"><span class="toast-warn font-semi">! 재시도</span> 원격 소스 응답 지연 — 12초 후 재시도</div>
+    </div>
+    <div class="font-mono text-mono-sm text-ink-soft mt-3">.toast · .toast-ok · .toast-warn — 배경은 ink 그 자체</div>
+  </section>
+
+  <!-- ── 4. 모달 ─────────────────────────────────────── -->
+  <section class="mt-9">
+    <h3 class="text-ui font-bold">모달</h3>
+    <p class="text-num text-ink-soft max-w-sub mt-1.5">
+      스크림은 잉크 40%, 모달은 그림자 없이 보더로 선다. 확인 모달의 주 버튼은
+      액션 성격을 따른다 — 파괴적이면 danger, 아니면 primary.
+    </p>
+    <div class="rounded-panel p-8 flex items-center justify-center mt-4"
+         style="background:color-mix(in srgb, var(--color-ink) 40%, transparent)">
+      <div class="modal">
+        <div class="modal-head">
+          <b class="text-ui">43개 행 제외</b>
+          <button class="btn btn-ghost btn-sm" aria-label="닫기">✕</button>
+        </div>
+        <div class="modal-body">
+          중복 키를 가진 43개 행을 적재에서 제외합니다. 제외된 행은 검증에만 사용되며
+          언제든 복원할 수 있습니다.
+        </div>
+        <div class="modal-foot">
+          <button class="btn btn-ghost">취소</button>
+          <button class="btn btn-danger">제외</button>
+        </div>
+      </div>
+    </div>
+    <div class="font-mono text-mono-sm text-ink-soft mt-3">.scrim(fixed) · .modal · .modal-head · .modal-body · .modal-foot — 표본은 인라인 재현</div>
+  </section>
+
+  <!-- ── 5. 빈 상태 · 스켈레톤 ───────────────────────── -->
+  <section class="mt-9">
+    <h3 class="text-ui font-bold">빈 상태 · 로딩</h3>
+    <p class="text-num text-ink-soft max-w-sub mt-1.5">
+      데이터 없음은 에러가 아니다 — 점선 보더는 “아직 채워지지 않은 자리”라는 뜻.
+      로딩은 스켈레톤이 실제 표 구조 그대로 자리를 잡는다.
+    </p>
+    <div class="grid grid-cols-1 fold:grid-cols-2 gap-4.5 mt-4">
+      <div class="empty-state">
+        <span class="empty-title">아직 데이터셋이 없습니다</span>
+        <span class="empty-desc">파일을 끌어다 놓거나 소스를 연결하세요</span>
+        <button class="btn btn-primary btn-sm mt-3">가져오기</button>
+      </div>
+      <div class="pane">
+        <table class="tbl" aria-hidden="true">
+          <thead><tr><th>name</th><th class="text-right">qty</th><th>status</th></tr></thead>
+          <tbody>
+            <tr><td><div class="skeleton skeleton-text max-w-24"></div></td><td><div class="skeleton skeleton-num"></div></td><td><div class="skeleton skeleton-text max-w-12"></div></td></tr>
+            <tr><td><div class="skeleton skeleton-text max-w-32"></div></td><td><div class="skeleton skeleton-num"></div></td><td><div class="skeleton skeleton-text max-w-12"></div></td></tr>
+            <tr><td><div class="skeleton skeleton-text max-w-20"></div></td><td><div class="skeleton skeleton-num"></div></td><td><div class="skeleton skeleton-text max-w-12"></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="font-mono text-mono-sm text-ink-soft mt-3">.empty-state · .empty-title · .empty-desc — .skeleton · -text · -num</div>
+  </section>
+
+  <!-- ── 6. 스탯 카드 ────────────────────────────────── -->
+  <section class="mt-9">
+    <h3 class="text-ui font-bold">스탯 카드</h3>
+    <p class="text-num text-ink-soft max-w-sub mt-1.5">
+      대시보드 상단의 KPI 요약. 수치는 예외 없이 mono이고, 증감은 green/red-ink —
+      화살표를 함께 써서 색만으로 말하지 않는다.
+    </p>
+    <div class="grid grid-cols-2 fold:grid-cols-4 gap-4.5 mt-4">
+      <div class="stat">
+        <span class="stat-label">총 행 수</span>
+        <div class="stat-value">1,204</div>
+        <span class="stat-delta stat-delta-up">▲ 218 이번 주</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">검증 통과율</span>
+        <div class="stat-value">99.2%</div>
+        <span class="stat-delta stat-delta-up">▲ 0.4pt</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">실패 항목</span>
+        <div class="stat-value">3</div>
+        <span class="stat-delta stat-delta-down">▼ 해결 필요</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">마지막 적재</span>
+        <div class="stat-value">09:41</div>
+        <span class="stat-delta text-ink-soft">2026-07-15</span>
+      </div>
+    </div>
+    <div class="font-mono text-mono-sm text-ink-soft mt-3">.stat · .stat-label · .stat-value · .stat-delta · -up · -down</div>
+  </section>
+
+  <div class="ds-note mt-9 max-w-sub">
+    <b>규칙</b> — 상태를 색만으로 전달하지 않는다. 배지·얼럿·델타는 항상 단어나 기호를 동반하고,
+    새 상태가 필요하면 색을 재활용하지 말고 팔레트 추가를 먼저 논의한다.
+  </div>
+
+</div>

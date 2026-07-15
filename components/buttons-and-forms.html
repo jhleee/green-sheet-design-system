@@ -1,0 +1,131 @@
+<!-- @dsCard group="Components" name="Buttons & forms" subtitle="버튼 4변형, 입력·셀렉트·필드, 체크박스·스위치, kbd" -->
+<link rel="stylesheet" href="../dist/green-sheet.css">
+
+<div class="bg-paper text-ink font-sans px-6 py-7">
+
+  <div class="font-mono text-micro tracking-eyebrow text-green uppercase mb-3">Components</div>
+  <h2 class="text-title">Buttons &amp; forms</h2>
+  <p class="text-body text-ink-soft max-w-sub mt-1.5">
+    데이터 곁의 컨트롤은 각지다(2px). primary는 화면당 하나가 원칙이고, 파괴적 액션은
+    solid red를 쓰지 않는다 — solid red는 배지 하나에만 허용된 가장 강한 신호이기 때문이다.
+    알약(20px)은 검색·자연어 입력에만 쓴다.
+  </p>
+
+  <!-- ── 1. 버튼 ─────────────────────────────────────── -->
+  <section class="mt-9">
+    <h3 class="text-ui font-bold">버튼</h3>
+    <p class="text-num text-ink-soft max-w-sub mt-1.5">
+      기본은 보더 버튼. primary(green solid)는 뷰의 주 액션 하나에만,
+      ghost는 툴바·반복 액션에, danger는 보더+red-ink — 호버에서만 red-soft가 찬다.
+    </p>
+    <div class="flex flex-wrap items-center gap-2.5 mt-4">
+      <button class="btn">기본</button>
+      <button class="btn btn-primary">저장</button>
+      <button class="btn btn-ghost">취소</button>
+      <button class="btn btn-danger">삭제</button>
+      <button class="btn" disabled>비활성</button>
+    </div>
+    <div class="flex flex-wrap items-center gap-2.5 mt-3">
+      <button class="btn btn-sm">작게</button>
+      <button class="btn btn-primary btn-sm">적용</button>
+      <button class="btn btn-ghost btn-sm">재설정</button>
+      <button class="btn btn-danger btn-sm">행 제외</button>
+    </div>
+    <div class="font-mono text-mono-sm text-ink-soft mt-3">.btn · -primary · -ghost · -danger · -sm · :disabled</div>
+  </section>
+
+  <!-- ── 2. 알약 ─────────────────────────────────────── -->
+  <section class="mt-9">
+    <h3 class="text-ui font-bold">알약 버튼 · 입력</h3>
+    <p class="text-num text-ink-soft max-w-sub mt-1.5">
+      이 시스템의 유일한 곡선. 자연어·검색은 데이터가 아니라 사람의 말이므로 각진 문법에서 벗어난다.
+      알약 모양은 “여기서는 말을 걸어도 된다”는 신호다.
+    </p>
+    <div class="flex flex-wrap items-center gap-2.5 mt-4 max-w-[560px]">
+      <input class="input input-pill" type="search" placeholder="자연어로 질문하거나 검색…" aria-label="검색">
+      <button class="btn-pill btn-pill-on">"지역별 월 추이를 보여줘"</button>
+      <button class="btn-pill">"지난 분기 상위 10개는?"</button>
+    </div>
+    <div class="font-mono text-mono-sm text-ink-soft mt-3">.input-pill · .btn-pill · .btn-pill-on · rounded-pill 20px</div>
+  </section>
+
+  <!-- ── 3. 입력 ─────────────────────────────────────── -->
+  <section class="mt-9">
+    <h3 class="text-ui font-bold">입력 · 셀렉트</h3>
+    <p class="text-num text-ink-soft max-w-sub mt-1.5">
+      호버는 보더만 짙어지고, 포커스는 공통 green 링. 오류는 보더 red + red-ink 메시지 —
+      색만이 아니라 텍스트로도 알린다.
+    </p>
+    <div class="grid grid-cols-1 fold:grid-cols-3 gap-4.5 mt-4 max-w-[720px]">
+      <div class="field">
+        <label class="field-label" for="f-name">데이터셋 이름</label>
+        <input class="input" id="f-name" value="sales_2026_q1">
+        <span class="field-hint">소문자·언더스코어만</span>
+      </div>
+      <div class="field">
+        <label class="field-label" for="f-type">병합 방식</label>
+        <select class="select" id="f-type">
+          <option>append</option><option>replace</option><option>upsert</option>
+        </select>
+        <span class="field-hint">기본값 append</span>
+      </div>
+      <div class="field">
+        <label class="field-label" for="f-key">키 열</label>
+        <input class="input input-invalid" id="f-key" value="regino" aria-invalid="true">
+        <span class="field-error">존재하지 않는 열입니다 — region?</span>
+      </div>
+    </div>
+    <div class="font-mono text-mono-sm text-ink-soft mt-3">.field · .field-label · .field-hint · .field-error · .input · .input-invalid · .select</div>
+  </section>
+
+  <!-- ── 4. 체크박스 · 스위치 ────────────────────────── -->
+  <section class="mt-9">
+    <h3 class="text-ui font-bold">체크박스 · 라디오 · 스위치</h3>
+    <p class="text-num text-ink-soft max-w-sub mt-1.5">
+      체크박스는 저장 버튼과 함께 쓰는 선택, 스위치는 즉시 적용되는 on/off.
+      네이티브 컨트롤에 accent만 입힌다 — 상태 로직을 CSS로 재발명하지 않는다.
+    </p>
+    <div class="ds-card max-w-[420px] mt-4 flex flex-col gap-3">
+      <label class="flex items-center gap-2 text-ui cursor-pointer">
+        <input type="checkbox" class="checkbox" checked> 헤더 행 자동 감지
+      </label>
+      <label class="flex items-center gap-2 text-ui cursor-pointer">
+        <input type="checkbox" class="checkbox"> 빈 행 제거
+      </label>
+      <div class="flex items-center gap-4 text-ui">
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input type="radio" name="enc" class="radio" checked> UTF-8
+        </label>
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input type="radio" name="enc" class="radio"> EUC-KR
+        </label>
+      </div>
+      <div class="h-px bg-line-soft"></div>
+      <label class="flex items-center justify-between gap-2 text-ui cursor-pointer">
+        실시간 갱신 <input type="checkbox" class="switch" checked>
+      </label>
+      <label class="flex items-center justify-between gap-2 text-ui cursor-pointer">
+        압축 표시 <input type="checkbox" class="switch">
+      </label>
+    </div>
+    <div class="font-mono text-mono-sm text-ink-soft mt-3">.checkbox · .radio · .switch — accent-color: green</div>
+  </section>
+
+  <!-- ── 5. kbd ──────────────────────────────────────── -->
+  <section class="mt-9">
+    <h3 class="text-ui font-bold">단축키 표시</h3>
+    <div class="flex flex-wrap items-center gap-x-5 gap-y-2 mt-4 text-dense text-ink-soft">
+      <span>저장 <span class="kbd">Ctrl</span> <span class="kbd">S</span></span>
+      <span>검색 <span class="kbd">/</span></span>
+      <span>행 이동 <span class="kbd">↑</span> <span class="kbd">↓</span></span>
+      <span>선택 <span class="kbd">Space</span></span>
+    </div>
+    <div class="font-mono text-mono-sm text-ink-soft mt-3">.kbd — sunken + line 보더, 그림자 없음</div>
+  </section>
+
+  <div class="ds-note mt-9 max-w-sub">
+    <b>규칙</b> — primary는 뷰당 하나. 파괴적 액션에 solid red 금지(보더 + red-ink).
+    포커스는 예외 없이 2px green 링 + 2px offset.
+  </div>
+
+</div>

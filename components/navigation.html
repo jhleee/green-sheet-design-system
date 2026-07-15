@@ -1,0 +1,157 @@
+<!-- @dsCard group="Components" name="Navigation" subtitle="탭, 브레드크럼, 사이드 내비, 페이저, 드롭다운 메뉴, 프로세스 스텝" -->
+<link rel="stylesheet" href="../dist/green-sheet.css">
+
+<div class="bg-paper text-ink font-sans px-6 py-7">
+
+  <div class="font-mono text-micro tracking-eyebrow text-green uppercase mb-3">Components</div>
+  <h2 class="text-title">Navigation</h2>
+  <p class="text-body text-ink-soft max-w-sub mt-1.5">
+    이동과 위치를 말하는 것들. 활성 상태는 전부 같은 문법을 쓴다 —
+    green-soft 배경 + green-deep 텍스트, 필요하면 좌측 2px green 마커.
+    비활성은 색이 아니라 명도로 후퇴시킨다.
+  </p>
+
+  <!-- ── 1. 탭 ───────────────────────────────────────── -->
+  <section class="mt-9">
+    <h3 class="text-ui font-bold">탭</h3>
+    <p class="text-num text-ink-soft max-w-sub mt-1.5">데이터셋·뷰 전환. 두 줄 라벨을 지원한다.</p>
+    <div class="flex flex-wrap gap-2 mt-4">
+      <button class="tab tab-on">전체<small class="block font-reg text-micro text-ink-soft">1,204 rows</small></button>
+      <button class="tab">활성<small class="block font-reg text-micro text-ink-soft">918 rows</small></button>
+      <button class="tab">보류<small class="block font-reg text-micro text-ink-soft">286 rows</small></button>
+    </div>
+    <div class="font-mono text-mono-sm text-ink-soft mt-3">.tab · .tab-on · rounded-chip 2px</div>
+  </section>
+
+  <!-- ── 2. 브레드크럼 ───────────────────────────────── -->
+  <section class="mt-9">
+    <h3 class="text-ui font-bold">브레드크럼</h3>
+    <p class="text-num text-ink-soft max-w-sub mt-1.5">
+      경로는 기계가 만든 주소이므로 mono. 현재 위치만 ink로 선다.
+    </p>
+    <nav class="crumbs mt-4" aria-label="현재 위치">
+      <a class="crumb" href="#">workspace</a>
+      <span class="crumb-sep">/</span>
+      <a class="crumb" href="#">datasets</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-here" aria-current="page">sales_2026_q1</span>
+    </nav>
+    <div class="font-mono text-mono-sm text-ink-soft mt-3">.crumbs · .crumb · .crumb-sep · .crumb-here</div>
+  </section>
+
+  <!-- ── 3. 사이드 내비 ──────────────────────────────── -->
+  <section class="mt-9">
+    <h3 class="text-ui font-bold">사이드 내비게이션</h3>
+    <p class="text-num text-ink-soft max-w-sub mt-1.5">
+      앱 셸의 좌측을 담당한다. 그룹 라벨은 mono 태그, 활성 항목은 선택 행과 같은 문법
+      (green-soft + 좌측 2px 마커). 카운트는 우측 정렬 mono.
+    </p>
+    <div class="ds-card max-w-[240px] mt-4 !px-2 !py-2">
+      <span class="nav-group !pt-1">데이터</span>
+      <a class="nav-item nav-item-on" href="#">테이블<span class="nav-count">24</span></a>
+      <a class="nav-item" href="#">뷰<span class="nav-count">7</span></a>
+      <a class="nav-item" href="#">가져오기</a>
+      <span class="nav-group">검증</span>
+      <a class="nav-item" href="#">규칙<span class="nav-count">12</span></a>
+      <a class="nav-item" href="#">실패 항목<span class="nav-count">3</span></a>
+      <span class="nav-group">설정</span>
+      <a class="nav-item" href="#">멤버</a>
+    </div>
+    <div class="font-mono text-mono-sm text-ink-soft mt-3">.nav-group · .nav-item · .nav-item-on · .nav-count</div>
+  </section>
+
+  <!-- ── 4. 드롭다운 메뉴 ────────────────────────────── -->
+  <section class="mt-9">
+    <h3 class="text-ui font-bold">드롭다운 메뉴</h3>
+    <p class="text-num text-ink-soft max-w-sub mt-1.5">
+      그림자 없이 line 보더로 선다. 파괴적 항목은 red-ink이며 구분선 아래로 격리한다.
+      띄우는 위치는 사용처에서 position으로 처리한다.
+    </p>
+    <div class="menu mt-4">
+      <span class="menu-label">행 액션</span>
+      <button class="menu-item">복제<span class="menu-kbd">⌘D</span></button>
+      <button class="menu-item">내보내기<span class="menu-kbd">⌘E</span></button>
+      <button class="menu-item">이력 보기</button>
+      <div class="menu-sep"></div>
+      <button class="menu-item menu-item-danger">행 제외</button>
+    </div>
+    <div class="font-mono text-mono-sm text-ink-soft mt-3">.menu · .menu-item · .menu-item-danger · .menu-sep · .menu-label · .menu-kbd</div>
+  </section>
+
+  <!-- ── 5. 페이저 ───────────────────────────────────── -->
+  <section class="mt-9">
+    <h3 class="text-ui font-bold">페이지네이션</h3>
+    <p class="text-num text-ink-soft max-w-sub mt-1.5">
+      페이지 번호는 기계의 좌표이므로 mono. 범위 정보(.pager-info)를 항상 함께 둔다.
+    </p>
+    <div class="flex items-center gap-3 mt-4 flex-wrap">
+      <span class="pager-info">51–100 / 1,204</span>
+      <div class="pager">
+        <button class="pager-btn">‹</button>
+        <button class="pager-btn">1</button>
+        <button class="pager-btn pager-btn-on">2</button>
+        <button class="pager-btn">3</button>
+        <span class="pager-info">…</span>
+        <button class="pager-btn">25</button>
+        <button class="pager-btn">›</button>
+      </div>
+      <select class="select max-w-[110px]" aria-label="페이지 크기">
+        <option>50 / 페이지</option><option>100 / 페이지</option><option>500 / 페이지</option>
+      </select>
+    </div>
+    <div class="font-mono text-mono-sm text-ink-soft mt-3">.pager · .pager-btn · .pager-btn-on · .pager-info</div>
+  </section>
+
+  <!-- ── 6. 프로세스 스텝 ────────────────────────────── -->
+  <section class="mt-9">
+    <h3 class="text-ui font-bold">프로세스 스텝</h3>
+    <p class="text-num text-ink-soft max-w-sub mt-1.5">
+      각진 스텝이 −1px 마진으로 맞물려 하나의 띠를 이룬다 — 버튼 네 개가 아니라
+      끊기지 않는 한 줄의 공정이기 때문이다. 미도달 스텝은 .step-off.
+    </p>
+    <div class="steps mt-4">
+      <div class="step">
+        <span class="step-num">STEP 1</span>
+        <b class="step-title">업로드</b>
+        <span class="step-desc">파일 감지 · 인코딩</span>
+      </div>
+      <div class="step">
+        <span class="step-num">STEP 2</span>
+        <b class="step-title">매핑</b>
+        <span class="step-desc">열 → 스키마</span>
+      </div>
+      <div class="step step-off">
+        <span class="step-num">STEP 3</span>
+        <b class="step-title">검증</b>
+        <span class="step-desc">규칙 12건</span>
+      </div>
+      <div class="step step-off">
+        <span class="step-num">STEP 4</span>
+        <b class="step-title">적재</b>
+        <span class="step-desc">append</span>
+      </div>
+    </div>
+    <div class="font-mono text-mono-sm text-ink-soft mt-3">.steps · .step · .step-off · .step-num · .step-title · .step-desc</div>
+  </section>
+
+  <!-- ── 7. 포커스 ───────────────────────────────────── -->
+  <section class="mt-9">
+    <h3 class="text-ui font-bold">포커스</h3>
+    <p class="text-num text-ink-soft max-w-sub mt-1.5">
+      모든 인터랙티브 요소의 키보드 포커스는 2px green outline + 2px offset.
+      활성 상태(배경색)와 포커스(바깥 링)를 분리해 둘이 겹쳐도 서로를 가리지 않는다.
+    </p>
+    <div class="flex flex-wrap items-center gap-3 mt-4">
+      <button class="tab tab-on outline-2 outline-green outline-offset-2">활성 + 포커스</button>
+      <button class="btn outline-2 outline-green outline-offset-2">버튼 + 포커스</button>
+      <button class="pager-btn outline-2 outline-green outline-offset-2">3</button>
+    </div>
+    <div class="font-mono text-mono-sm text-ink-soft mt-3">:focus-visible → outline-2 outline-green outline-offset-2 · 표본은 링 고정 노출</div>
+  </section>
+
+  <div class="ds-note mt-9 max-w-sub">
+    <b>규칙</b> — 활성은 언제나 green-soft + green-deep, 마커가 필요하면 좌측 2px green.
+    새 내비 패턴을 만들 때도 이 문법을 벗어나지 않는다.
+  </div>
+
+</div>
